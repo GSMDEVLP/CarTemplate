@@ -142,7 +142,7 @@ namespace Ashsvp
                 wheelSkids[i] = Instantiate(WheelSkid, Wheels[i].GetChild(0)).GetComponent<WheelSkid>();
                 setWheelSkidvalues_Start(i, SkidMarkController_Self.GetComponent<Skidmarks>(), wheelRadius);
             }
-            MaxSpringDistance = Mathf.Abs(Wheels[0].localPosition.y - HardPoints[0].localPosition.y) + 0.1f + wheelRadius;
+            MaxSpringDistance = Mathf.Abs(Wheels[0].localPosition.y - HardPoints[0].localPosition.y) + 0.1f + wheelRadius;  
 
             wheelBase = Vector3.Distance(Wheels[0].position, Wheels[2].position);
             rearTrack = Vector3.Distance(Wheels[0].position, Wheels[1].position);
