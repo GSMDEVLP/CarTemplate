@@ -1084,11 +1084,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -4216859302048453862, guid: 8950ca6df66602146bfbf00c09476032, type: 3}
   m_PrefabInstance: {fileID: 1270870077}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &275699231 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 6175705721777938523, guid: 8e4da742f645178499e9ded37f41ed0f, type: 3}
-  m_PrefabInstance: {fileID: 812364521}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &284785751
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2152,11 +2147,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 728616734}
   m_Mesh: {fileID: 4300018, guid: 85a4112bbf320491fba417c3c27f0367, type: 3}
---- !u!4 &744100540 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 8939832635902918542, guid: 8e4da742f645178499e9ded37f41ed0f, type: 3}
-  m_PrefabInstance: {fileID: 812364521}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &795439546
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3939,9 +3929,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sSpeed: 10
   dist: {x: 0, y: 0, z: 0}
-  lookTarget: {fileID: 275699231}
+  lookTarget: {fileID: 950307316890413308}
   camerasPlaces:
-  - {fileID: 744100540}
+  - {fileID: 1784315398}
 --- !u!1001 &1138550517
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8026,7 +8016,7 @@ MonoBehaviour:
   carAItarget: {fileID: 0}
   stopWhenTargetReached: 0
   reachTargetThreshold: 2
-  sensorsAngle: 45
+  sensorsAngle: 28.2
   avoidDistance: 20
   brakeDistance: 5
   reverseDistance: 5
