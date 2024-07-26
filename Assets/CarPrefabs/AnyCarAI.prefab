@@ -5160,7 +5160,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6175705721777938522}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 516.62, y: 0, z: 128.76}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -5260,7 +5260,7 @@ MonoBehaviour:
   speedType: 1
   centerOfMass: {x: 0, y: 0, z: 0}
   vehicleMass: 1000
-  motorTorque: 6000
+  motorTorque: 9000
   brakeTorque: 20000
   reverseTorque: 500
   handbrakeTorque: 10000000
@@ -5324,10 +5324,10 @@ MonoBehaviour:
   carAItarget: {fileID: 0}
   stopWhenTargetReached: 0
   reachTargetThreshold: 2
-  sensorsAngle: 30
-  avoidDistance: 15
-  brakeDistance: 15
-  reverseDistance: 5
+  sensorsAngle: 25
+  avoidDistance: 10
+  brakeDistance: 1
+  reverseDistance: 1
   persuitAiOn: 0
   persuitTarget: {fileID: 0}
   persuitDistance: 30
@@ -5617,7 +5617,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6175705722781892197}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 86.6, y: 1.5, z: 177.8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -6071,20 +6071,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 829968067102475908, guid: 88ff6f5c30189ee4ab8efb4efde898cd, type: 3}
   m_PrefabInstance: {fileID: 8939832635934728990}
   m_PrefabAsset: {fileID: 0}
---- !u!64 &8939832636697099763
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8616522868615472538}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 2959467708922500008, guid: a157dd12b58631943b00fac3cf9841be, type: 3}
 --- !u!114 &8939832636697099760
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6097,6 +6083,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92437dfd8e2582d47b7b6524073c14d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!65 &368165203
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8616522868615472538}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2.004544, y: 0.8802297, z: 4.2868967}
+  m_Center: {x: 2.7749025e-10, y: 0.91581595, z: 0.15098327}
 --- !u!1 &8930447805540634452 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 576452627940764746, guid: 88ff6f5c30189ee4ab8efb4efde898cd, type: 3}
