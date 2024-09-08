@@ -536,7 +536,7 @@ MonoBehaviour:
   inputManager: {fileID: 7070938444065726742}
   springForce: 40000
   springDamper: 3000
-  MaxSpeed: 70
+  MaxSpeed: 250
   Acceleration: 20
   AccelerationCurve:
     serializedVersion: 2
@@ -622,7 +622,7 @@ MonoBehaviour:
     m_RotationOrder: 4
   brakeAcceleration: 5
   RollingResistance: 2
-  driftFactor: 0.2
+  driftFactor: 0.1
   maxDriftAngle: 60
   FrictionCoefficient: 1
   slopeSlideAngle: 30
@@ -707,6 +707,10 @@ MonoBehaviour:
     OnGearChange:
       m_PersistentCalls:
         m_Calls: []
+  _minSpeedArrowAngle: 0
+  _maxSpeedArrowAngle: -275
+  _speedText: {fileID: 0}
+  _arrow: {fileID: 0}
   steerInput: 0
   accelerationInput: 0
   handbrakeInput: 0
@@ -969,6 +973,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 266f8bf93a4c57c44b362c816d29049c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _gearText: {fileID: 0}
   VehicleSpeed: 0
   currentGear: 0
   gearSpeeds: 280000005000000078000000a0000000dc000000
@@ -1066,8 +1071,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7070938444076707886}
-  m_LocalRotation: {x: -1.3632741e-15, y: 0.9434106, z: -3.8782323e-15, w: -0.33162722}
-  m_LocalPosition: {x: 3.1286087, y: 0, z: 3.900238}
+  m_LocalRotation: {x: 5.390132e-16, y: 0.99923325, z: 1.3756435e-14, w: -0.03915256}
+  m_LocalPosition: {x: 0.3912257, y: 0, z: 4.98467}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1427,8 +1432,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 2.0600114, y: 1.023648, z: 4.6217318}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 2.0600114, y: 0.4418794, z: 4.6217318}
+  m_Center: {x: 0, y: 0.29088432, z: 0}
 --- !u!1 &7070938445261067002
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -78,6 +79,16 @@ namespace Ashsvp
         [Header("Other Things")]
         
         private RaycastHit[] wheelHits = new RaycastHit[4];
+
+        [Header("Speedometer")]
+        [SerializeField] private float _minSpeedArrowAngle;
+        [SerializeField] private float _maxSpeedArrowAngle;
+        [SerializeField] private TextMeshProUGUI _speedText;
+        [SerializeField] private RectTransform _arrow;
+
+        private float _currSpeed;
+
+        private float _constSpeed = 3.6f;
 
         [HideInInspector]
         public float steerInput, accelerationInput, handbrakeInput, rearTrack, wheelBase, ackermennLeftAngle, ackermennRightAngle;
@@ -224,7 +235,7 @@ namespace Ashsvp
             vehicleIsGrounded = (NumberOfGroundedWheels > 1);
 
             if (vehicleIsGrounded)
-            {
+            {                
                 AddAcceleration(accelerationInput);
                 AddRollingResistance();
                 brakeLogic(handbrakeInput);
@@ -286,6 +297,16 @@ namespace Ashsvp
 
         }
 
+        private void SetSpeedometer()
+        {
+            _currSpeed = rb.velocity.magnitude * _constSpeed;
+
+            if (_speedText != null)
+                _speedText.text = ((int)_currSpeed).ToString();
+            if (_arrow != null)
+                _arrow.localEulerAngles = new Vector3(0, 0, Mathf.Lerp(_minSpeedArrowAngle, _maxSpeedArrowAngle, _currSpeed / MaxSpeed));
+        }
+
         void AddAcceleration(float accelerationInput)
         {
             // Calculate the angle between the vehicle's up axis and the world's up axis
@@ -305,11 +326,11 @@ namespace Ashsvp
             {
                 deltaSpeed = (1 + Mathf.Abs(localVehicleVelocity.z / MaxSpeed)) * Acceleration * adjustedAccelerationInput * Time.fixedDeltaTime;
             }
-            if (handbrakeInput < 0.1f && localVehicleVelocity.z < MaxSpeed)
+            if (handbrakeInput < 0.1f && (rb.velocity.magnitude * _constSpeed) < MaxSpeed)
             {
                 rb.velocity += transform.forward * deltaSpeed;
             }
-
+            SetSpeedometer();            
         }
 
         void AddRollingResistance()
@@ -727,7 +748,5 @@ namespace Ashsvp
 
             //rb.AddForce(-(wantedImpulseY + wantedImpulseZ), ForceMode.Impulse);
         }
-
-
     }
 }

@@ -1,11 +1,12 @@
 using System.Collections;
 using UnityEngine;
-using Unity;
+using TMPro;
 
 namespace Ashsvp
 {
     public class GearSystem : MonoBehaviour
     {
+        [SerializeField] private TextMeshProUGUI _gearText;
         public float VehicleSpeed;
         public int currentGear;
         private SimcadeVehicleController vehicleController;
@@ -13,12 +14,13 @@ namespace Ashsvp
 
         public AudioSystem AudioSystem;
 
-        private int currentGearTemp;
+        private float currentGearTemp;
+        private bool _newGear = true;
         void Start()
         {
             vehicleController = GetComponent<SimcadeVehicleController>();
             currentGear = 1;
-
+            _gearText.text = currentGear.ToString();
         }
 
         void Update()
@@ -30,34 +32,45 @@ namespace Ashsvp
             }
 
             VehicleSpeed = Mathf.RoundToInt(velocityMag * 3.6f); //car speed in Km/hr
-
             gearShift();
-
 
         }
 
 
         void gearShift()
         {
+            int targetGear = currentGear; // Целевая передача
+
+            // Определяем целевую передачу на основе скорости
             for (int i = 0; i < gearSpeeds.Length; i++)
             {
                 if (VehicleSpeed > gearSpeeds[i])
                 {
-                    currentGear = i + 1;
+                    targetGear = i + 1; // Увеличиваем целевую передачу
                 }
                 else break;
             }
-            if (CurrentGearProperty != currentGear)
-            {
-                CurrentGearProperty = currentGear;
-            }
 
+            currentGearTemp = Mathf.Lerp(currentGearTemp, targetGear, Time.deltaTime / 0.1f);
+
+
+            if (Mathf.Abs(currentGearTemp - targetGear) < 0.01f)
+            {
+                currentGear = Mathf.RoundToInt(currentGearTemp);
+
+                // Обновляем текст только при изменении передачи
+                if (CurrentGearProperty != currentGear)
+                {
+                    CurrentGearProperty = currentGear; // Обновляем свойство передачи
+                    _gearText.text = CurrentGearProperty.ToString(); // Обновляем текст
+                }
+            }
         }
 
-        public int CurrentGearProperty
+        public float CurrentGearProperty
         {
             get
-            {
+            {                
                 return currentGearTemp;
             }
 
