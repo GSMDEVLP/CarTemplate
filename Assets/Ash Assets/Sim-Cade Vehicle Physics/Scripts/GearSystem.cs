@@ -39,14 +39,13 @@ namespace Ashsvp
 
         void gearShift()
         {
-            int targetGear = currentGear; // Целевая передача
+            int targetGear = currentGear; 
 
-            // Определяем целевую передачу на основе скорости
             for (int i = 0; i < gearSpeeds.Length; i++)
             {
                 if (VehicleSpeed > gearSpeeds[i])
                 {
-                    targetGear = i + 1; // Увеличиваем целевую передачу
+                    targetGear = i + 1; 
                 }
                 else break;
             }
@@ -54,15 +53,14 @@ namespace Ashsvp
             currentGearTemp = Mathf.Lerp(currentGearTemp, targetGear, Time.deltaTime / 0.1f);
 
 
-            if (Mathf.Abs(currentGearTemp - targetGear) < 0.01f)
+            if (Mathf.Abs(currentGearTemp - targetGear) < 0.45f)
             {
                 currentGear = Mathf.RoundToInt(currentGearTemp);
 
-                // Обновляем текст только при изменении передачи
                 if (CurrentGearProperty != currentGear)
                 {
-                    CurrentGearProperty = currentGear; // Обновляем свойство передачи
-                    _gearText.text = CurrentGearProperty.ToString(); // Обновляем текст
+                    CurrentGearProperty = currentGear;
+                    _gearText.text = CurrentGearProperty.ToString();
                 }
             }
         }
