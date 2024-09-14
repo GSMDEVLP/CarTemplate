@@ -15,7 +15,6 @@ namespace Ashsvp
         public AudioSystem AudioSystem;
 
         private float currentGearTemp;
-        private bool _newGear = true;
         void Start()
         {
             vehicleController = GetComponent<SimcadeVehicleController>();
