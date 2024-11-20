@@ -159,8 +159,18 @@ namespace Ashsvp
             rearTrack = Vector3.Distance(Wheels[0].position, Wheels[1].position);
 
             GearSystem = GetComponent<GearSystem>();
+
+            Respawner.OnRespawnCar += ResetSpeedCar;
         }
 
+        private void ResetSpeedCar()
+        {
+            /*localVehicleVelocity = Vector3.zero;
+            accelerationInput = 0;
+            steerInput = 0;
+            handbrakeInput = 1;*/
+            rb.velocity = Vector3.zero;
+        }
 
         private void Start()
         {
@@ -747,6 +757,11 @@ namespace Ashsvp
             Vector3 wantedImpulseZ = Vector3.Dot(collision.impulse, transform.forward) * transform.forward;
 
             //rb.AddForce(-(wantedImpulseY + wantedImpulseZ), ForceMode.Impulse);
+        }
+
+        private void OnDisable()
+        {
+            Respawner.OnRespawnCar -= ResetSpeedCar;
         }
     }
 }

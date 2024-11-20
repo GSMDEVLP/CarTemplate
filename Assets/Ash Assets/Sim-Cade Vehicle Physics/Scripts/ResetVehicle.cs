@@ -7,7 +7,6 @@ namespace Ashsvp
 {
     public class ResetVehicle : MonoBehaviour
     {
-
         public void resetVehicle()
         {
             var pos = transform.position;
@@ -15,22 +14,7 @@ namespace Ashsvp
             transform.position = pos;
             transform.rotation = Quaternion.identity;
         }
-        public void Quit()
-        {
-            Application.Quit();
-        }
-        public void ResetScene()
-        {
-            Scene scene = SceneManager.GetActiveScene();
-            SceneManager.LoadScene(scene.name);
-        }
 
-        private void Update()
-        {
-            if (Input.GetKeyDown(KeyCode.R))
-            {
-                resetVehicle();
-            }
-        }
+
     }
 }

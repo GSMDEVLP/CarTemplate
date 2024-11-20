@@ -489,10 +489,10 @@ GameObject:
   - component: {fileID: 7070938444065726738}
   - component: {fileID: 7070938444065726739}
   - component: {fileID: 7070938444065726740}
-  - component: {fileID: 7070938444065726741}
   - component: {fileID: 7070938444065726742}
   - component: {fileID: 7070938444065726743}
   - component: {fileID: 7070938444065726696}
+  - component: {fileID: 5409296528512010674}
   m_Layer: 0
   m_Name: Ash_Pictoris
   m_TagString: Untagged
@@ -978,18 +978,6 @@ MonoBehaviour:
   currentGear: 0
   gearSpeeds: 280000005000000078000000a0000000dc000000
   AudioSystem: {fileID: 7070938444065726739}
---- !u!114 &7070938444065726741
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7070938444065726697}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e63e9b5fd272649499f3444be7c348de, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &7070938444065726742
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1046,6 +1034,18 @@ MonoBehaviour:
   bodyCollider: {fileID: 7070938445250650490}
   LowerBodyFriction: 0
   UpperBodyFriction: 0.5
+--- !u!114 &5409296528512010674
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7070938444065726697}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 235e488f261f82241912c7f3f8b15bdc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7070938444076707886
 GameObject:
   m_ObjectHideFlags: 0
