@@ -2830,14 +2830,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Road Straight Slope_Mountainside (1)
       objectReference: {fileID: 0}
-    - target: {fileID: 5756882675182763189, guid: 97419c40c0d945b4682c6de12da6e5c3, type: 3}
-      propertyPath: m_Layer
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 5756882675182763189, guid: 97419c40c0d945b4682c6de12da6e5c3, type: 3}
-      propertyPath: m_TagString
-      value: Terrain
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 97419c40c0d945b4682c6de12da6e5c3, type: 3}
 --- !u!4 &144787085 stripped
@@ -8872,6 +8864,22 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6175705721777938523, guid: 8e4da742f645178499e9ded37f41ed0f, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6175705721777938523, guid: 8e4da742f645178499e9ded37f41ed0f, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6175705721777938523, guid: 8e4da742f645178499e9ded37f41ed0f, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6175705721777938523, guid: 8e4da742f645178499e9ded37f41ed0f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6175705721777938596, guid: 8e4da742f645178499e9ded37f41ed0f, type: 3}
       propertyPath: maxSpeed
       value: 200
@@ -9491,7 +9499,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3163833929185088422, guid: bcb44d6096af65341bb0981d6a556e23, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.15
+      value: -1.91
       objectReference: {fileID: 0}
     - target: {fileID: 3163833929185088422, guid: bcb44d6096af65341bb0981d6a556e23, type: 3}
       propertyPath: m_LocalPosition.z
@@ -11887,14 +11895,6 @@ PrefabInstance:
     - target: {fileID: 488655833241573421, guid: 2c627ec530494a04ba9f422c3e58e920, type: 3}
       propertyPath: m_Name
       value: Road Straight_Moutainside (7)
-      objectReference: {fileID: 0}
-    - target: {fileID: 488655833241573421, guid: 2c627ec530494a04ba9f422c3e58e920, type: 3}
-      propertyPath: m_Layer
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 488655833241573421, guid: 2c627ec530494a04ba9f422c3e58e920, type: 3}
-      propertyPath: m_TagString
-      value: Terrain
       objectReference: {fileID: 0}
     - target: {fileID: 973865248827703959, guid: 2c627ec530494a04ba9f422c3e58e920, type: 3}
       propertyPath: m_RootOrder
@@ -15457,21 +15457,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: Road Straight_Moutainside (19)
       objectReference: {fileID: 0}
-    - target: {fileID: 488655833241573421, guid: 2c627ec530494a04ba9f422c3e58e920, type: 3}
-      propertyPath: m_Layer
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 488655833241573421, guid: 2c627ec530494a04ba9f422c3e58e920, type: 3}
-      propertyPath: m_TagString
-      value: Terrain
-      objectReference: {fileID: 0}
     - target: {fileID: 973865248827703959, guid: 2c627ec530494a04ba9f422c3e58e920, type: 3}
       propertyPath: m_RootOrder
       value: 28
-      objectReference: {fileID: 0}
-    - target: {fileID: 973865248827703959, guid: 2c627ec530494a04ba9f422c3e58e920, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 1.05
       objectReference: {fileID: 0}
     - target: {fileID: 973865248827703959, guid: 2c627ec530494a04ba9f422c3e58e920, type: 3}
       propertyPath: m_LocalPosition.x
@@ -16599,14 +16587,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Road Straight_Moutainside (10)
       objectReference: {fileID: 0}
-    - target: {fileID: 488655833241573421, guid: 2c627ec530494a04ba9f422c3e58e920, type: 3}
-      propertyPath: m_Layer
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 488655833241573421, guid: 2c627ec530494a04ba9f422c3e58e920, type: 3}
-      propertyPath: m_TagString
-      value: Terrain
-      objectReference: {fileID: 0}
     - target: {fileID: 973865248827703959, guid: 2c627ec530494a04ba9f422c3e58e920, type: 3}
       propertyPath: m_RootOrder
       value: 17
@@ -16730,14 +16710,6 @@ PrefabInstance:
     - target: {fileID: 488655833241573421, guid: 2c627ec530494a04ba9f422c3e58e920, type: 3}
       propertyPath: m_Name
       value: Road Straight_Moutainside (17)
-      objectReference: {fileID: 0}
-    - target: {fileID: 488655833241573421, guid: 2c627ec530494a04ba9f422c3e58e920, type: 3}
-      propertyPath: m_Layer
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 488655833241573421, guid: 2c627ec530494a04ba9f422c3e58e920, type: 3}
-      propertyPath: m_TagString
-      value: Terrain
       objectReference: {fileID: 0}
     - target: {fileID: 973865248827703959, guid: 2c627ec530494a04ba9f422c3e58e920, type: 3}
       propertyPath: m_RootOrder
@@ -17392,14 +17364,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Road Straight_Moutainside (1)
       objectReference: {fileID: 0}
-    - target: {fileID: 488655833241573421, guid: 2c627ec530494a04ba9f422c3e58e920, type: 3}
-      propertyPath: m_Layer
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 488655833241573421, guid: 2c627ec530494a04ba9f422c3e58e920, type: 3}
-      propertyPath: m_TagString
-      value: Terrain
-      objectReference: {fileID: 0}
     - target: {fileID: 973865248827703959, guid: 2c627ec530494a04ba9f422c3e58e920, type: 3}
       propertyPath: m_RootOrder
       value: 8
@@ -17473,6 +17437,22 @@ PrefabInstance:
     - target: {fileID: 2807930968127425089, guid: 001b4c4180c7c944685a0a04c54397ed, type: 3}
       propertyPath: m_Layer
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5409296528512010674, guid: 001b4c4180c7c944685a0a04c54397ed, type: 3}
+      propertyPath: _way
+      value: 
+      objectReference: {fileID: 1365457512}
+    - target: {fileID: 5409296528512010674, guid: 001b4c4180c7c944685a0a04c54397ed, type: 3}
+      propertyPath: _offTrackDistance
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 5409296528512010674, guid: 001b4c4180c7c944685a0a04c54397ed, type: 3}
+      propertyPath: _reverseCheckAngle
+      value: 180
+      objectReference: {fileID: 0}
+    - target: {fileID: 5409296528512010674, guid: 001b4c4180c7c944685a0a04c54397ed, type: 3}
+      propertyPath: _waypointThreshold
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 6778701117206341521, guid: 001b4c4180c7c944685a0a04c54397ed, type: 3}
       propertyPath: m_Layer
@@ -22437,21 +22417,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: Road Straight_Moutainside (20)
       objectReference: {fileID: 0}
-    - target: {fileID: 488655833241573421, guid: 2c627ec530494a04ba9f422c3e58e920, type: 3}
-      propertyPath: m_Layer
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 488655833241573421, guid: 2c627ec530494a04ba9f422c3e58e920, type: 3}
-      propertyPath: m_TagString
-      value: Terrain
-      objectReference: {fileID: 0}
     - target: {fileID: 973865248827703959, guid: 2c627ec530494a04ba9f422c3e58e920, type: 3}
       propertyPath: m_RootOrder
       value: 29
-      objectReference: {fileID: 0}
-    - target: {fileID: 973865248827703959, guid: 2c627ec530494a04ba9f422c3e58e920, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 1.1
       objectReference: {fileID: 0}
     - target: {fileID: 973865248827703959, guid: 2c627ec530494a04ba9f422c3e58e920, type: 3}
       propertyPath: m_LocalPosition.x
@@ -22696,14 +22664,6 @@ PrefabInstance:
     - target: {fileID: 488655833241573421, guid: 2c627ec530494a04ba9f422c3e58e920, type: 3}
       propertyPath: m_Name
       value: Road Straight_Moutainside (18)
-      objectReference: {fileID: 0}
-    - target: {fileID: 488655833241573421, guid: 2c627ec530494a04ba9f422c3e58e920, type: 3}
-      propertyPath: m_Layer
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 488655833241573421, guid: 2c627ec530494a04ba9f422c3e58e920, type: 3}
-      propertyPath: m_TagString
-      value: Terrain
       objectReference: {fileID: 0}
     - target: {fileID: 973865248827703959, guid: 2c627ec530494a04ba9f422c3e58e920, type: 3}
       propertyPath: m_RootOrder
@@ -23954,14 +23914,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Road Straight_Moutainside (4)
       objectReference: {fileID: 0}
-    - target: {fileID: 488655833241573421, guid: 2c627ec530494a04ba9f422c3e58e920, type: 3}
-      propertyPath: m_Layer
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 488655833241573421, guid: 2c627ec530494a04ba9f422c3e58e920, type: 3}
-      propertyPath: m_TagString
-      value: Terrain
-      objectReference: {fileID: 0}
     - target: {fileID: 973865248827703959, guid: 2c627ec530494a04ba9f422c3e58e920, type: 3}
       propertyPath: m_RootOrder
       value: 11
@@ -24528,14 +24480,6 @@ PrefabInstance:
     - target: {fileID: 488655833241573421, guid: 2c627ec530494a04ba9f422c3e58e920, type: 3}
       propertyPath: m_Name
       value: Road Straight_Moutainside (12)
-      objectReference: {fileID: 0}
-    - target: {fileID: 488655833241573421, guid: 2c627ec530494a04ba9f422c3e58e920, type: 3}
-      propertyPath: m_Layer
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 488655833241573421, guid: 2c627ec530494a04ba9f422c3e58e920, type: 3}
-      propertyPath: m_TagString
-      value: Terrain
       objectReference: {fileID: 0}
     - target: {fileID: 973865248827703959, guid: 2c627ec530494a04ba9f422c3e58e920, type: 3}
       propertyPath: m_RootOrder
@@ -26836,14 +26780,6 @@ PrefabInstance:
     - target: {fileID: 2955357874319206817, guid: 655f8283b00f7c2448fa681a4d1f9628, type: 3}
       propertyPath: m_Name
       value: Road 90 Edge_Mountainside (1)
-      objectReference: {fileID: 0}
-    - target: {fileID: 2955357874319206817, guid: 655f8283b00f7c2448fa681a4d1f9628, type: 3}
-      propertyPath: m_Layer
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 2955357874319206817, guid: 655f8283b00f7c2448fa681a4d1f9628, type: 3}
-      propertyPath: m_TagString
-      value: Terrain
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 655f8283b00f7c2448fa681a4d1f9628, type: 3}
@@ -30041,14 +29977,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Road Straight_Moutainside (15)
       objectReference: {fileID: 0}
-    - target: {fileID: 488655833241573421, guid: 2c627ec530494a04ba9f422c3e58e920, type: 3}
-      propertyPath: m_Layer
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 488655833241573421, guid: 2c627ec530494a04ba9f422c3e58e920, type: 3}
-      propertyPath: m_TagString
-      value: Terrain
-      objectReference: {fileID: 0}
     - target: {fileID: 973865248827703959, guid: 2c627ec530494a04ba9f422c3e58e920, type: 3}
       propertyPath: m_RootOrder
       value: 22
@@ -32612,14 +32540,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Road Straight_Moutainside (11)
       objectReference: {fileID: 0}
-    - target: {fileID: 488655833241573421, guid: 2c627ec530494a04ba9f422c3e58e920, type: 3}
-      propertyPath: m_Layer
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 488655833241573421, guid: 2c627ec530494a04ba9f422c3e58e920, type: 3}
-      propertyPath: m_TagString
-      value: Terrain
-      objectReference: {fileID: 0}
     - target: {fileID: 973865248827703959, guid: 2c627ec530494a04ba9f422c3e58e920, type: 3}
       propertyPath: m_RootOrder
       value: 18
@@ -33823,14 +33743,6 @@ PrefabInstance:
     - target: {fileID: 488655833241573421, guid: 2c627ec530494a04ba9f422c3e58e920, type: 3}
       propertyPath: m_Name
       value: Road Straight_Moutainside (8)
-      objectReference: {fileID: 0}
-    - target: {fileID: 488655833241573421, guid: 2c627ec530494a04ba9f422c3e58e920, type: 3}
-      propertyPath: m_Layer
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 488655833241573421, guid: 2c627ec530494a04ba9f422c3e58e920, type: 3}
-      propertyPath: m_TagString
-      value: Terrain
       objectReference: {fileID: 0}
     - target: {fileID: 973865248827703959, guid: 2c627ec530494a04ba9f422c3e58e920, type: 3}
       propertyPath: m_RootOrder
@@ -36446,14 +36358,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Road Straight_Moutainside (3)
       objectReference: {fileID: 0}
-    - target: {fileID: 488655833241573421, guid: 2c627ec530494a04ba9f422c3e58e920, type: 3}
-      propertyPath: m_Layer
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 488655833241573421, guid: 2c627ec530494a04ba9f422c3e58e920, type: 3}
-      propertyPath: m_TagString
-      value: Terrain
-      objectReference: {fileID: 0}
     - target: {fileID: 973865248827703959, guid: 2c627ec530494a04ba9f422c3e58e920, type: 3}
       propertyPath: m_RootOrder
       value: 10
@@ -36608,14 +36512,6 @@ PrefabInstance:
     - target: {fileID: 488655833241573421, guid: 2c627ec530494a04ba9f422c3e58e920, type: 3}
       propertyPath: m_Name
       value: Road Straight_Moutainside (9)
-      objectReference: {fileID: 0}
-    - target: {fileID: 488655833241573421, guid: 2c627ec530494a04ba9f422c3e58e920, type: 3}
-      propertyPath: m_Layer
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 488655833241573421, guid: 2c627ec530494a04ba9f422c3e58e920, type: 3}
-      propertyPath: m_TagString
-      value: Terrain
       objectReference: {fileID: 0}
     - target: {fileID: 973865248827703959, guid: 2c627ec530494a04ba9f422c3e58e920, type: 3}
       propertyPath: m_RootOrder
@@ -37110,21 +37006,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: Road Straight_Moutainside (2)
       objectReference: {fileID: 0}
-    - target: {fileID: 488655833241573421, guid: 2c627ec530494a04ba9f422c3e58e920, type: 3}
-      propertyPath: m_Layer
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 488655833241573421, guid: 2c627ec530494a04ba9f422c3e58e920, type: 3}
-      propertyPath: m_TagString
-      value: Terrain
-      objectReference: {fileID: 0}
     - target: {fileID: 973865248827703959, guid: 2c627ec530494a04ba9f422c3e58e920, type: 3}
       propertyPath: m_RootOrder
       value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 973865248827703959, guid: 2c627ec530494a04ba9f422c3e58e920, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0.97
       objectReference: {fileID: 0}
     - target: {fileID: 973865248827703959, guid: 2c627ec530494a04ba9f422c3e58e920, type: 3}
       propertyPath: m_LocalPosition.x
@@ -37664,7 +37548,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7743857107277088964, guid: bd4638b209da2084ea51ede8f8cadfd3, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -2.2
       objectReference: {fileID: 0}
     - target: {fileID: 7743857107277088964, guid: bd4638b209da2084ea51ede8f8cadfd3, type: 3}
       propertyPath: m_LocalPosition.z
@@ -38627,14 +38511,6 @@ PrefabInstance:
     - target: {fileID: 488655833241573421, guid: 2c627ec530494a04ba9f422c3e58e920, type: 3}
       propertyPath: m_Name
       value: Road Straight_Moutainside (16)
-      objectReference: {fileID: 0}
-    - target: {fileID: 488655833241573421, guid: 2c627ec530494a04ba9f422c3e58e920, type: 3}
-      propertyPath: m_Layer
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 488655833241573421, guid: 2c627ec530494a04ba9f422c3e58e920, type: 3}
-      propertyPath: m_TagString
-      value: Terrain
       objectReference: {fileID: 0}
     - target: {fileID: 973865248827703959, guid: 2c627ec530494a04ba9f422c3e58e920, type: 3}
       propertyPath: m_RootOrder
@@ -39633,14 +39509,6 @@ PrefabInstance:
     - target: {fileID: 2955357874319206817, guid: 655f8283b00f7c2448fa681a4d1f9628, type: 3}
       propertyPath: m_Name
       value: Road 90 Edge_Mountainside (2)
-      objectReference: {fileID: 0}
-    - target: {fileID: 2955357874319206817, guid: 655f8283b00f7c2448fa681a4d1f9628, type: 3}
-      propertyPath: m_Layer
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 2955357874319206817, guid: 655f8283b00f7c2448fa681a4d1f9628, type: 3}
-      propertyPath: m_TagString
-      value: Terrain
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 655f8283b00f7c2448fa681a4d1f9628, type: 3}
@@ -41984,7 +41852,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1943855271}
   m_LocalRotation: {x: 0.5, y: -0.5, z: 0.5, w: 0.5}
-  m_LocalPosition: {x: 46.214863, y: 25.4, z: 230.7}
+  m_LocalPosition: {x: 46.214863, y: 25.4, z: 228.8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -42377,14 +42245,6 @@ PrefabInstance:
     - target: {fileID: 488655833241573421, guid: 2c627ec530494a04ba9f422c3e58e920, type: 3}
       propertyPath: m_Name
       value: Road Straight_Moutainside (14)
-      objectReference: {fileID: 0}
-    - target: {fileID: 488655833241573421, guid: 2c627ec530494a04ba9f422c3e58e920, type: 3}
-      propertyPath: m_Layer
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 488655833241573421, guid: 2c627ec530494a04ba9f422c3e58e920, type: 3}
-      propertyPath: m_TagString
-      value: Terrain
       objectReference: {fileID: 0}
     - target: {fileID: 973865248827703959, guid: 2c627ec530494a04ba9f422c3e58e920, type: 3}
       propertyPath: m_RootOrder
@@ -43020,14 +42880,6 @@ PrefabInstance:
     - target: {fileID: 488655833241573421, guid: 2c627ec530494a04ba9f422c3e58e920, type: 3}
       propertyPath: m_Name
       value: Road Straight_Moutainside (6)
-      objectReference: {fileID: 0}
-    - target: {fileID: 488655833241573421, guid: 2c627ec530494a04ba9f422c3e58e920, type: 3}
-      propertyPath: m_Layer
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 488655833241573421, guid: 2c627ec530494a04ba9f422c3e58e920, type: 3}
-      propertyPath: m_TagString
-      value: Terrain
       objectReference: {fileID: 0}
     - target: {fileID: 973865248827703959, guid: 2c627ec530494a04ba9f422c3e58e920, type: 3}
       propertyPath: m_RootOrder
@@ -45828,14 +45680,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Road Straight_Moutainside (13)
       objectReference: {fileID: 0}
-    - target: {fileID: 488655833241573421, guid: 2c627ec530494a04ba9f422c3e58e920, type: 3}
-      propertyPath: m_Layer
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 488655833241573421, guid: 2c627ec530494a04ba9f422c3e58e920, type: 3}
-      propertyPath: m_TagString
-      value: Terrain
-      objectReference: {fileID: 0}
     - target: {fileID: 973865248827703959, guid: 2c627ec530494a04ba9f422c3e58e920, type: 3}
       propertyPath: m_RootOrder
       value: 20
@@ -46194,14 +46038,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Road Straight_Moutainside
       objectReference: {fileID: 0}
-    - target: {fileID: 488655833241573421, guid: 2c627ec530494a04ba9f422c3e58e920, type: 3}
-      propertyPath: m_Layer
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 488655833241573421, guid: 2c627ec530494a04ba9f422c3e58e920, type: 3}
-      propertyPath: m_TagString
-      value: Terrain
-      objectReference: {fileID: 0}
     - target: {fileID: 973865248827703959, guid: 2c627ec530494a04ba9f422c3e58e920, type: 3}
       propertyPath: m_RootOrder
       value: 3
@@ -46315,14 +46151,6 @@ PrefabInstance:
     - target: {fileID: 217314401273448, guid: 209c64203c27a3a4bb033b4d67ae5575, type: 3}
       propertyPath: m_Name
       value: Road Curve_Mountainside
-      objectReference: {fileID: 0}
-    - target: {fileID: 217314401273448, guid: 209c64203c27a3a4bb033b4d67ae5575, type: 3}
-      propertyPath: m_Layer
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 217314401273448, guid: 209c64203c27a3a4bb033b4d67ae5575, type: 3}
-      propertyPath: m_TagString
-      value: Terrain
       objectReference: {fileID: 0}
     - target: {fileID: 813767289978559698, guid: 209c64203c27a3a4bb033b4d67ae5575, type: 3}
       propertyPath: m_RootOrder
@@ -46583,14 +46411,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Road Straight_3_Mountainside
       objectReference: {fileID: 0}
-    - target: {fileID: 5379497307836060201, guid: d9a1c6108fd565747a58c8c4d09bff59, type: 3}
-      propertyPath: m_Layer
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 5379497307836060201, guid: d9a1c6108fd565747a58c8c4d09bff59, type: 3}
-      propertyPath: m_TagString
-      value: Terrain
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d9a1c6108fd565747a58c8c4d09bff59, type: 3}
 --- !u!4 &2409378977535416392 stripped
@@ -46653,14 +46473,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Road Straight_2_Mountainside
       objectReference: {fileID: 0}
-    - target: {fileID: 8916342440897992131, guid: 23b46270bd79b03419a461b26cfc02af, type: 3}
-      propertyPath: m_Layer
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 8916342440897992131, guid: 23b46270bd79b03419a461b26cfc02af, type: 3}
-      propertyPath: m_TagString
-      value: Terrain
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 23b46270bd79b03419a461b26cfc02af, type: 3}
 --- !u!1001 &2720987287565175169
@@ -46717,14 +46529,6 @@ PrefabInstance:
     - target: {fileID: 2955357874319206817, guid: 655f8283b00f7c2448fa681a4d1f9628, type: 3}
       propertyPath: m_Name
       value: Road 90 Edge_Mountainside
-      objectReference: {fileID: 0}
-    - target: {fileID: 2955357874319206817, guid: 655f8283b00f7c2448fa681a4d1f9628, type: 3}
-      propertyPath: m_Layer
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 2955357874319206817, guid: 655f8283b00f7c2448fa681a4d1f9628, type: 3}
-      propertyPath: m_TagString
-      value: Terrain
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 655f8283b00f7c2448fa681a4d1f9628, type: 3}
@@ -47153,14 +46957,6 @@ PrefabInstance:
     - target: {fileID: 5756882675182763189, guid: 97419c40c0d945b4682c6de12da6e5c3, type: 3}
       propertyPath: m_Name
       value: Road Straight Slope_Mountainside
-      objectReference: {fileID: 0}
-    - target: {fileID: 5756882675182763189, guid: 97419c40c0d945b4682c6de12da6e5c3, type: 3}
-      propertyPath: m_Layer
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 5756882675182763189, guid: 97419c40c0d945b4682c6de12da6e5c3, type: 3}
-      propertyPath: m_TagString
-      value: Terrain
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 97419c40c0d945b4682c6de12da6e5c3, type: 3}
@@ -48388,14 +48184,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Road Start_Mountainside
       objectReference: {fileID: 0}
-    - target: {fileID: 7473256638960459427, guid: e1c7e134b5180a841b9ee4c1fd13e1f2, type: 3}
-      propertyPath: m_Layer
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 7473256638960459427, guid: e1c7e134b5180a841b9ee4c1fd13e1f2, type: 3}
-      propertyPath: m_TagString
-      value: Terrain
-      objectReference: {fileID: 0}
     - target: {fileID: 7853582849828520985, guid: e1c7e134b5180a841b9ee4c1fd13e1f2, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -48440,10 +48228,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8986558265865207670, guid: e1c7e134b5180a841b9ee4c1fd13e1f2, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 4874126678125670354, guid: 2bde5079a7b0b724e92ec6b7dc0beb50, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e1c7e134b5180a841b9ee4c1fd13e1f2, type: 3}
 --- !u!1001 &7817312480473049003
@@ -48513,14 +48297,6 @@ PrefabInstance:
     - target: {fileID: 7087924601644621238, guid: c42c65a45dcdeb144a737982eaf68ed7, type: 3}
       propertyPath: m_Name
       value: Road Straight_1_Mountainside
-      objectReference: {fileID: 0}
-    - target: {fileID: 7087924601644621238, guid: c42c65a45dcdeb144a737982eaf68ed7, type: 3}
-      propertyPath: m_Layer
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 7087924601644621238, guid: c42c65a45dcdeb144a737982eaf68ed7, type: 3}
-      propertyPath: m_TagString
-      value: Terrain
       objectReference: {fileID: 0}
     - target: {fileID: 7572395351508240140, guid: c42c65a45dcdeb144a737982eaf68ed7, type: 3}
       propertyPath: m_RootOrder
