@@ -43,7 +43,7 @@ public class Respawner : MonoBehaviour
         Vector3 movementDirection = velocity.normalized; 
         var waitTime = 3;
 
-        if (_roadDirection != Vector3.zero && velocity.magnitude > 0.1f) // Проверка, чтобы машина двигалась
+        if (_roadDirection != Vector3.zero && velocity.magnitude > 0.1f) 
         {
             float angle = Vector3.Angle(_roadDirection, movementDirection);
 
@@ -51,7 +51,7 @@ public class Respawner : MonoBehaviour
 
             if (dot < 0 && angle > _reverseRotateAngle && !_isRespawning)
             {
-                Debug.Log("Респавн - едет в другую сторону");
+                Debug.Log("пїЅпїЅпїЅпїЅпїЅпїЅпїЅ - пїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ");
                 StartCoroutine(RespawnCar(waitTime)); ;
             }
         }
@@ -72,7 +72,7 @@ public class Respawner : MonoBehaviour
             var waitTime = 0;
             if (_outOfRoadTimer >= _warningTime && !_isRespawning)
             {
-                Debug.Log("Респавн - съехал с дороги");
+                Debug.Log("пїЅпїЅпїЅпїЅпїЅпїЅпїЅ - пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ");
                 StartCoroutine(RespawnCar(waitTime));
             }
         }
@@ -87,7 +87,7 @@ public class Respawner : MonoBehaviour
         var waitTime = 2;
         if (Mathf.Abs(zRotation) > _crashRotateAngle && !_isRespawning)
         {
-            Debug.Log("Респавн - перевернулся");
+            Debug.Log("пїЅпїЅпїЅпїЅпїЅпїЅпїЅ - пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ");
             StartCoroutine(RespawnCar(waitTime));
         }
     }

@@ -16,7 +16,8 @@ public class DamageService : IDamageService
             float prev = hp.CurrentHP;
             hp.ApplyDamage(amount, source);
             _bus.Publish(new DamageTaken(target, amount));
-            if (prev > 0 && hp.CurrentHP <= 0) _bus.Publish(new VehicleDestroyed(target));
+            if (prev > 0 && hp.CurrentHP <= 0) 
+                _bus.Publish(new VehicleDestroyed(target));
         }
     }
 }

@@ -1,6 +1,7 @@
 
 using UnityEngine;
 using TMPro;
+using System;
 
 public class HUDPresenter : MonoBehaviour {
     [SerializeField] private TextMeshProUGUI hpText;
@@ -21,11 +22,19 @@ public class HUDPresenter : MonoBehaviour {
     void OnEnable() 
     {
         _bus.Subscribe<DamageTaken>(OnDamage);
+        _bus.Subscribe<VehicleDestroyed>(OnVehicleDestroyed);
     }
     void OnDisable() 
     {
         _bus.Unsubscribe<DamageTaken>(OnDamage);
+        _bus.Unsubscribe<VehicleDestroyed>(OnVehicleDestroyed);
     }
+
+    private void OnVehicleDestroyed(VehicleDestroyed destroyed)
+    {
+        hpText.text = "Destroyed";
+    }
+
     void OnDamage(DamageTaken e)
      {
         if (e.Target == _hp) Refresh();

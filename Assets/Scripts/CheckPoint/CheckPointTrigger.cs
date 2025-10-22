@@ -12,11 +12,11 @@ public class CheckPointTrigger : MonoBehaviour
     }
     private void Start()
     {
-
         for (int i = 0; i < transform.childCount; i++)
         {
             _checkPointPos.Add(transform.GetChild(i));
-        }       
+        }  
+             
     }
 
     public Transform GetCheckPointPosition()
