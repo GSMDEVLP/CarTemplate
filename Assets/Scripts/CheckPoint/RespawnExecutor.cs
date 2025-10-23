@@ -1,4 +1,3 @@
-// Presentation/Controllers/RespawnExecutor.cs
 using System.Collections;
 using UnityEngine;
 
@@ -6,38 +5,39 @@ public class RespawnExecutor : MonoBehaviour
 {
     private IEventBus _bus;
 
-    private void Start()
+    private void Awake()
     {
         _bus = CompositionRoot.Instance.Events;
     }
 
-    void OnEnable()
+    private void OnEnable()
     {
         _bus.Subscribe<RespawnRequested>(OnRespawnRequested);        
     }
 
-    void OnDestroy()
+    private void OnDestroy()
     {
-        if (_bus != null) 
-            _bus.Unsubscribe<RespawnRequested>(OnRespawnRequested);
+        _bus.Unsubscribe<RespawnRequested>(OnRespawnRequested);
     }
 
-    void OnRespawnRequested(RespawnRequested e)
+    private void OnRespawnRequested(RespawnRequested e)
     {
         StartCoroutine(DoRespawn(e));
     }
 
-    IEnumerator DoRespawn(RespawnRequested e)
+    private IEnumerator DoRespawn(RespawnRequested e)
     {
         yield return new WaitForSeconds(e.Delay);
 
-        var targetMb = e.Target as GameObject;
+        var targetMb = e.Target;
         if (targetMb == null) yield break;
 
         var rb = targetMb.GetComponent<Rigidbody>();
-        if (rb) rb.velocity = Vector3.zero;
+        if (rb) 
+            rb.velocity = Vector3.zero;
 
-        targetMb.transform.SetPositionAndRotation(e.Position, e.Rotation);
+        targetMb.transform.position = e.Position;
+        targetMb.transform.rotation =  e.Rotation;
 
         _bus.Publish(new RespawnPerformed(e.Target));
     }

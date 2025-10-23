@@ -27,7 +27,7 @@ public class RespawnDetector : MonoBehaviour
     private Vector3 _roadForward;
     private int _roadLayerMask;
     private float _offTimer;
-    private bool _isRespawning;   // чтобы не триггерить события повторно пока ждём
+    private bool _isRespawning;   
 
     private void Awake()
     {
@@ -47,7 +47,6 @@ public class RespawnDetector : MonoBehaviour
     }
     private void FixedUpdate()
     {
-
         CheckIfOnRoad();
         CheckIfReversing();
         CheckIfFlipped();
@@ -74,6 +73,7 @@ public class RespawnDetector : MonoBehaviour
 
         if (dot < 0f && angle > reverseRotateAngle)
         {
+            Debug.Log("Едет обратно");
             // _bus.Publish(new ReversingDetected(this));
             RequestRespawn(reverseDelay);
         }
@@ -90,6 +90,7 @@ public class RespawnDetector : MonoBehaviour
             _offTimer += Time.deltaTime;
             if (_offTimer >= offRoadWarningTime && !_isRespawning)
             {
+                Debug.Log("Не на дороге");
                 // _bus.Publish(new OutOfRoadTimeout(this, _offTimer));
                 RequestRespawn(offRoadDelay);
             }
@@ -103,6 +104,7 @@ public class RespawnDetector : MonoBehaviour
 
         if (Mathf.Abs(z) > crashRotateAngle && !_isRespawning)
         {
+            Debug.Log("Перевернулся");
             // _bus.Publish(new FlippedDetected(this));
             RequestRespawn(flippedDelay);
         }
@@ -114,7 +116,7 @@ public class RespawnDetector : MonoBehaviour
         _isRespawning = true;
 
         _bus.Publish(new RespawnRequested(
-            target: this,
+            target: gameObject,
             pos: _lastCheckpoint.position,
             rot: _lastCheckpoint.rotation,
             delay: delay
@@ -123,7 +125,7 @@ public class RespawnDetector : MonoBehaviour
 
     private void OnRespawnCompleted(RespawnPerformed e)
     {
-        if (e.Target == this)
+        if (e.Target == gameObject)
             _isRespawning = false;
     }
 }
