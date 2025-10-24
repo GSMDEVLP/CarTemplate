@@ -16,18 +16,21 @@ public class RespawnDetector : MonoBehaviour
 
     [Header("Delays")]
     [SerializeField] private float flippedDelay = 2f;     
-    [SerializeField] private float reverseDelay = 3f;     
-    [SerializeField] private float offRoadDelay = 0f;     
+    [SerializeField] private float reverseDelay = 3f;
+    [SerializeField] private float offRoadDelay = 0f;
+
+    [SerializeField] private float _respawnDelay = 1f;
 
     private Rigidbody _rb;
     private IEventBus _bus;
 
-    // состояние
     private Transform _lastCheckpoint;
     private Vector3 _roadForward;
     private int _roadLayerMask;
     private float _offTimer;
-    private bool _isRespawning;   
+    private bool _isRespawning;
+
+    private string _gameObjectTag = "Player";
 
     private void Awake()
     {
@@ -39,16 +42,23 @@ public class RespawnDetector : MonoBehaviour
     private void Start()
     {
         _bus.Subscribe<RespawnPerformed>(OnRespawnCompleted);
+        _bus.Subscribe<VehicleDestroyed>(OnVehicleDestroyed);
     }
 
     private void OnDestroy()
     {
-         _bus.Unsubscribe<RespawnPerformed>(OnRespawnCompleted);
+        _bus.Unsubscribe<RespawnPerformed>(OnRespawnCompleted);
+        _bus.Unsubscribe<VehicleDestroyed>(OnVehicleDestroyed);
     }
+
+
     private void FixedUpdate()
     {
-        CheckIfOnRoad();
-        CheckIfReversing();
+        if (gameObject.tag == _gameObjectTag)
+        {
+            CheckIfOnRoad();
+            CheckIfReversing();
+        }
         CheckIfFlipped();
     }
 
@@ -60,6 +70,15 @@ public class RespawnDetector : MonoBehaviour
             _lastCheckpoint = cp.GetCheckPointPosition();
             _roadForward = other.transform.forward;
             // _bus.Publish(new CheckpointUpdated(_lastCheckpoint, _roadForward));
+        }
+    }
+
+    private void OnVehicleDestroyed(VehicleDestroyed destroyed)
+    {
+        if (!_isRespawning)
+        {
+            Debug.Log("Destroy Respawn");
+            RequestRespawn(_respawnDelay);
         }
     }
 

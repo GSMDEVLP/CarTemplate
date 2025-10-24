@@ -4,10 +4,11 @@ using UnityEngine;
 public class RespawnExecutor : MonoBehaviour
 {
     private IEventBus _bus;
-
+    private ITakesDamage _hp;
     private void Awake()
     {
         _bus = CompositionRoot.Instance.Events;
+        _hp = GetComponent<ITakesDamage>(); 
     }
 
     private void OnEnable()
@@ -40,5 +41,7 @@ public class RespawnExecutor : MonoBehaviour
         targetMb.transform.rotation =  e.Rotation;
 
         _bus.Publish(new RespawnPerformed(e.Target));
+        if(_hp.CurrentHP <= 0)
+            _bus.Publish(new UpdateVehicleInfo());
     }
 }

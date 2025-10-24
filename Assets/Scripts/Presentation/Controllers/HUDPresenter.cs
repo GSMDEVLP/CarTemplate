@@ -9,6 +9,7 @@ public class HUDPresenter : MonoBehaviour {
     private ITakesDamage _hp;
     private IEventBus _bus;
 
+    private string _fullHP = "100";
     void Awake()
     {
         _hp = player.GetComponent<ITakesDamage>();
@@ -23,11 +24,18 @@ public class HUDPresenter : MonoBehaviour {
     {
         _bus.Subscribe<DamageTaken>(OnDamage);
         _bus.Subscribe<VehicleDestroyed>(OnVehicleDestroyed);
+        _bus.Subscribe<UpdateVehicleInfo>(OnVehicleRespawn);
     }
     void OnDisable() 
     {
         _bus.Unsubscribe<DamageTaken>(OnDamage);
         _bus.Unsubscribe<VehicleDestroyed>(OnVehicleDestroyed);
+        _bus.Unsubscribe<UpdateVehicleInfo>(OnVehicleRespawn);
+    }
+
+    private void OnVehicleRespawn(UpdateVehicleInfo performed)
+    {
+        hpText.text = _fullHP;
     }
 
     private void OnVehicleDestroyed(VehicleDestroyed destroyed)
@@ -37,13 +45,14 @@ public class HUDPresenter : MonoBehaviour {
 
     void OnDamage(DamageTaken e)
      {
-        if (e.Target == _hp) Refresh();
+        if (e.Target == _hp) 
+            Refresh();
     }
     void Refresh() 
     {
         if (_hp != null && hpText != null) 
         {
-            hpText.text = $"{Mathf.CeilToInt(_hp.CurrentHP)}/{Mathf.CeilToInt(_hp.MaxHP)}";
+            hpText.text = $"{Mathf.CeilToInt(_hp.CurrentHP)}";
         }
     }
 }

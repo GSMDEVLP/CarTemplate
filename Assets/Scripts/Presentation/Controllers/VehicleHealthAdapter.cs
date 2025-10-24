@@ -21,20 +21,21 @@ public class VehicleHealthAdapter : MonoBehaviour, ITakesDamage
         CurrentHP = _maxHP;
     }
 
-    private void OnEnable()
+     void OnEnable() 
     {
-        _bus.Subscribe<VehicleDestroyed>(OnVehicleDestroyed);
-    }
-    private void OnDisable()
-    {
-        _bus.Unsubscribe<VehicleDestroyed>(OnVehicleDestroyed);
+        _bus.Subscribe<UpdateVehicleInfo>(OnUpdateHP);
     }
 
-    private void OnVehicleDestroyed(VehicleDestroyed destroyed)
+
+    void OnDisable() 
     {
-        // добавить респавн автомобиля
+        _bus.Unsubscribe<UpdateVehicleInfo>(OnUpdateHP);
     }
 
+    private void OnUpdateHP(UpdateVehicleInfo performed)
+    {
+        CurrentHP = _maxHP;
+    }
 
     public void ApplyDamage(float amount, object source = null)
     {
