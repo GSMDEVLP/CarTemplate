@@ -67,6 +67,10 @@ public class RespawnDetector : MonoBehaviour
         var cp = other.GetComponent<CheckPointTrigger>();
         if (cp)
         {
+            if (gameObject.tag == _gameObjectTag)
+            {       
+                Debug.Log(cp.name);
+            }
             _lastCheckpoint = cp.GetCheckPointPosition();
             _roadForward = other.transform.forward;
             // _bus.Publish(new CheckpointUpdated(_lastCheckpoint, _roadForward));
@@ -134,6 +138,8 @@ public class RespawnDetector : MonoBehaviour
         if (_lastCheckpoint == null) return;
         _isRespawning = true;
 
+        Debug.Log($"Respawn! pos={_lastCheckpoint.position}, rot={_lastCheckpoint.rotation.eulerAngles}");
+        
         _bus.Publish(new RespawnRequested(
             target: gameObject,
             pos: _lastCheckpoint.position,

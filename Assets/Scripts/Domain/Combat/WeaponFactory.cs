@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -19,12 +20,25 @@ public class WeaponFactory : IWeaponFactory
     
     public IWeapon Create(WeaponConfig cfg)
     {
-        return cfg.Kind switch
+        var runtime = new WeaponRuntime();
+
+        foreach (var module in cfg.Modules)
+            module.Apply(runtime);
+
+
+
+        switch (cfg.Type)
         {
-            WeaponKind.Homing  => new HomingRocket(cfg, _time, _targeting, _bus),
-            WeaponKind.Mine    => new MineWeapon(cfg, _time, _damage, _bus),
-            // WeaponKind.Oil     => new OilSlickWeapon(cfg, _time, _bus), 
-            _                  => new StraightProjectileWeapon(cfg, _time, _bus),
-        };
+            case WeaponKind.Straight:
+                return new StraightProjectileWeapon(cfg, runtime, _time, _bus);
+
+            case WeaponKind.Homing:
+                return new HomingRocket(cfg, runtime, _time, _targeting, _bus);
+
+            case WeaponKind.Mine:
+                return new MineWeapon(cfg, runtime, _time, _bus);
+        }
+
+        throw new Exception("Unknown weapon type");
     }
 }

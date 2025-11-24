@@ -20,4 +20,18 @@ public class DamageService : IDamageService
                 _bus.Publish(new VehicleDestroyed(target));
         }
     }
+
+    public void DealArea(Vector3 position, float radius, float amount, object source = null)
+    {
+        var hits = Physics.OverlapSphere(position, radius, ~0, QueryTriggerInteraction.Ignore);
+
+        foreach (var h in hits)
+        {
+            if (h.TryGetComponent(out ITakesDamage td))
+            {
+                Deal(td, amount, source);
+            }
+        }
+        _bus.Publish(new Explosion(position, radius));
+    }
 }

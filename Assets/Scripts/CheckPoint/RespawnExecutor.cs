@@ -33,10 +33,19 @@ public class RespawnExecutor : MonoBehaviour
         var targetMb = e.Target;
         if (targetMb == null) yield break;
 
-        var rb = targetMb.GetComponent<Rigidbody>();
-        if (rb) 
+       var rb = targetMb.GetComponent<Rigidbody>();
+        if (rb)
+        {
             rb.velocity = Vector3.zero;
+            rb.angularVelocity = Vector3.zero;
 
+            rb.position = e.Position;
+            rb.rotation = e.Rotation;
+        }
+        else
+        {
+            targetMb.transform.SetPositionAndRotation(e.Position, e.Rotation);
+        }
         targetMb.transform.position = e.Position;
         targetMb.transform.rotation =  e.Rotation;
 

@@ -3,10 +3,10 @@ using UnityEngine;
 public readonly struct WeaponFired : IEvent
 {
     public readonly GameObject Owner; 
-    public readonly string WeaponId;
-    public WeaponFired(GameObject owner, string weaponId) 
+    public readonly WeaponConfig WeaponCfg;
+    public WeaponFired(GameObject owner, WeaponConfig weaponCfg) 
     {
         Owner = owner;
-        WeaponId = weaponId; 
+        WeaponCfg = weaponCfg; 
     }
 }

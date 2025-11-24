@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class HomingRocket : WeaponBase
@@ -7,8 +5,8 @@ public class HomingRocket : WeaponBase
     private readonly ITargetingService _targeting;
     private readonly IEventBus _bus;
 
-    public HomingRocket(WeaponConfig cfg, ITime time, ITargetingService targeting, IEventBus bus)
-        : base(cfg, time)
+    public HomingRocket(WeaponConfig cfg, WeaponRuntime rt, ITime time, ITargetingService targeting, IEventBus bus)
+        : base(cfg, rt, time)
     {
         _targeting = targeting;
         _bus = bus; 
@@ -16,10 +14,10 @@ public class HomingRocket : WeaponBase
 
     protected override void OnFire(FireContext ctx)
     {
-        var go = Object.Instantiate(Cfg.ProjectilePrefab, ctx.Origin, Quaternion.LookRotation(ctx.Direction));
+        var go = Object.Instantiate(Rt.ProjectilePrefab, ctx.Origin, Quaternion.LookRotation(ctx.Direction));
         var mover = go.GetComponent<HomingProjectileMover>();
-        var target = _targeting.FindClosest(ctx.Origin, Cfg.SeekRadius, t => t != null /* фильтр врагов */);
-        mover.Launch(Cfg.Speed, Cfg.LifeTime, Cfg.Damage, ctx.Owner, target, Cfg.HomingStrength);
-        _bus.Publish(new WeaponFired(ctx.Owner, Cfg.ID));
+        var target = _targeting.FindClosest(ctx.Origin, Rt.SeekRadius, t => t != null /* фильтр врагов */);
+        mover.Launch(Rt.Speed, Rt.LifeTime, Rt.Damage, ctx.Owner, target, Rt.HomingStrength);
+        _bus.Publish(new WeaponFired(ctx.Owner, Cfg));
     }
 }
