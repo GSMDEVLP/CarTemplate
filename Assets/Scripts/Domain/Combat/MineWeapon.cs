@@ -5,8 +5,8 @@ public class MineWeapon : WeaponBase
     private readonly IDamageService _damage;
     private readonly IEventBus _bus;
 
-    public MineWeapon(WeaponConfig cfg, WeaponRuntime rt, ITime time,  IEventBus bus)
-        : base(cfg, rt, time)
+    public MineWeapon(WeaponConfig cfg, WeaponRuntime rt, ITime tm,  IEventBus bus)
+        : base(cfg, rt, tm)
     {
         _bus = bus; 
     }

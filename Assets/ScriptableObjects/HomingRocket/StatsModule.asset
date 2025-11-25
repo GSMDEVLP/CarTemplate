@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12bb4af1f42c20f458f11a5373c92927, type: 3}
   m_Name: StatsModule
   m_EditorClassIdentifier: 
-  Damage: 0
-  Cooldown: 0
+  Damage: 10
+  Cooldown: 5

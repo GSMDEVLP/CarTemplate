@@ -5,8 +5,8 @@ public class HomingRocket : WeaponBase
     private readonly ITargetingService _targeting;
     private readonly IEventBus _bus;
 
-    public HomingRocket(WeaponConfig cfg, WeaponRuntime rt, ITime time, ITargetingService targeting, IEventBus bus)
-        : base(cfg, rt, time)
+    public HomingRocket(WeaponConfig cfg, WeaponRuntime rt, ITime tm, ITargetingService targeting, IEventBus bus)
+        : base(cfg, rt, tm)
     {
         _targeting = targeting;
         _bus = bus; 

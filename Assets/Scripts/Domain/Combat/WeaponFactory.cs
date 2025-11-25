@@ -25,8 +25,6 @@ public class WeaponFactory : IWeaponFactory
         foreach (var module in cfg.Modules)
             module.Apply(runtime);
 
-
-
         switch (cfg.Type)
         {
             case WeaponKind.Straight:
@@ -37,6 +35,11 @@ public class WeaponFactory : IWeaponFactory
 
             case WeaponKind.Mine:
                 return new MineWeapon(cfg, runtime, _time, _bus);
+
+            case WeaponKind.MachineGun:
+                return new MachineGunWeapon(cfg, runtime, _time, _bus);
+
+            
         }
 
         throw new Exception("Unknown weapon type");

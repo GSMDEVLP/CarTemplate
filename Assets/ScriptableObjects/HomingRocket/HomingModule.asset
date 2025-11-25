@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80d1f5f5bc4c4cb43ab372027acbfce5, type: 3}
   m_Name: HomingModule
   m_EditorClassIdentifier: 
-  SeekRadius: 0
-  HomingStrength: 0
+  SeekRadius: 40
+  HomingStrength: 0.6

@@ -1,4 +1,4 @@
-    public interface IWeaponFactory
+public interface IWeaponFactory
 {
     IWeapon Create(WeaponConfig cfg);
 }

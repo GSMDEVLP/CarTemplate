@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class ProjectileMover : MonoBehaviour
+public class StraightProjectileMover : MonoBehaviour
 {
     private float _speed;
     private float _life;

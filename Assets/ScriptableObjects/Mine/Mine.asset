@@ -13,7 +13,9 @@ MonoBehaviour:
   m_Name: Mine
   m_EditorClassIdentifier: 
   ID: Mine
-  Type: 2
+  Type: 3
+  FireMode: 0
+  WeaponMount: 2
   Modules:
   - {fileID: 11400000, guid: f73786cb5e10b5f48a9da0beaf4a55a8, type: 2}
   - {fileID: 11400000, guid: e470179e02fd0dc40977b548ea8be642, type: 2}
