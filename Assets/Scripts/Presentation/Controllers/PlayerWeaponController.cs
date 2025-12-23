@@ -56,7 +56,7 @@ public class PlayerWeaponController : MonoBehaviour
         Debug.Log($"Switched to weapon slot: {index}");
     }
 
-      private Transform ResolveMount(WeaponConfig cfg)
+    private Transform ResolveMount(WeaponConfig cfg)
     {
         switch (cfg.WeaponMount)
         {
@@ -70,7 +70,7 @@ public class PlayerWeaponController : MonoBehaviour
     private void HandleFire()
     {
         var weapon = _weapons[_currentIndex];
-        var cfg    = _weaponConfigs[_currentIndex];
+        var cfg = _weaponConfigs[_currentIndex];
 
         if (weapon == null || cfg == null) return;
 

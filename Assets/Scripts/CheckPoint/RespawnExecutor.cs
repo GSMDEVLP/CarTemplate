@@ -49,8 +49,8 @@ public class RespawnExecutor : MonoBehaviour
         targetMb.transform.position = e.Position;
         targetMb.transform.rotation =  e.Rotation;
 
-        _bus.Publish(new RespawnPerformed(e.Target));
+        _bus.Invoke(new RespawnPerformed(e.Target));
         if(_hp.CurrentHP <= 0)
-            _bus.Publish(new UpdateVehicleInfo());
+            _bus.Invoke(new UpdateVehicleInfo());
     }
 }

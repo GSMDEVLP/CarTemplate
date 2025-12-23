@@ -1,4 +1,3 @@
-
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -19,8 +18,11 @@ public class UnityPhysicsTargeting : ITargetingService
         _losMaxDistance = losMaxDistance;
     }
 
-    public Transform FindClosest(Vector3 origin, float radius, Func<Transform, bool> filter = null)
+    public Transform FindClosest(Vector3 origin, Vector3 forward, float radius, Func<Transform, bool> filter = null, float maxAngleDeg = 30f)
     {
+        forward = forward.normalized;
+        float cosMax = Mathf.Cos(maxAngleDeg * Mathf.Deg2Rad);
+
         Collider[] hits = Physics.OverlapSphere(origin, radius, _layerMask, QueryTriggerInteraction.Ignore);
         Transform best = null;
         float bestSqr = float.MaxValue;
@@ -32,10 +34,18 @@ public class UnityPhysicsTargeting : ITargetingService
             if (filter != null && !filter(t))
                 continue;
 
+            Vector3 to = t.position - origin;
+            float sqr = to.sqrMagnitude;
+            if (sqr < 0.0001f) continue;
+
+            // только впереди (в конусе)
+            float dot = Vector3.Dot(forward, to / Mathf.Sqrt(sqr));
+            if (dot < cosMax)
+                continue;
+
             if (_useLineOfSight && !HasLineOfSight(origin, t.position))
                 continue;
 
-            float sqr = (t.position - origin).sqrMagnitude;
             if (sqr < bestSqr)
             {
                 bestSqr = sqr;

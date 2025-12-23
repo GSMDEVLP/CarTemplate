@@ -15,9 +15,9 @@ public class DamageService : IDamageService
         {
             float prev = hp.CurrentHP;
             hp.ApplyDamage(amount, source);
-            _bus.Publish(new DamageTaken(target, amount));
+            _bus.Invoke(new DamageTaken(target, amount));
             if (prev > 0 && hp.CurrentHP <= 0) 
-                _bus.Publish(new VehicleDestroyed(target));
+                _bus.Invoke(new VehicleDestroyed(target));
         }
     }
 
@@ -32,6 +32,6 @@ public class DamageService : IDamageService
                 Deal(td, amount, source);
             }
         }
-        _bus.Publish(new Explosion(position, radius));
+        _bus.Invoke(new Explosion(position, radius));
     }
 }

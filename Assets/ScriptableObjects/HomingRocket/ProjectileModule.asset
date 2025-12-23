@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: ProjectileModule
   m_EditorClassIdentifier: 
   Prefab: {fileID: 6078867752116953516, guid: 1cd88710f6d821347b34c0788de06bf9, type: 3}
-  Speed: 30
+  Speed: 120
   LifeTime: 5

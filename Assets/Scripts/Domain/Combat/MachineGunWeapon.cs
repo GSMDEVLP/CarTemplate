@@ -57,6 +57,6 @@ public class MachineGunWeapon : WeaponBase
         mover.Launch(Rt.Speed, Rt.LifeTime, Rt.Damage, ctx.Owner);
         Tick(Time.deltaTime);
 
-        _bus.Publish(new WeaponFired(ctx.Owner, Cfg));
+        _bus.Invoke(new WeaponFired(ctx.Owner, Cfg));
     }
 }

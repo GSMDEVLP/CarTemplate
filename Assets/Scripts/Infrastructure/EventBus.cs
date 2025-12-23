@@ -7,7 +7,7 @@ using UnityEngine;
 public class EventBus : IEventBus
 {
     private readonly Dictionary<Type, List<Delegate>> _subs = new();
-    public void Publish<T>(T evt) where T : IEvent
+    public void Invoke<T>(T evt) where T : IEvent
     {
         if (_subs.TryGetValue(typeof(T), out var list))
             for (int i = 0; i < list.Count; i++)

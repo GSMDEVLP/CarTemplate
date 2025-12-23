@@ -140,7 +140,7 @@ public class RespawnDetector : MonoBehaviour
 
         Debug.Log($"Respawn! pos={_lastCheckpoint.position}, rot={_lastCheckpoint.rotation.eulerAngles}");
         
-        _bus.Publish(new RespawnRequested(
+        _bus.Invoke(new RespawnRequested(
             target: gameObject,
             pos: _lastCheckpoint.position,
             rot: _lastCheckpoint.rotation,

@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public class HomingRocket : WeaponBase
 {
@@ -16,8 +16,8 @@ public class HomingRocket : WeaponBase
     {
         var go = Object.Instantiate(Rt.ProjectilePrefab, ctx.Origin, Quaternion.LookRotation(ctx.Direction));
         var mover = go.GetComponent<HomingProjectileMover>();
-        var target = _targeting.FindClosest(ctx.Origin, Rt.SeekRadius, t => t != null /* фильтр врагов */);
+        var target = _targeting.FindClosest(ctx.Origin, ctx.Direction, Rt.SeekRadius, t => t != null /* фильтр врагов */);
         mover.Launch(Rt.Speed, Rt.LifeTime, Rt.Damage, ctx.Owner, target, Rt.HomingStrength);
-        _bus.Publish(new WeaponFired(ctx.Owner, Cfg));
+        _bus.Invoke(new WeaponFired(ctx.Owner, Cfg));
     }
 }

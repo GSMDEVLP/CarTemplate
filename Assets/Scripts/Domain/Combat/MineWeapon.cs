@@ -13,10 +13,10 @@ public class MineWeapon : WeaponBase
 
     protected override void OnFire(FireContext ctx)
     {
-        var backPos = ctx.Origin - ctx.Direction.normalized * 2f;
+        var backPos = ctx.Origin - ctx.Direction.normalized;
         var go = Object.Instantiate(Rt.ProjectilePrefab, backPos, Quaternion.identity);
         var mine = go.GetComponent<MineProjectile>();
         mine.Arm(armingDelay: Rt.ArmingDelay, radius: Rt.ExplosionRadius, Rt.Damage, bus: _bus, owner: ctx.Owner);
-        _bus.Publish(new WeaponFired(ctx.Owner, Cfg));
+        _bus.Invoke(new WeaponFired(ctx.Owner, Cfg));
     }
 }

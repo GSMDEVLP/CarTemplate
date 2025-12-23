@@ -14,7 +14,7 @@ public class StraightProjectileWeapon : WeaponBase
         var go = Object.Instantiate(Rt.ProjectilePrefab, ctx.Origin, Quaternion.LookRotation(ctx.Direction));
         var mover = go.GetComponent<StraightProjectileMover>();
         mover.Launch(speed: Rt.Speed, lifeTime: Rt.LifeTime, damage: Rt.Damage, owner: ctx.Owner);
-        _bus.Publish(new WeaponFired(ctx.Owner, Cfg));
+        _bus.Invoke(new WeaponFired(ctx.Owner, Cfg));
     }
 
 }
