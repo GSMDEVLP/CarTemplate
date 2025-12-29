@@ -28,16 +28,16 @@ public class WeaponFactory : IWeaponFactory
         switch (cfg.Type)
         {
             case WeaponKind.Straight:
-                return new StraightProjectileWeapon(cfg, runtime, _time, _bus);
+                return new StraightProjectileWeapon(cfg, runtime, _time, _bus, _damage);
 
             case WeaponKind.Homing:
-                return new HomingRocket(cfg, runtime, _time, _targeting, _bus);
+                return new HomingRocket(cfg, runtime, _time, _targeting, _bus, _damage);
 
             case WeaponKind.Mine:
-                return new MineWeapon(cfg, runtime, _time, _bus);
+                return new MineWeapon(cfg, runtime, _time, _bus, _damage);
 
             case WeaponKind.MachineGun:
-                return new MachineGunWeapon(cfg, runtime, _time, _bus);
+                return new MachineGunWeapon(cfg, runtime, _time, _bus, _damage);
 
             
         }

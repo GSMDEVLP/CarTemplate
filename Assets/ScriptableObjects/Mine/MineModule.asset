@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2a165922fde9a84ba30e8175cd9e2cb, type: 3}
   m_Name: MineModule
   m_EditorClassIdentifier: 
-  Radius: 6
-  ArmingDelay: 0.3
+  _radius: 6
+  _armingDelay: 0.3

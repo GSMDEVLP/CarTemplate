@@ -12,8 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63fac700c4a44c54c90aaca873d47e25, type: 3}
   m_Name: StraightRocket
   m_EditorClassIdentifier: 
-  ID: StraightRocket
-  Type: 0
-  Modules:
+  _id: StraightRocket
+  _type: 0
+  _fireMode: 0
+  _weaponMount: 0
+  _modules:
   - {fileID: 11400000, guid: 81f37c7bf9be9b4479e7af303987ffbc, type: 2}
   - {fileID: 11400000, guid: f0fc212408df5444796727284c4bd49c, type: 2}

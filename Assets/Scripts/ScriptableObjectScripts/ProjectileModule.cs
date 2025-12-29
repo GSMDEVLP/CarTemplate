@@ -3,9 +3,14 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "ProjectileModule", menuName = "Weapons/Modules/Projectile")]
 public class ProjectileModule : WeaponModule
 {
-    public GameObject Prefab;
-    public float Speed;
-    public float LifeTime;
+    [SerializeField] private GameObject _prefab;
+    [SerializeField] private float _speed;
+    [SerializeField] private float _lifeTime;
+
+    
+    public GameObject Prefab => _prefab;
+    public float Speed => _speed;
+    public float LifeTime => _lifeTime;
 
     public override void Apply(WeaponRuntime target)
     {

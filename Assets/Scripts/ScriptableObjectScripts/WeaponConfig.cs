@@ -27,11 +27,15 @@ public enum WeaponMount
 [CreateAssetMenu(fileName = "Weapon", menuName = "ScriptableObject/Weapon", order = 0)]
 public class WeaponConfig : ScriptableObject
 {
-    public string ID;
-    public WeaponKind Type;
+    [SerializeField] private string _id;
+    [SerializeField] private WeaponKind _type;
+    [SerializeField] private FireMode _fireMode;
+    [SerializeField] private WeaponMount _weaponMount;
+    [SerializeField] private List<WeaponModule> _modules;
 
-    public FireMode FireMode;
-    public WeaponMount WeaponMount;
-
-    public List<WeaponModule> Modules = new();
+    public string ID => _id;
+    public WeaponKind Type => _type;
+    public FireMode FireMode => _fireMode;
+    public WeaponMount WeaponMount => _weaponMount;
+    public List<WeaponModule> Modules => _modules;
 }

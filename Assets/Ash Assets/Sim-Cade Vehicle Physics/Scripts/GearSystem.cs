@@ -1,25 +1,25 @@
 using System.Collections;
 using UnityEngine;
 using TMPro;
+using System;
 
 namespace Ashsvp
 {
     public class GearSystem : MonoBehaviour
     {
-        [SerializeField] private TextMeshProUGUI _gearText;
         public float VehicleSpeed;
         public int currentGear;
         private SimcadeVehicleController vehicleController;
         public int[] gearSpeeds = new int[] { 40, 80, 120, 160, 220 };
 
         public AudioSystem AudioSystem;
+        public event Action<int> OnGearChanged;
 
         private float currentGearTemp;
         void Start()
         {
             vehicleController = GetComponent<SimcadeVehicleController>();
             currentGear = 1;
-            _gearText.text = currentGear.ToString();
         }
 
         void Update()
@@ -59,7 +59,7 @@ namespace Ashsvp
                 if (CurrentGearProperty != currentGear)
                 {
                     CurrentGearProperty = currentGear;
-                    _gearText.text = CurrentGearProperty.ToString();
+                    OnGearChanged?.Invoke(currentGear);
                 }
             }
         }

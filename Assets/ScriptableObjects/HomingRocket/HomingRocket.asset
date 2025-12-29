@@ -12,9 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63fac700c4a44c54c90aaca873d47e25, type: 3}
   m_Name: HomingRocket
   m_EditorClassIdentifier: 
-  ID: HomingRocket
-  Type: 1
-  Modules:
+  _id: Homingrocket
+  _type: 1
+  _fireMode: 0
+  _weaponMount: 0
+  _modules:
   - {fileID: 11400000, guid: c2f2181797294ab4eb93f5cd83e796ef, type: 2}
   - {fileID: 11400000, guid: 2b1c542af364c904f9d974f3f171295c, type: 2}
   - {fileID: 11400000, guid: 429b3ec13153fec46bed07f3846a2096, type: 2}

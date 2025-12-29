@@ -5,8 +5,11 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "HomingModule", menuName = "Weapons/Modules/Homing")]
 public class HomingModule : WeaponModule
 {
-    public float SeekRadius;
-    public float HomingStrength;
+    [SerializeField] private float _seekRadius;
+    [SerializeField] private float _homingStrength;
+    
+    public float SeekRadius => _seekRadius;
+    public float HomingStrength => _homingStrength;
 
     public override void Apply(WeaponRuntime target)
     {

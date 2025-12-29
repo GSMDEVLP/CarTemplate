@@ -5,8 +5,11 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "StatsModule", menuName = "Weapons/Modules/Stats")]
 public class StatsModule : WeaponModule
 {
-    public float Damage;
-    public float Cooldown;
+    [SerializeField] private float _damage;
+    [SerializeField] private float _cooldown;
+
+    public float Damage => _damage;
+    public float Cooldown => _cooldown;
 
     public override void Apply(WeaponRuntime target)
     {

@@ -1,36 +1,29 @@
-﻿using UnityEngine;
+using UnityEngine;
 
-public class HomingProjectileMover : MonoBehaviour
+public class HomingProjectileMover : ProjectilePart
 {
     [Header("Refs")]
     [SerializeField] private Rigidbody rb;
 
     private float _maxSpeed;
-    private float _life;
-    private float _damage;
-    private object _owner;
     private Transform _target;
 
     [Header("Flight")]
     [SerializeField] private float acceleration = 140f;
 
     [Header("Steering (deg/sec)")]
-    [SerializeField] private float turnRateMultiplier = 200f; // если раньше homingStrength был маленький (под Slerp)
+    [SerializeField] private float turnRateMultiplier = 200f;
     private float _turnDegPerSec;
 
     [Header("Prediction")]
     [SerializeField] private float maxPredictionTime = 2.0f;
 
-    private float _t;
     private Rigidbody _targetRb;
 
-    public void Launch(float speed, float lifeTime, float damage, object owner, Transform target, float homingStrength)
+    protected override void OnInit(ProjectileContext ctx)
     {
-        _maxSpeed = speed;
-        _life = lifeTime;
-        _damage = damage;
-        _owner = owner;
-        _target = target;
+        _maxSpeed = ctx.Rt.Speed;
+        _target = ctx.Target;
 
         if (!rb) rb = GetComponent<Rigidbody>();
 
@@ -38,39 +31,45 @@ public class HomingProjectileMover : MonoBehaviour
         rb.interpolation = RigidbodyInterpolation.Interpolate;
         rb.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
 
-        // homingStrength: если раньше был для Slerp (0.5..5), конвертируем в deg/sec
-        _turnDegPerSec = (homingStrength <= 20f) ? homingStrength * turnRateMultiplier : homingStrength;
+        _turnDegPerSec = (ctx.Rt.HomingStrength <= 20f)
+            ? ctx.Rt.HomingStrength * turnRateMultiplier
+            : ctx.Rt.HomingStrength;
         _turnDegPerSec = Mathf.Max(_turnDegPerSec, 60f);
 
-        _targetRb = _target ? _target.GetComponentInParent<Rigidbody>() : null;
+        _targetRb = _target ? _target.GetComponent<Rigidbody>() : null;
 
-        // начальная скорость, чтобы не было "0 и странный старт"
         if (rb.velocity.sqrMagnitude < 0.01f)
             rb.velocity = transform.forward * Mathf.Min(_maxSpeed * 0.5f, 20f);
     }
 
     private void FixedUpdate()
     {
-        float dt = Time.fixedDeltaTime;
-
-        _t += dt;
-        if (_t >= _life)
-        {
-            Destroy(gameObject);
+        if (!IsInitialized)
             return;
-        }
+
+        MoveProjectile();
+    }
+
+    private bool MoveProjectile()
+    {
+        float dt = Time.fixedDeltaTime;
 
         if (_target == null)
         {
             FlyForward(dt);
-            return;
+            return false;
         }
 
         Vector3 targetPos = _target.position;
         Vector3 targetVel = _targetRb ? _targetRb.velocity : Vector3.zero;
 
         float missileSpeed = Mathf.Max(rb.velocity.magnitude, 0.1f);
-        Vector3 aimPoint = ComputeInterceptPoint(rb.position, Mathf.Max(missileSpeed, _maxSpeed), targetPos, targetVel, maxPredictionTime);
+        Vector3 aimPoint = ComputeInterceptPoint(
+            rb.position,
+            Mathf.Max(missileSpeed, _maxSpeed),
+            targetPos,
+            targetVel,
+            maxPredictionTime);
 
         Vector3 desiredDir = (aimPoint - rb.position);
         if (desiredDir.sqrMagnitude > 0.0001f) desiredDir.Normalize();
@@ -82,6 +81,7 @@ public class HomingProjectileMover : MonoBehaviour
         Vector3 forward = rb.rotation * Vector3.forward;
         Vector3 desiredVel = forward * _maxSpeed;
         rb.velocity = Vector3.MoveTowards(rb.velocity, desiredVel, acceleration * dt);
+        return true;
     }
 
     private void FlyForward(float dt)
@@ -91,7 +91,12 @@ public class HomingProjectileMover : MonoBehaviour
         rb.velocity = Vector3.MoveTowards(rb.velocity, desiredVel, acceleration * dt);
     }
 
-    private static Vector3 ComputeInterceptPoint(Vector3 missilePos, float missileSpeed, Vector3 targetPos, Vector3 targetVel, float maxT)
+    private static Vector3 ComputeInterceptPoint(
+        Vector3 missilePos,
+        float missileSpeed,
+        Vector3 targetPos,
+        Vector3 targetVel,
+        float maxT)
     {
         Vector3 r = targetPos - missilePos;
         Vector3 v = targetVel;
@@ -121,20 +126,7 @@ public class HomingProjectileMover : MonoBehaviour
                 if (t < 0f) t = 0f;
             }
         }
-
         t = Mathf.Min(t, maxT);
         return targetPos + targetVel * t;
-    }
-
-    private void OnCollisionEnter(Collision c)
-    {
-        var col = c.collider;
-
-        if (col.TryGetComponent(out ITakesDamage td))
-        {
-            CompositionRoot.Instance.Damage.Deal(td, _damage, _owner);
-        }
-
-        Destroy(gameObject);
     }
 }

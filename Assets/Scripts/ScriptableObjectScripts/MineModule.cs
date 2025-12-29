@@ -5,8 +5,12 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "MineModule", menuName = "Weapons/Modules/Mine")]
 public class MineModule : WeaponModule
 {
-    public float Radius;
-    public float ArmingDelay;
+    [SerializeField] private float _radius;
+    [SerializeField] private float _armingDelay;
+
+    
+    public float Radius => _radius;
+    public float ArmingDelay => _armingDelay;
 
     public override void Apply(WeaponRuntime target)
     {

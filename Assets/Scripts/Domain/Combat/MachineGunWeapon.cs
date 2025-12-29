@@ -3,6 +3,7 @@ using UnityEngine;
 public class MachineGunWeapon : WeaponBase
 {
      private readonly IEventBus _bus;
+    private readonly IDamageService _damage;
 
     private float _currentHeat;
     private bool _overheated;
@@ -11,10 +12,12 @@ public class MachineGunWeapon : WeaponBase
         WeaponConfig cfg,
         WeaponRuntime rt,
         ITime tm,
-        IEventBus bus)
+        IEventBus bus,
+        IDamageService damage)
         : base(cfg, rt, tm)
     {
         _bus = bus;
+        _damage = damage;
     }
 
     
@@ -53,8 +56,21 @@ public class MachineGunWeapon : WeaponBase
             ctx.Origin,
             Quaternion.LookRotation(ctx.Direction));
 
-        var mover = go.GetComponent<StraightProjectileMover>();
-        mover.Launch(Rt.Speed, Rt.LifeTime, Rt.Damage, ctx.Owner);
+        var root = go.GetComponent<ProjectileRoot>();
+        if (root == null)
+        {
+            Object.Destroy(go);
+            return;
+        }
+
+        var pctx = new ProjectileContext
+        {
+            Rt = Rt,
+            Owner = ctx.Owner,
+            Target = null,
+            DamageService = _damage
+        };
+        root.Init(pctx);
         Tick(Time.deltaTime);
 
         _bus.Invoke(new WeaponFired(ctx.Owner, Cfg));
