@@ -38,8 +38,6 @@ public class WeaponFactory : IWeaponFactory
 
             case WeaponKind.MachineGun:
                 return new MachineGunWeapon(cfg, runtime, _time, _bus, _damage);
-
-            
         }
 
         throw new Exception("Unknown weapon type");

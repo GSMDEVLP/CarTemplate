@@ -13,9 +13,11 @@ MonoBehaviour:
   m_Name: StraightRocket
   m_EditorClassIdentifier: 
   _id: StraightRocket
+  _icon: {fileID: 0}
   _type: 0
   _fireMode: 0
   _weaponMount: 0
   _modules:
   - {fileID: 11400000, guid: 81f37c7bf9be9b4479e7af303987ffbc, type: 2}
   - {fileID: 11400000, guid: f0fc212408df5444796727284c4bd49c, type: 2}
+  - {fileID: 11400000, guid: 05ba47f93b3dc0146b2799e3e6cd16fd, type: 2}

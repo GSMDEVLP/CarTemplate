@@ -11,13 +11,18 @@ public class PlayerWeaponController : MonoBehaviour
     [SerializeField] private Transform _rearMount;
 
     private IWeaponFactory _factory;
+    private IEventBus _bus;
     private IWeapon[] _weapons;
     private int _currentIndex;
+
+    public WeaponConfig[] WeaponConfigs => _weaponConfigs;
+    public IWeapon[] Weapons => _weapons;
+    public int CurrentIndex => _currentIndex;
 
     private void Start()
     {
         _factory = CompositionRoot.Instance.WeaponFactory;
-
+        _bus = CompositionRoot.Instance.Events;
         _weapons = new IWeapon[_weaponConfigs.Length];
         for (int i = 0; i < _weaponConfigs.Length; i++)
         {
@@ -27,6 +32,7 @@ public class PlayerWeaponController : MonoBehaviour
         }
 
         _currentIndex = 0;
+        SetWeaponIndex(_currentIndex);
     }
 
     private void Update()
@@ -51,8 +57,7 @@ public class PlayerWeaponController : MonoBehaviour
         if (index < 0 || index >= _weapons.Length) return;
 
         _currentIndex = index;
-        // тут можно кинуть событие "активное оружие сменилось" для HUD
-        // _bus.Publish(new ActiveWeaponChanged(_weaponConfigs[_currentIndex]));
+        _bus.Invoke(new ActiveWeaponChanged(_weaponConfigs[_currentIndex]));
         Debug.Log($"Switched to weapon slot: {index}");
     }
 

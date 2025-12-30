@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Mine
   m_EditorClassIdentifier: 
   _id: Mine
+  _icon: {fileID: 0}
   _type: 3
   _fireMode: 0
   _weaponMount: 2
@@ -20,3 +21,4 @@ MonoBehaviour:
   - {fileID: 11400000, guid: f73786cb5e10b5f48a9da0beaf4a55a8, type: 2}
   - {fileID: 11400000, guid: e470179e02fd0dc40977b548ea8be642, type: 2}
   - {fileID: 11400000, guid: 31e5bb718750be941806c106e1e5c663, type: 2}
+  - {fileID: 11400000, guid: 9b5053bd88fc12f4d8cf389e961495c4, type: 2}

@@ -20,6 +20,9 @@ public class WeaponRuntime
     public float HeatPerShot;      
     public float CoolRatePerSec;   
 
+    public int MaxAmmo;
+    public int CurrentAmmo;
+
 }
 
 public abstract class WeaponModule: ScriptableObject

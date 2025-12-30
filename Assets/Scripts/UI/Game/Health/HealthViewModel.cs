@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public sealed class HealthViewModel : ViewModelBase
+public class HealthViewModel : ViewModelBase
 {
     public ObservableProperty<string> HpText { get; } = new ObservableProperty<string>("0");
 
@@ -9,12 +9,11 @@ public sealed class HealthViewModel : ViewModelBase
     private readonly IEventBus _bus;
     private readonly string _fullHP;
 
-    public HealthViewModel(ITakesDamage hp, IEventBus bus, string fullHP = "100")
+    public HealthViewModel(ITakesDamage hp,IEventBus bus, string fullHP = "100")
     {
         _hp = hp;
-        _bus = bus;
         _fullHP = fullHP;
-
+        _bus = bus;
         _bus.Subscribe<DamageTaken>(OnDamage);
         _bus.Subscribe<VehicleDestroyed>(OnVehicleDestroyed);
         _bus.Subscribe<UpdateVehicleInfo>(OnVehicleRespawn);

@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: StraightBullet
   m_EditorClassIdentifier: 
   _id: StraightBullet
+  _icon: {fileID: 0}
   _type: 2
   _fireMode: 1
   _weaponMount: 1
@@ -20,3 +21,4 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 3a124eafad7abd347bf964eed02c9b24, type: 2}
   - {fileID: 11400000, guid: 50edf8908df8eec4891a190a149dc29f, type: 2}
   - {fileID: 11400000, guid: 8147a7f3c6b3cc345bcd32f80202aeff, type: 2}
+  - {fileID: 11400000, guid: 3dcbe44160aed494983fdf37a99e1614, type: 2}
