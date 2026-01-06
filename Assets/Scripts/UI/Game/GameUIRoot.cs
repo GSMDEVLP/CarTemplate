@@ -11,7 +11,7 @@ public sealed class GameUIRoot  : MonoBehaviour
     [SerializeField] private float minAngle = 0f;
     [SerializeField] private float maxAngle = -275f;
     [SerializeField] private float maxSpeed = 250f;
-    [SerializeField] private float speedMultiplier = 1f;
+    [SerializeField] private float speedMultiplier = 3.6f;
 
     private SpeedometerViewModel _speedVm;
     private HealthViewModel _healthVm;

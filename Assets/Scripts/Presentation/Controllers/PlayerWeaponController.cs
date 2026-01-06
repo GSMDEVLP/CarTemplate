@@ -19,7 +19,7 @@ public class PlayerWeaponController : MonoBehaviour
     public IWeapon[] Weapons => _weapons;
     public int CurrentIndex => _currentIndex;
 
-    private void Start()
+    private void Awake()
     {
         _factory = CompositionRoot.Instance.WeaponFactory;
         _bus = CompositionRoot.Instance.Events;

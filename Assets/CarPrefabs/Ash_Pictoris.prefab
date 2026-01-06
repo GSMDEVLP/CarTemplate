@@ -285,7 +285,7 @@ Transform:
   m_GameObject: {fileID: 3829421755785644538}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.3, z: 2.28}
+  m_LocalPosition: {x: -0.002, y: -0.199, z: 2.391}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -615,6 +615,7 @@ GameObject:
   - component: {fileID: 7070938444065726737}
   - component: {fileID: 7070938444065726738}
   - component: {fileID: 7070938444065726739}
+  - component: {fileID: 5293405778551463317}
   - component: {fileID: 7070938444065726740}
   - component: {fileID: 7070938444065726742}
   - component: {fileID: 7070938444065726743}
@@ -1103,6 +1104,20 @@ MonoBehaviour:
   GearSound: {fileID: 7070938444065726738}
   minPitch: 0.2
   maxPitch: 2
+--- !u!114 &5293405778551463317
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7070938444065726697}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bea1113afac9d4f44b4d0e5ac65a97c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rb: {fileID: 7070938444065726736}
+  gearSystem: {fileID: 7070938444065726740}
 --- !u!114 &7070938444065726740
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1115,7 +1130,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 266f8bf93a4c57c44b362c816d29049c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _gearText: {fileID: 0}
   VehicleSpeed: 0
   currentGear: 0
   gearSpeeds: 280000005000000078000000a0000000dc000000
@@ -1645,7 +1659,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0.7449797, y: 0.86, z: 1.6322634}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1.8621}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7070938443671744197}
@@ -1902,6 +1916,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1525950496465744829}
   - component: {fileID: 7556206578589227627}
+  - component: {fileID: 3340983529821693518}
   m_Layer: 0
   m_Name: PlayerWeaponController
   m_TagString: Untagged
@@ -1944,6 +1959,19 @@ MonoBehaviour:
   _frontMount: {fileID: 3395083386457557524}
   _roofMount: {fileID: 5068772823209977458}
   _rearMount: {fileID: 7916710078556688416}
+--- !u!114 &3340983529821693518
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7910698206791627459}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0ccd7e1ffc9e2740af5973d70997da5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  controller: {fileID: 7556206578589227627}
 --- !u!1 &7969036155729741782
 GameObject:
   m_ObjectHideFlags: 0
