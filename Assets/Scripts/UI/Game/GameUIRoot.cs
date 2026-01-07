@@ -8,11 +8,12 @@ public sealed class GameUIRoot  : MonoBehaviour
     [SerializeField] private WeaponSlotView[] weaponSlotViews;
 
     [Header("Speedometer Settings")]
-    [SerializeField] private float minAngle = 0f;
-    [SerializeField] private float maxAngle = -275f;
     [SerializeField] private float maxSpeed = 250f;
-    [SerializeField] private float speedMultiplier = 3.6f;
-
+    
+    private float speedMultiplier = 3.6f;
+    private float minAngle = 0f;
+    private float maxAngle = -275f;
+    
     private SpeedometerViewModel _speedVm;
     private HealthViewModel _healthVm;
     private WeaponSlotViewModel[] _weaponSlotVms;

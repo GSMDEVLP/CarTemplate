@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class OutOfRoadTimeout : IEvent
+public readonly struct OutOfRoadTimeout : IEvent
 {
     public readonly Object Sender;
     public readonly float OffTime;

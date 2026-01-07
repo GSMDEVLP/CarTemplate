@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class ReversingDetected : IEvent
+public readonly struct ReversingDetected : IEvent
 {
     public readonly Object Sender;
     public ReversingDetected(Object sender)

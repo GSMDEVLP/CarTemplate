@@ -1,7 +1,7 @@
 
 using UnityEngine;
 
-public class CheckpointUpdated : IEvent
+public readonly struct CheckpointUpdated : IEvent
 {
     public readonly Transform Point;
     public readonly Vector3 Forward;

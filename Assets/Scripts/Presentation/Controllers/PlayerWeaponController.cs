@@ -6,9 +6,7 @@ public class PlayerWeaponController : MonoBehaviour
     [SerializeField] private WeaponConfig[] _weaponConfigs;
 
     [Header("Mount Points")]
-    [SerializeField] private Transform _frontMount;
-    [SerializeField] private Transform _roofMount;
-    [SerializeField] private Transform _rearMount;
+    [SerializeField] private WeaponMounts _mounts;
 
     private IWeaponFactory _factory;
     private IEventBus _bus;
@@ -63,13 +61,7 @@ public class PlayerWeaponController : MonoBehaviour
 
     private Transform ResolveMount(WeaponConfig cfg)
     {
-        switch (cfg.WeaponMount)
-        {
-            case WeaponMount.Front: return _frontMount;
-            case WeaponMount.Roof:  return _roofMount;
-            case WeaponMount.Rear:  return _rearMount;
-        }
-        return _frontMount;
+        return _mounts.Get(cfg.WeaponMount);
     }
 
     private void HandleFire()

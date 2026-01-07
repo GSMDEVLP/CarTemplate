@@ -15,7 +15,9 @@ public class CollisionDamage : MonoBehaviour
         var adapter = c.gameObject.GetComponent<ITakesDamage>();
         if (adapter != null) 
         {
-            CompositionRoot.Instance.Damage.Deal(adapter, (rel - minSpeed) * factor, this);
+            var contact = c.GetContact(0);
+            var ctx = new DamageContext(gameObject, contact.point, contact.normal);
+            CompositionRoot.Instance.Damage.Deal(adapter, (rel - minSpeed) * factor, ctx);
         }
     }
 }

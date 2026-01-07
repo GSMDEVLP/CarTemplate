@@ -39,7 +39,10 @@ public class MineProjectile : ProjectilePart
         if (other.TryGetComponent(out ITakesDamage _))
         {
             if (_damageService != null)
-                _damageService.DealArea(transform.position, _radius, _damage, _owner);
+            {
+                var ctx = new DamageContext(_owner, transform.position, Vector3.up, true);
+                _damageService.DealArea(transform.position, _radius, _damage, ctx);
+            }
             Destroy(gameObject);
         }
     }
