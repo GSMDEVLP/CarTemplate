@@ -24,7 +24,7 @@ public enum WeaponMount
 }
 
 
-[CreateAssetMenu(fileName = "Weapon", menuName = "ScriptableObject/Weapon", order = 0)]
+[CreateAssetMenu(fileName = "WeaponConfig", order = 0)]
 public class WeaponConfig : ScriptableObject
 {
     [SerializeField] private string _id;

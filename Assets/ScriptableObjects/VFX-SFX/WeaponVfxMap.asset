@@ -9,12 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 63fac700c4a44c54c90aaca873d47e25, type: 3}
-  m_Name: Weapon
+  m_Script: {fileID: 11500000, guid: 8adb6b206dccca94291df0c17acacd95, type: 3}
+  m_Name: WeaponVfxMap
   m_EditorClassIdentifier: 
-  _id: 
-  _icon: {fileID: 0}
-  _type: 0
-  _fireMode: 0
-  _weaponMount: 0
-  _modules: []
+  _defaultVfx: 0
+  _entries: []
