@@ -1957,9 +1957,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 21dd10cacc2d9f345922046c8fdab063, type: 2}
   - {fileID: 11400000, guid: 955d08b5fb383d94ea564f29aaa57d0a, type: 2}
   - {fileID: 11400000, guid: 0a35d1892a49ffc43bf84cf0c4c5e537, type: 2}
-  _frontMount: {fileID: 3395083386457557524}
-  _roofMount: {fileID: 5068772823209977458}
-  _rearMount: {fileID: 7916710078556688416}
+  _mounts: {fileID: 9141294340630893628}
 --- !u!114 &3340983529821693518
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -59,7 +59,7 @@ public class PlayerWeaponController : MonoBehaviour
         Debug.Log($"Switched to weapon slot: {index}");
     }
 
-    private Transform ResolveMount(WeaponConfig cfg)
+    public Transform ResolveMount(WeaponConfig cfg)
     {
         return _mounts.Get(cfg.WeaponMount);
     }
