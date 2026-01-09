@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class RespawnDetector : MonoBehaviour
 {
+    [SerializeField] private Rigidbody _rb;
     [Header("Road & Checkpoints")]
     [SerializeField] private string roadLayerName = "Road";
     [SerializeField] private float rayDistance = 5f;
@@ -21,7 +22,6 @@ public class RespawnDetector : MonoBehaviour
 
     [SerializeField] private float _respawnDelay = 1f;
 
-    private Rigidbody _rb;
     private IEventBus _bus;
 
     private Transform _lastCheckpoint;
@@ -34,7 +34,6 @@ public class RespawnDetector : MonoBehaviour
 
     private void Awake()
     {
-        _rb = GetComponent<Rigidbody>();
         _roadLayerMask = LayerMask.GetMask(roadLayerName);
         _bus = CompositionRoot.Instance.Events;
     }

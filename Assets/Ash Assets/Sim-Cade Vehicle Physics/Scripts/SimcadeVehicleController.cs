@@ -80,13 +80,13 @@ namespace Ashsvp
         
         private RaycastHit[] wheelHits = new RaycastHit[4];
 
-        [Header("Speedometer")]
-        [SerializeField] private float _minSpeedArrowAngle;
-        [SerializeField] private float _maxSpeedArrowAngle;
-        [SerializeField] private TextMeshProUGUI _speedText;
-        [SerializeField] private RectTransform _arrow;
+        // [Header("Speedometer")]
+        // [SerializeField] private float _minSpeedArrowAngle;
+        // [SerializeField] private float _maxSpeedArrowAngle;
+        // [SerializeField] private TextMeshProUGUI _speedText;
+        // [SerializeField] private RectTransform _arrow;
 
-        private float _currSpeed;
+        // private float _currSpeed;
 
         private float _constSpeed = 3.6f;
 
@@ -298,15 +298,15 @@ namespace Ashsvp
 
         }
 
-        private void SetSpeedometer()
-        {
-            _currSpeed = rb.velocity.magnitude * _constSpeed;
+        // private void SetSpeedometer()
+        // {
+        //     _currSpeed = rb.velocity.magnitude * _constSpeed;
 
-            if (_speedText != null)
-                _speedText.text = ((int)_currSpeed).ToString();
-            if (_arrow != null)
-                _arrow.localEulerAngles = new Vector3(0, 0, Mathf.Lerp(_minSpeedArrowAngle, _maxSpeedArrowAngle, _currSpeed / MaxSpeed));
-        }
+        //     if (_speedText != null)
+        //         _speedText.text = ((int)_currSpeed).ToString();
+        //     if (_arrow != null)
+        //         _arrow.localEulerAngles = new Vector3(0, 0, Mathf.Lerp(_minSpeedArrowAngle, _maxSpeedArrowAngle, _currSpeed / MaxSpeed));
+        // }
 
         void AddAcceleration(float accelerationInput)
         {
@@ -331,7 +331,7 @@ namespace Ashsvp
             {
                 rb.velocity += transform.forward * deltaSpeed;
             }
-            SetSpeedometer();            
+            // SetSpeedometer();            
         }
 
         void AddRollingResistance()

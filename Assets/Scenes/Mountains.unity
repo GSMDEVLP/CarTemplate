@@ -2175,11 +2175,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1365457513}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!224 &111788548 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 4326399221091783066, guid: 9caccc3b74795ec428cf142136d353e6, type: 3}
-  m_PrefabInstance: {fileID: 2146322258336489895}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &116566004
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9212,25 +9207,9 @@ PrefabInstance:
     m_TransformParent: {fileID: 371890751}
     m_Modifications:
     - target: {fileID: 6175705721777938596, guid: 8e4da742f645178499e9ded37f41ed0f, type: 3}
-      propertyPath: turboON
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6175705721777938596, guid: 8e4da742f645178499e9ded37f41ed0f, type: 3}
-      propertyPath: maxSpeed
-      value: 200
-      objectReference: {fileID: 0}
-    - target: {fileID: 6175705721777938596, guid: 8e4da742f645178499e9ded37f41ed0f, type: 3}
       propertyPath: AIcircuit
       value: 
       objectReference: {fileID: 1365457514}
-    - target: {fileID: 6175705721777938596, guid: 8e4da742f645178499e9ded37f41ed0f, type: 3}
-      propertyPath: currentTab
-      value: Engine
-      objectReference: {fileID: 0}
-    - target: {fileID: 6175705721777938596, guid: 8e4da742f645178499e9ded37f41ed0f, type: 3}
-      propertyPath: toolbarTab
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 6175705722781892197, guid: 8e4da742f645178499e9ded37f41ed0f, type: 3}
       propertyPath: m_Name
       value: AnyCarAI
@@ -9277,9 +9256,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 490073866891153125, guid: 8e4da742f645178499e9ded37f41ed0f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1837509323}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8e4da742f645178499e9ded37f41ed0f, type: 3}
+--- !u!4 &477172911 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 490073866891153125, guid: 8e4da742f645178499e9ded37f41ed0f, type: 3}
+  m_PrefabInstance: {fileID: 477172910}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &479320978
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -13715,6 +13702,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6175705722781892197, guid: 8e4da742f645178499e9ded37f41ed0f, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6175705722781892198, guid: 8e4da742f645178499e9ded37f41ed0f, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -18088,14 +18079,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7070938444065726751, guid: 001b4c4180c7c944685a0a04c54397ed, type: 3}
-      propertyPath: _arrow
-      value: 
-      objectReference: {fileID: 111788548}
-    - target: {fileID: 7070938444065726751, guid: 001b4c4180c7c944685a0a04c54397ed, type: 3}
-      propertyPath: _speedText
-      value: 
-      objectReference: {fileID: 1879649412}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -28541,6 +28524,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: AnyCarAI (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 6175705722781892197, guid: 8e4da742f645178499e9ded37f41ed0f, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6175705722781892198, guid: 8e4da742f645178499e9ded37f41ed0f, type: 3}
       propertyPath: m_LocalPosition.x
       value: 13.62
@@ -32919,6 +32906,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6175705722781892197, guid: 8e4da742f645178499e9ded37f41ed0f, type: 3}
       propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6175705722781892197, guid: 8e4da742f645178499e9ded37f41ed0f, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6175705722781892198, guid: 8e4da742f645178499e9ded37f41ed0f, type: 3}
@@ -40359,6 +40350,37 @@ Transform:
   - {fileID: 1118331633}
   m_Father: {fileID: 439666047}
   m_LocalEulerAnglesHint: {x: 0, y: -504.229, z: 0}
+--- !u!1 &1837509322
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1837509323}
+  m_Layer: 9
+  m_Name: AIWeapon
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1837509323
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1837509322}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 477172911}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1846287838
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -41752,17 +41774,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6640410855279546808, guid: 587a0a45182883d45815c21acf8e123b, type: 3}
   m_PrefabInstance: {fileID: 1879583388}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1879649412 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7320589701940359536, guid: 9caccc3b74795ec428cf142136d353e6, type: 3}
-  m_PrefabInstance: {fileID: 2146322258336489895}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1881106629
 GameObject:
   m_ObjectHideFlags: 0

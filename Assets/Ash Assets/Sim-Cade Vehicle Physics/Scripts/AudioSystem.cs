@@ -7,22 +7,19 @@ namespace Ashsvp
 {
     public class AudioSystem : MonoBehaviour
     {
+        [SerializeField] private GearSystem gearSystem;
+
+        [SerializeField] private SimcadeVehicleController SimcadeVehicleController;
+        [SerializeField] private Rigidbody vehicle_rb;
         public AudioSource engineSound;
         public AudioSource GearSound;
         [Range(0, 1)]
         public float minPitch;
         [Range(1, 3)]
         public float maxPitch;
-        private GearSystem gearSystem;
-
-        private SimcadeVehicleController SimcadeVehicleController;
-        private Rigidbody vehicle_rb;
 
         private void Start()
         {
-            gearSystem = GetComponent<GearSystem>();
-            SimcadeVehicleController = GetComponent<SimcadeVehicleController>();
-            vehicle_rb = GetComponent<Rigidbody>();
             engineSound.pitch = minPitch;
         }
 
