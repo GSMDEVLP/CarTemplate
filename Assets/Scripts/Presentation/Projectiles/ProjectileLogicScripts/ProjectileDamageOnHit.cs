@@ -8,11 +8,13 @@ public class ProjectileDamageOnHit : ProjectilePart
 
     private void OnTriggerEnter(Collider other)
     {
+        Debug.Log("ProjectileDamageOnHit OnTriggerEnter with " + other.name);
         HandleTrigger(other);
     }
 
     private void OnCollisionEnter(Collision collision)
     {
+        Debug.Log("ProjectileDamageOnHit OnCollisionEnter with " + collision.gameObject.name);
         HandleCollision(collision);
     }
 

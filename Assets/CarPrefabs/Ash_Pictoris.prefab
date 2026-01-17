@@ -719,7 +719,6 @@ GameObject:
   m_Component:
   - component: {fileID: 7001391253139333091}
   - component: {fileID: 8232173489042633074}
-  - component: {fileID: 3585026645662505441}
   m_Layer: 11
   m_Name: Respawn
   m_TagString: Untagged
@@ -765,18 +764,6 @@ MonoBehaviour:
   reverseDelay: 3
   offRoadDelay: 0
   _respawnDelay: 1
---- !u!114 &3585026645662505441
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5560254514204826797}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c59b4a414fc92264dbb111c67346850a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &6687759822525529751
 GameObject:
   m_ObjectHideFlags: 0
@@ -1067,6 +1054,7 @@ GameObject:
   - component: {fileID: 5293405778551463317}
   - component: {fileID: 7070938444065726740}
   - component: {fileID: 7070938444065726696}
+  - component: {fileID: 8395182108565926941}
   m_Layer: 11
   m_Name: Ash_Pictoris
   m_TagString: Player
@@ -1350,6 +1338,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rb: {fileID: 7070938444065726736}
   gearSystem: {fileID: 7070938444065726740}
+  _damageResolve: {fileID: 2340897646428125869}
 --- !u!114 &7070938444065726740
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1382,6 +1371,21 @@ MonoBehaviour:
   bodyCollider: {fileID: 7070938445250650490}
   LowerBodyFriction: 0
   UpperBodyFriction: 0.5
+--- !u!114 &8395182108565926941
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7070938444065726697}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b90a112672afb9c42ba7f31345d1e170, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _receivers:
+  - {fileID: 8232173489042633074}
+  - {fileID: 643215673028742614}
 --- !u!1 &7070938444076707886
 GameObject:
   m_ObjectHideFlags: 0
@@ -1736,7 +1740,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7070938445250650489}
   - component: {fileID: 7070938445250650490}
-  - component: {fileID: 3398575171617331022}
+  - component: {fileID: 4367923495306005443}
   m_Layer: 11
   m_Name: Body Collider
   m_TagString: Untagged
@@ -1780,7 +1784,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 2.0600114, y: 0.4418794, z: 4.6217318}
   m_Center: {x: 0, y: 0.29088432, z: 0}
---- !u!114 &3398575171617331022
+--- !u!114 &4367923495306005443
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1789,12 +1793,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 7070938445250650491}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b90a112672afb9c42ba7f31345d1e170, type: 3}
+  m_Script: {fileID: 11500000, guid: af1ce95fcab5a1d4d952792cc1655eb7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _receivers:
-  - {fileID: 8232173489042633074}
-  - {fileID: 643215673028742614}
+  target: {fileID: 1300649868408776404}
 --- !u!1 &7070938445261067002
 GameObject:
   m_ObjectHideFlags: 0
