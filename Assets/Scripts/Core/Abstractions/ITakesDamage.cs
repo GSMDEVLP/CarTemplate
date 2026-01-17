@@ -1,3 +1,4 @@
+
 public interface ITakesDamage
 {
     public float CurrentHP { get; }

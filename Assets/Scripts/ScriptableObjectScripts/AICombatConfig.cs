@@ -37,6 +37,7 @@ public class PursuitSettings
 {
     public float SensorDistance = 25f;
     public float ProxyHeightOffset = 0f;
+    public bool PursueOnlyOnHit = true;
 }
 
 [CreateAssetMenu(fileName = "AICombatConfig", menuName = "AI/Combat Config")]
@@ -53,7 +54,6 @@ public class AICombatConfig : ScriptableObject
 
     [Header("Pursuit")]
     [SerializeField] private PursuitSettings _pursuit = new PursuitSettings();
-
 
     public TargetingSettings Targeting => _targeting;
     public ThreatSettings Threat => _threat;

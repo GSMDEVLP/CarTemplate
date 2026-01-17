@@ -41,6 +41,15 @@ public class HomingProjectileMover : ProjectilePart
         if (rb.velocity.sqrMagnitude < 0.01f)
             rb.velocity = transform.forward * Mathf.Min(_maxSpeed * 0.5f, 20f);
     }
+    private void OnEnable()
+    {
+        if (rb != null)
+        {
+            rb.velocity = Vector3.zero;
+            rb.angularVelocity = Vector3.zero;
+        }
+    }
+
 
     private void FixedUpdate()
     {

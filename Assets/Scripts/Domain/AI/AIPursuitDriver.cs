@@ -6,15 +6,17 @@ public sealed class AIPursuitDriver : IDisposable
     private readonly Transform _selfRoot;
     private readonly AnyCarAI _carAi;
     private readonly AICombatConfig _config;
+    private readonly AIThreatTracker _threat;
 
     private GameObject _proxy;
     private static Mesh _proxyMesh;
 
-    public AIPursuitDriver(Transform selfRoot, AnyCarAI carAi, AICombatConfig config)
+    public AIPursuitDriver(Transform selfRoot, AnyCarAI carAi, AICombatConfig config, AIThreatTracker threat)
     {
         _selfRoot = selfRoot;
         _carAi = carAi;
         _config = config;
+        _threat = threat;
     }
 
     public void Update(AITargetSensor target, Vector3 offset)
@@ -26,6 +28,16 @@ public sealed class AIPursuitDriver : IDisposable
         {
             _carAi.persuitAiOn = false;
             return;
+        }
+
+        if (_config.Pursuit.PursueOnlyOnHit)
+        {
+            bool hitRecently = _threat != null && _threat.HasRecentHit(_config.Threat.HitAggroDuration);
+            if (!hitRecently)
+            {
+                _carAi.persuitAiOn = false;
+                return;
+            }
         }
 
         EnsureProxy();

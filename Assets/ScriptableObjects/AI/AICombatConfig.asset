@@ -12,27 +12,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be4c2b941fadd8b46a7f4da079c45c2d, type: 3}
   m_Name: AICombatConfig
   m_EditorClassIdentifier: 
-  Targeting:
+  _targeting:
     EngageDistance: 40
     LoseDistance: 70
     LineOfSightDistance: 60
     LineOfSightMask:
       serializedVersion: 2
-      m_Bits: 4294967295
+      m_Bits: 2048
     MemoryDuration: 4
-  Threat:
+  _threat:
     HitAggroDuration: 6
-  Avoidance:
+  _avoidance:
     MineAvoidRadius: 8
     MineAvoidStrength: 6
     MineMask:
       serializedVersion: 2
-      m_Bits: 4294967295
+      m_Bits: 1024
     LineOfFireAngle: 20
     LineOfFireAvoidDuration: 1.2
     LineOfFireOffset: 6
     HitEvasionDuration: 0.8
     HitEvasionOffset: 4
-  Pursuit:
+  _pursuit:
     SensorDistance: 25
     ProxyHeightOffset: 0
+    PursueOnlyOnHit: 1

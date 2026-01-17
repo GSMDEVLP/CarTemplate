@@ -18,6 +18,6 @@ public class ProjectileLifetime : ProjectilePart
 
         _t += Time.deltaTime;
         if (_t >= _lifeTime)
-            Destroy(gameObject);
+            ProjectileDespawn.Release(gameObject);
     }
 }

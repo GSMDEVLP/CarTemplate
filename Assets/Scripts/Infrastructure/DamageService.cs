@@ -29,6 +29,7 @@ public class DamageService : IDamageService
         }
     }
 
+
     public void DealArea(Vector3 position, float radius, float amount, DamageContext ctx)
     {
         var hits = Physics.OverlapSphere(position, radius, ~0, QueryTriggerInteraction.Ignore);
@@ -43,4 +44,5 @@ public class DamageService : IDamageService
         }
         _bus.Invoke(new Explosion(position, radius));
     }
+
 }

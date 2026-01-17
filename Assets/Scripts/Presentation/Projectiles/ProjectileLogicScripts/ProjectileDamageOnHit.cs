@@ -3,6 +3,8 @@ using UnityEngine;
 public class ProjectileDamageOnHit : ProjectilePart
 {
     private bool _consumed;
+    
+    private void OnEnable() { _consumed = false; }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -30,7 +32,7 @@ public class ProjectileDamageOnHit : ProjectilePart
                 Ctx.DamageService.Deal(td, Ctx.Rt.Damage, ctx);
             }
             _consumed = true;
-            Destroy(gameObject);
+            ProjectileDespawn.Release(gameObject);
         }
     }
 

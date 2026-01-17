@@ -1,3 +1,4 @@
+
 public readonly struct ActiveWeaponChanged : IEvent
 {
     public readonly WeaponConfig Config;

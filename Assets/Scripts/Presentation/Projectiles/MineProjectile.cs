@@ -43,7 +43,13 @@ public class MineProjectile : ProjectilePart
                 var ctx = new DamageContext(_owner, transform.position, Vector3.up, true);
                 _damageService.DealArea(transform.position, _radius, _damage, ctx);
             }
-            Destroy(gameObject);
+            ProjectileDespawn.Release(gameObject);
         }
     }
+    private void OnDisable()
+    {
+        if (_armingRoutine != null) { StopCoroutine(_armingRoutine); _armingRoutine = null; }
+        _armed = false;
+    }
+
 }
