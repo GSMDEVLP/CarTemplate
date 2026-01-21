@@ -52,7 +52,7 @@ public sealed class GameUIRoot  : MonoBehaviour
             maxSpeed,
             provider.GearSystem
         );
-        _healthVm = new HealthViewModel(provider.DamageResolve, _bus);
+        _healthVm = new HealthViewModel(provider.DamageResolve, _bus, provider.EntityIdComponent);
 
         healthView.Bind(_healthVm);
         speedometerView.Bind(_speedVm);

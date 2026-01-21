@@ -9,10 +9,13 @@ public class HealthViewModel : ViewModelBase
     private readonly IEventBus _bus;
     private readonly string _fullHP;
 
-    public HealthViewModel(ITakesDamage hp,IEventBus bus, string fullHP = "100")
+    private readonly EntityId _playerId;
+
+    public HealthViewModel(ITakesDamage hp,IEventBus bus, EntityIdComponent entityIdComponent, string fullHP = "100")
     {
         _hp = hp;
         _fullHP = fullHP;
+        _playerId = entityIdComponent.Id;
         _bus = bus;
         _bus.Subscribe<DamageTaken>(OnDamage);
         _bus.Subscribe<VehicleDestroyed>(OnVehicleDestroyed);
@@ -23,13 +26,14 @@ public class HealthViewModel : ViewModelBase
 
     private void OnDamage(DamageTaken e)
     {
-        if (e.Target == _hp)
+        if (e.Target.Equals(_playerId))
             Refresh();
     }
 
     private void OnVehicleDestroyed(VehicleDestroyed e)
     {
-        HpText.Value = "Destroyed";
+        if (e.Target.Equals(_playerId))
+            HpText.Value = "Destroyed";
     }
 
     private void OnVehicleRespawn(UpdateVehicleInfo e)

@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: AICombatConfig
   m_EditorClassIdentifier: 
   _targeting:
-    EngageDistance: 40
-    LoseDistance: 70
-    LineOfSightDistance: 60
+    EngageDistance: 70
+    LoseDistance: 120
+    LineOfSightDistance: 120
     LineOfSightMask:
       serializedVersion: 2
-      m_Bits: 2048
+      m_Bits: 4294967295
     MemoryDuration: 4
   _threat:
     HitAggroDuration: 6
