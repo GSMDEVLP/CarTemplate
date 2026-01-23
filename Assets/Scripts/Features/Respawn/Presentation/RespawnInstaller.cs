@@ -11,10 +11,10 @@ public sealed class RespawnInstaller : MonoBehaviour, IInstaller
         {
             for (int i = 0; i < detectors.Length; i++)
                 if (detectors[i] != null)
-                    detectors[i].Init(services.Events);
+                    detectors[i].Init(services.EventBus);
         }
 
         if (executor != null)
-            executor.Init(services.Events);
+            executor.Init(services.EventBus);
     }
 }

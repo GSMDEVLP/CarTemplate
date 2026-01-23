@@ -2,16 +2,16 @@ using UnityEngine;
 
 public sealed class GameServices
 {
-    public IEventBus Events { get; }
+    public IEventBus EventBus { get; }
     public ITime Time { get; }
     public IDamageService Damage { get; }
     public ITargetingService Targeting { get; }
 
     public GameServices(LayerMask enemyLayer, bool useLineOfSight)
     {
-        Events = new EventBus();
+        EventBus = new EventBus();
         Time = new UnityTimeService();
-        Damage = new DamageService(Events);
+        Damage = new DamageService(EventBus);
         Targeting = new UnityPhysicsTargeting(enemyLayer, useLineOfSight);
     }
 }

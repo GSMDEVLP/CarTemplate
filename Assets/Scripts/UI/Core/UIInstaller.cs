@@ -7,6 +7,6 @@ public sealed class UIInstaller : MonoBehaviour
     public void Install(GameServices services)
     {
         if (gameUIRoot != null)
-            gameUIRoot.Init(services.Events);
+            gameUIRoot.Init(services.EventBus);
     }
 }

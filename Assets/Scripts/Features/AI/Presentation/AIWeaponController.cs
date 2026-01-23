@@ -15,10 +15,10 @@ public class AIWeaponController : MonoBehaviour
     [Header("Mounts")]
     [SerializeField] private WeaponMounts _mounts;
 
+    private AIWeaponSlotData[] _slotData;
     private IAITargetProvider _target;
     private AIWeaponSelector _selector;
     private AIWeaponBurstPlanner _planner;
-
     private WeaponService _service;
     private IEventBus _bus;
 
@@ -35,22 +35,20 @@ public class AIWeaponController : MonoBehaviour
     private void Awake()
     {
         _selector = new AIWeaponSelector();
-        _planner = new AIWeaponBurstPlanner();
+        _planner = new AIWeaponBurstPlanner(new System.Random());
         _target = _targetProvider.GetComponent<IAITargetProvider>();
-    }
 
+        _slotData = BuildSlotData(_profile);
+    }
+    
     private void Update()
     {
-        if (!IsReady())
-            return;
-
+        if (!IsReady()) return;
         if (_service == null) return;
-
 
         _service.Tick(Time.deltaTime);
 
-        if (!HasValidTarget())
-            return;
+        if (!HasValidTarget()) return;
 
         float dot = ComputeTargetDot();
 
@@ -61,10 +59,10 @@ public class AIWeaponController : MonoBehaviour
         if (!TryGetWeapon(out var slot, out var weapon))
             return;
 
-        if (!CanFire(slot, weapon))
+        if (!CanFire(slotIndex, weapon))
             return;
 
-        Fire(slot, weapon);
+        Fire(slotIndex, slot, weapon);
     }
 
     private bool IsReady()
@@ -72,7 +70,10 @@ public class AIWeaponController : MonoBehaviour
         if (_profile == null || _profile.Slots == null || _profile.Slots.Length == 0)
             return false;
 
-        if (_service  == null || _selector == null || _planner == null)
+        if (_service == null || _selector == null || _planner == null || _target == null)
+            return false;
+
+        if (_slotData == null || _slotData.Length == 0)
             return false;
 
         return true;
@@ -90,7 +91,8 @@ public class AIWeaponController : MonoBehaviour
 
     private float ComputeTargetDot()
     {
-        Vector3 toTarget = _target.AimPoint - transform.position;
+        var aimU = UnityVectorAdapter.ToUnity(_target.AimPoint);
+        Vector3 toTarget = aimU - transform.position;
         if (toTarget.sqrMagnitude <= 0.001f)
             return 1f;
 
@@ -100,10 +102,10 @@ public class AIWeaponController : MonoBehaviour
     private int SelectSlotIndex(float dot)
     {
         return _selector.SelectSlot(
-            _profile,
-            _target.TargetDistance,
-            dot,
-            _target.HasLineOfSight);
+                _slotData,
+                _target.TargetDistance,
+                dot,
+                _target.HasLineOfSight);
     }
 
     private bool EnsureActiveSlot(int slotIndex)
@@ -135,31 +137,29 @@ public class AIWeaponController : MonoBehaviour
         return true;
     }
 
-    private bool CanFire(AIWeaponSlot slot, IWeapon weapon)
+    private bool CanFire(int slotIndex, IWeapon weapon)
     {
-        if (!_planner.CanFire(Time.time, slot))
-            return false;
+        if (slotIndex < 0 || slotIndex >= _slotData.Length) return false;
+        if (weapon == null || !weapon.CanFire) return false;
 
-        if (!weapon.CanFire)
-            return false;
-
-        return true;
+        var slotData = _slotData[slotIndex];
+        return _planner.CanFire(Time.time, slotData);
     }
 
-    private void Fire(AIWeaponSlot slot, IWeapon weapon)
+    private void Fire(int slotIndex, AIWeaponSlot slot, IWeapon weapon)
     {
         Debug.Log($"AI Firing weapon");
         Transform mount = ResolveMount(slot);
         Vector3 dir = ResolveDirection(mount);
 
-        var ownerId = _entity.Id; 
+        var ownerId = _entity.Id;
         var ctx = new FireContext(
             UnityVectorAdapter.ToNumerics(mount.position),
-            direction: UnityVectorAdapter.ToNumerics(dir),
+            UnityVectorAdapter.ToNumerics(dir),
             ownerId);
 
         weapon.Fire(ctx);
-        _planner.ConsumeShot(Time.time, slot);
+        _planner.ConsumeShot(Time.time, _slotData[slotIndex]);
     }
 
     private Transform ResolveMount(AIWeaponSlot slot)
@@ -175,5 +175,33 @@ public class AIWeaponController : MonoBehaviour
             dir = transform.forward;
 
         return dir.normalized;
+    }
+    private static AIWeaponSlotData[] BuildSlotData(AIWeaponProfile profile)
+    {
+        if (profile == null || profile.Slots == null) return null;
+
+        var data = new AIWeaponSlotData[profile.Slots.Length];
+        for (int i = 0; i < profile.Slots.Length; i++)
+        {
+            var s = profile.Slots[i];
+            if (s == null || s.Config == null) continue;
+
+            data[i] = new AIWeaponSlotData
+            {
+                Kind = s.Config.Type,
+                Priority = s.Priority,
+                MinRange = s.MinRange,
+                MaxRange = s.MaxRange,
+                MinDot = s.MinDot,
+                MaxDot = s.MaxDot,
+                RequiresLineOfSight = s.RequiresLineOfSight,
+                BurstMinShots = s.BurstMinShots,
+                BurstMaxShots = s.BurstMaxShots,
+                ShotInterval = s.ShotInterval,
+                BurstCooldownMin = s.BurstCooldownMin,
+                BurstCooldownMax = s.BurstCooldownMax
+            };
+        }
+        return data;
     }
 }

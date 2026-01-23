@@ -1,21 +1,20 @@
 public sealed class AIWeaponSelector
 {
-    public int SelectSlot(AIWeaponProfile profile, float distance, float dot, bool hasLineOfSight)
+    public int SelectSlot(AIWeaponSlotData[] slots, float distance, float dot, bool hasLineOfSight)
     {
-        if (profile == null || profile.Slots == null || profile.Slots.Length == 0)
+        if (slots == null || slots.Length == 0)
             return -1;
 
         int best = -1;
         int bestPriority = int.MinValue;
         float bestRange = float.MaxValue;
 
-        for (int i = 0; i < profile.Slots.Length; i++)
+        for (int i = 0; i < slots.Length; i++)
         {
-            var slot = profile.Slots[i];
-            if (slot == null || slot.Config == null)
-                continue;
+            var slot = slots[i];
+            if (slot == null) continue;
 
-            if (slot.Config.Type == WeaponKind.Homing)
+            if (slot.Kind == WeaponKind.Homing)
                 continue;
 
             if (distance < slot.MinRange || distance > slot.MaxRange)

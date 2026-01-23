@@ -1,4 +1,5 @@
 using System;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -37,6 +38,12 @@ namespace Ashsvp
         public float AccelerationInput { get; private set; }
         public float HandbrakeInput { get; private set; }
 
+        private IEventBus _bus;
+
+        public void Init(IEventBus bus)
+        {
+            _bus = bus;
+        }
 
         private void Update()
         {
@@ -51,12 +58,27 @@ namespace Ashsvp
                 tempHandbrakeInput = GetMobileHandbrakeInput();
             }
 
-
-
             AccelerationInput = Mathf.Abs(tempAccelerationInput) > 0 ? Mathf.Lerp(AccelerationInput, tempAccelerationInput, 15 * Time.deltaTime) : 0;
             SteerInput = Mathf.Abs(tempSteerInput) > 0 ? Mathf.Lerp(SteerInput, tempSteerInput, 15 * Time.deltaTime)
                 : Mathf.Lerp(SteerInput, tempSteerInput, 25 * Time.deltaTime);
             HandbrakeInput = tempHandbrakeInput;
+
+            GetKeyboardSwitchWeapoInput();
+            GetMouseAttackInput();
+        }
+
+        private void GetMouseAttackInput()
+        {
+            if(Input.GetMouseButton(0))
+                _bus.Invoke(new OnWeaponFiredInput());
+        }
+
+        private void GetKeyboardSwitchWeapoInput()
+        {
+            if (Input.GetKeyDown(KeyCode.Alpha1)) _bus.Invoke(new OnWeaponSwitched(0));
+            if (Input.GetKeyDown(KeyCode.Alpha2)) _bus.Invoke(new OnWeaponSwitched(1));
+            if (Input.GetKeyDown(KeyCode.Alpha3)) _bus.Invoke(new OnWeaponSwitched(2));
+            if (Input.GetKeyDown(KeyCode.Alpha4)) _bus.Invoke(new OnWeaponSwitched(3));
         }
 
         private float GetKeyboardSteerInput()

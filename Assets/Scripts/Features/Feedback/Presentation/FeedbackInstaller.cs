@@ -10,10 +10,10 @@ public sealed class FeedbackInstaller : MonoBehaviour, IInstaller
 
     public void Install(GameServices services)
     {
-        if (vfxEmitter != null) vfxEmitter.Init(services.Events);
-        if (sfxEmitter != null) sfxEmitter.Init(services.Events);
-        if (vfxSystem != null) vfxSystem.Init(services.Events);
-        if (sfxSystem != null) sfxSystem.Init(services.Events);
-        if (cameraImpulse != null) cameraImpulse.Init(services.Events);
+        if (vfxEmitter != null) vfxEmitter.Init(services.EventBus);
+        if (sfxEmitter != null) sfxEmitter.Init(services.EventBus);
+        if (vfxSystem != null) vfxSystem.Init(services.EventBus);
+        if (sfxSystem != null) sfxSystem.Init(services.EventBus);
+        if (cameraImpulse != null) cameraImpulse.Init(services.EventBus);
     }
 }

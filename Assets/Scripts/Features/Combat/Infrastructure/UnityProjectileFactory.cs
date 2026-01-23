@@ -50,7 +50,17 @@ public sealed class UnityProjectileFactory : IProjectileFactory
 
         Transform target = null;
         if (_targeting != null && rt.SeekRadius > 0f)
-            target = _targeting.FindClosest(originU, dirU, rt.SeekRadius, t => t != null);
+        {
+            if (_targeting.TryFindTarget(
+                    UnityVectorAdapter.ToNumerics(originU),
+                    UnityVectorAdapter.ToNumerics(dirU),
+                    rt.SeekRadius,
+                    out var info))
+            {
+                UnityEntityRegistry.TryGet(info.Id, out var gameObject);
+                target = gameObject != null ? gameObject.transform : null;
+            }
+        }
 
         var ctx = new ProjectileContext
         {

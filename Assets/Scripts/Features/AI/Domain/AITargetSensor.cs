@@ -1,143 +1,93 @@
 using System;
-using UnityEngine;
+using System.Data;
+using NVec3 = System.Numerics.Vector3;
 
-public sealed class AITargetSensor
+public sealed class AITargetSensor : IAITargetProvider
 {
-    private readonly Transform _selfRoot;
-    private readonly Transform _sensorOrigin;
-    private readonly Func<Transform> _overrideProvider;
+    private readonly EntityId _selfId;
+    private readonly ITargetingService _targeting;
+    private readonly ITime _time;
+    private readonly Func<EntityId?> _overrideProvider;
     private readonly AICombatConfig _config;
     private readonly AIThreatTracker _threat;
 
-    private Transform _target;
-    private bool _hasTarget;
-    private bool _hasLineOfSight;
-    private float _targetDistance;
+    private TargetInfo _info;
     private float _lastSeenTime = -999f;
-    private Vector3 _lastSeenPos;
-    private Vector3 _aimPoint;
+    private NVec3 _lastSeenPos;
+    private NVec3 _aimPoint;
 
-    public bool HasTarget => _hasTarget;
-    public Transform Target => _target;
-    public bool HasLineOfSight => _hasLineOfSight;
-    public float TargetDistance => _targetDistance;
-    public Vector3 LastKnownPosition => _lastSeenPos;
-    public Vector3 AimPoint => _aimPoint;
+    public bool HasTarget => _info.IsValid;
+    public EntityId TargetId => _info.Id;
+    public bool HasLineOfSight => _info.HasLineOfSight;
+    public float TargetDistance => _info.Distance;
+    public NVec3 LastKnownPosition => _lastSeenPos;
+    public NVec3 AimPoint => _aimPoint;
 
     public AITargetSensor(
-        Transform selfRoot,
-        Transform sensorOrigin,
-        Func<Transform> overrideProvider,
+        EntityId selfId,
+        ITargetingService targeting,
+        ITime time,
+        Func<EntityId?> overrideProvider,
         AICombatConfig config,
         AIThreatTracker threat)
     {
-        _selfRoot = selfRoot;
-        _sensorOrigin = sensorOrigin != null ? sensorOrigin : selfRoot;
+        _selfId = selfId;
+        _targeting = targeting;
         _overrideProvider = overrideProvider;
         _config = config;
         _threat = threat;
+        _time = time;
     }
 
-    public void Update()
+    public void Update(NVec3 origin, NVec3 forward)
     {
-        ResolveTarget();
+        _info = default;
+        _aimPoint = NVec3.Zero;
 
-        _hasTarget = false;
-        _hasLineOfSight = false;
-        _targetDistance = 0f;
-        _aimPoint = Vector3.zero;
-
-        if (_target == null || _config == null)
+        if (_config == null || _targeting == null)
             return;
 
-        Vector3 origin = _sensorOrigin.position;
-        Vector3 toTarget = _target.position - origin;
-        _targetDistance = toTarget.magnitude;
-
-        if (_targetDistance > 0.01f && _targetDistance <= _config.Targeting.LineOfSightDistance)
-            _hasLineOfSight = HasLineOfSightTarget(origin, _target.position, _config.Targeting.LineOfSightMask);
-
-        if (_hasLineOfSight)
+        var overrideId = _overrideProvider != null ? _overrideProvider() : null;
+        if (overrideId.HasValue && overrideId.Value.IsValid)
         {
-            _lastSeenTime = Time.time;
-            _lastSeenPos = _target.position;
+            _info = new TargetInfo(overrideId.Value, origin, origin, 0f, true);
+        }
+        else
+        {
+            _targeting.TryFindTarget(
+                origin,
+                forward,
+                _config.Targeting.EngageDistance,
+                out _info);
         }
 
-        bool seenRecently = Time.time - _lastSeenTime <= _config.Targeting.MemoryDuration;
+        if (!_info.IsValid)
+            return;
+
+        if (_info.HasLineOfSight)
+        {
+            _lastSeenTime = TimeNow();
+            _lastSeenPos = _info.Position;
+        }
+
+        bool seenRecently = TimeNow() - _lastSeenTime <= _config.Targeting.MemoryDuration;
         bool hitRecently = _threat != null && _threat.HasRecentHit(_config.Threat.HitAggroDuration);
-        bool withinEngage = _targetDistance <= _config.Targeting.EngageDistance;
-        bool tooFar = _targetDistance > _config.Targeting.LoseDistance;
+        bool withinEngage = _info.Distance <= _config.Targeting.EngageDistance;
+        bool tooFar = _info.Distance > _config.Targeting.LoseDistance;
 
-        _hasTarget = (withinEngage || seenRecently || hitRecently) && !tooFar;
-        if (_hasTarget)
+        bool hasTarget = (withinEngage || seenRecently || hitRecently) && !tooFar;
+        if (hasTarget)
         {
-            if (_hasLineOfSight)
-                _aimPoint = _target.position;
-            else if (seenRecently)
-                _aimPoint = _lastSeenPos;
-            else
-                _aimPoint = _target.position;
+            _aimPoint = _info.HasLineOfSight ? _info.Position : _lastSeenPos;
+        }
+        else
+        {
+            _info = default;
         }
     }
 
-    private void ResolveTarget()
+    private float TimeNow()
     {
-        Transform overrideTarget = _overrideProvider != null ? _overrideProvider() : null;
-        if (overrideTarget != null)
-        {
-            _target = overrideTarget;
-            return;
-        }
-
-        if (_target != null && _target.gameObject.activeInHierarchy)
-            return;
-
-        var playerProvider = PlayerVehicleProvider.Instance;
-        if (playerProvider != null && playerProvider.Rigidbody != null)
-            _target = playerProvider.Rigidbody.transform;
-    }
-
-    private bool HasLineOfSightTarget(Vector3 origin, Vector3 targetPos, LayerMask mask)
-    {
-        Vector3 dir = targetPos - origin;
-        float dist = dir.magnitude;
-        if (dist < 0.01f)
-            return true;
-
-        dir /= dist;
-        var hits = Physics.RaycastAll(origin, dir, dist, mask, QueryTriggerInteraction.Ignore);
-        if (hits.Length == 0)
-            return true;
-
-        float best = float.MaxValue;
-        Transform bestHit = null;
-        for (int i = 0; i < hits.Length; i++)
-        {
-            if (hits[i].transform == null)
-                continue;
-            if (hits[i].transform.IsChildOf(_selfRoot))
-                continue;
-            if (hits[i].distance < best)
-            {
-                best = hits[i].distance;
-                bestHit = hits[i].transform;
-            }
-        }
-
-        if (bestHit == null)
-            return true;
-
-        return IsSameTarget(bestHit);
-    }
-
-    private bool IsSameTarget(Transform hitTransform)
-    {
-        if (_target == null || hitTransform == null)
-            return false;
-
-        if (hitTransform == _target)
-            return true;
-
-        return hitTransform.IsChildOf(_target) || _target.IsChildOf(hitTransform);
+        return _time != null ? _time.TimeSinceStartup : 0f;
     }
 }

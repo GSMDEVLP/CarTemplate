@@ -18200,6 +18200,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 001b4c4180c7c944685a0a04c54397ed, type: 3}
+--- !u!114 &870912897 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4300355141817067751, guid: 001b4c4180c7c944685a0a04c54397ed, type: 3}
+  m_PrefabInstance: {fileID: 870912896}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1351e73f28e8d64458144fb224600e6c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &870912899 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 643215673028742614, guid: 001b4c4180c7c944685a0a04c54397ed, type: 3}
@@ -27251,8 +27262,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9594977405030d41a6b4b3c064f1038, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  controllers:
+  combatControllers:
   - {fileID: 477172914}
+  weaponControllers:
+  - {fileID: 477172911}
+  projectilePoolRoot: {fileID: 1404937648}
 --- !u!1 &1225812417
 GameObject:
   m_ObjectHideFlags: 0
@@ -34764,6 +34778,51 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4706339223115927701, guid: 4f13f45de7991d94e843b136cdc63f51, type: 3}
   m_PrefabInstance: {fileID: 1555719816}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1557987076
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1557987077}
+  - component: {fileID: 1557987078}
+  m_Layer: 0
+  m_Name: InputInstaller
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1557987077
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1557987076}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1602711892}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1557987078
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1557987076}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e38fd379383bcf24585e8930bf29e326, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inputManager: {fileID: 870912897}
 --- !u!1001 &1559200084
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -35787,6 +35846,7 @@ Transform:
   - {fileID: 1317621741}
   - {fileID: 1224157122}
   - {fileID: 980974945}
+  - {fileID: 1557987077}
   m_Father: {fileID: 1975234536}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1602711893
@@ -35806,12 +35866,13 @@ MonoBehaviour:
     m_Bits: 512
   useLineOfSight: 0
   installers:
-  - {fileID: 2018091240}
+  - {fileID: 0}
   - {fileID: 419393201}
   - {fileID: 1317621742}
-  - {fileID: 2018091240}
+  - {fileID: 0}
   - {fileID: 1224157123}
   - {fileID: 980974946}
+  - {fileID: 1557987078}
 --- !u!1001 &1604248114
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -45083,8 +45144,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerController: {fileID: 483167004}
-  aiControllers:
-  - {fileID: 477172911}
   projectilePoolRoot: {fileID: 1404937648}
 --- !u!1001 &2021078701
 PrefabInstance:

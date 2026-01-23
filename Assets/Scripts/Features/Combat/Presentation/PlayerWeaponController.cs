@@ -29,23 +29,19 @@ public class PlayerWeaponController : MonoBehaviour
         _currentIndex = 0;
         if (_weapons != null && _weapons.Length > 0)
             SetWeaponIndex(_currentIndex);
+        _bus.Subscribe<OnWeaponSwitched>(HandleWeaponSwitch);
+        _bus.Subscribe<OnWeaponFiredInput>(HandleFire);
     }
 
     private void Update()
     {
         if (_service == null || _weapons == null || _weapons.Length == 0) return;
         _service.Tick(Time.deltaTime);
-
-        HandleWeaponSwitch();
-        HandleFire();
     }
 
-    private void HandleWeaponSwitch()
+    private void HandleWeaponSwitch(OnWeaponSwitched e)
     {
-        if (Input.GetKeyDown(KeyCode.Alpha1)) SetWeaponIndex(0);
-        if (Input.GetKeyDown(KeyCode.Alpha2)) SetWeaponIndex(1);
-        if (Input.GetKeyDown(KeyCode.Alpha3)) SetWeaponIndex(2);
-        if (Input.GetKeyDown(KeyCode.Alpha4)) SetWeaponIndex(3);
+        SetWeaponIndex(e.WeaponIndex);
     }
 
     private void SetWeaponIndex(int index)
@@ -63,26 +59,14 @@ public class PlayerWeaponController : MonoBehaviour
         return _mounts.Get(cfg.WeaponMount);
     }
 
-    private void HandleFire()
+    private void HandleFire(OnWeaponFiredInput e)
     {
         var weapon = _weapons[_currentIndex];
         var cfg = _weaponConfigs[_currentIndex];
 
         if (weapon == null || cfg == null) return;
 
-        bool wantsToShoot = false;
-
-        switch (cfg.FireMode)
-        {
-            case FireMode.Single:
-                wantsToShoot = Input.GetMouseButtonDown(0);
-                break;
-            case FireMode.Auto:
-                wantsToShoot = Input.GetMouseButton(0);
-                break;
-        }
-
-        if (!wantsToShoot || !weapon.CanFire)
+        if (!weapon.CanFire)
             return;
 
         var mount = ResolveMount(cfg);
@@ -95,5 +79,11 @@ public class PlayerWeaponController : MonoBehaviour
             ownerId);
 
         weapon.Fire(ctx);
+    }
+
+    private void OnDestroy()
+    {
+        _bus.Unsubscribe<OnWeaponSwitched>(HandleWeaponSwitch);
+        _bus.Unsubscribe<OnWeaponFiredInput>(HandleFire);
     }
 }

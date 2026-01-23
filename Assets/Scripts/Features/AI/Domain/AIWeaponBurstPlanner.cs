@@ -1,10 +1,16 @@
-using UnityEngine;
+using System;
 
 public sealed class AIWeaponBurstPlanner
 {
+    private readonly Random _rng;
     private int _shotsRemaining;
     private float _nextShotTime;
     private float _nextBurstTime;
+
+    public AIWeaponBurstPlanner(Random rng)
+    {
+        _rng = rng ?? new Random();
+    }
 
     public void Reset()
     {
@@ -13,7 +19,7 @@ public sealed class AIWeaponBurstPlanner
         _nextBurstTime = 0f;
     }
 
-    public bool CanFire(float time, AIWeaponSlot slot)
+    public bool CanFire(float time, AIWeaponSlotData slot)
     {
         if (slot == null)
             return false;
@@ -29,27 +35,30 @@ public sealed class AIWeaponBurstPlanner
         return time >= _nextShotTime;
     }
 
-    public void ConsumeShot(float time, AIWeaponSlot slot)
+    public void ConsumeShot(float time, AIWeaponSlotData slot)
     {
         if (slot == null)
             return;
 
         _shotsRemaining--;
-        _nextShotTime = time + Mathf.Max(0.01f, slot.ShotInterval);
+        _nextShotTime = time + Math.Max(0.01f, slot.ShotInterval);
 
         if (_shotsRemaining <= 0)
         {
-            float min = Mathf.Max(0f, slot.BurstCooldownMin);
-            float max = Mathf.Max(min, slot.BurstCooldownMax);
-            _nextBurstTime = time + Random.Range(min, max);
+            float min = Math.Max(0f, slot.BurstCooldownMin);
+            float max = Math.Max(min, slot.BurstCooldownMax);
+            _nextBurstTime = time + RangeFloat(min, max);
         }
     }
 
-    private void StartBurst(float time, AIWeaponSlot slot)
+    private void StartBurst(float time, AIWeaponSlotData slot)
     {
-        int min = Mathf.Max(1, slot.BurstMinShots);
-        int max = Mathf.Max(min, slot.BurstMaxShots);
-        _shotsRemaining = Random.Range(min, max + 1);
+        int min = Math.Max(1, slot.BurstMinShots);
+        int max = Math.Max(min, slot.BurstMaxShots);
+        _shotsRemaining = RangeInt(min, max);
         _nextShotTime = time;
     }
+
+    private int RangeInt(int min, int maxInclusive) => _rng.Next(min, maxInclusive + 1);
+    private float RangeFloat(float min, float max) => (float)(_rng.NextDouble() * (max - min) + min);
 }

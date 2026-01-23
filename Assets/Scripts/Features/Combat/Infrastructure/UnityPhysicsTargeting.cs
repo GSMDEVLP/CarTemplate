@@ -1,5 +1,4 @@
-using System;
-using System.Collections.Generic;
+using NVec3 = System.Numerics.Vector3;
 using UnityEngine;
 
 public class UnityPhysicsTargeting : ITargetingService
@@ -18,63 +17,58 @@ public class UnityPhysicsTargeting : ITargetingService
         _losMaxDistance = losMaxDistance;
     }
 
-    public Transform FindClosest(Vector3 origin, Vector3 forward, float radius, Func<Transform, bool> filter = null, float maxAngleDeg = 30f)
+    public bool TryFindTarget(NVec3 originN, NVec3 forwardN, float radius, out TargetInfo info, float maxAngleDeg = 30f)
     {
-        forward = forward.normalized;
-        float cosMax = Mathf.Cos(maxAngleDeg * Mathf.Deg2Rad);
+        info = default;
 
-        Collider[] hits = Physics.OverlapSphere(origin, radius, _layerMask, QueryTriggerInteraction.Ignore);
-        Transform best = null;
-        float bestSqr = float.MaxValue;
+        Vector3 origin = UnityVectorAdapter.ToUnity(originN);
+        Vector3 forward = UnityVectorAdapter.ToUnity(forwardN);
 
-        foreach (var hit in hits)
+        var hits = Physics.OverlapSphere(origin, radius, _layerMask, QueryTriggerInteraction.Ignore);
+        if (hits.Length == 0) return false;
+
+        float bestScore = float.MinValue;
+        EntityId bestId = default;
+        Vector3 bestPos = Vector3.zero;
+        bool bestLos = false;
+        float bestDist = 0f;
+
+        for (int i = 0; i < hits.Length; i++)
         {
-            Transform t = hit.transform;
+            var t = hits[i].transform;
+            if (t == null) continue;
 
-            if (filter != null && !filter(t))
-                continue;
+            var idComp = t.GetComponentInParent<EntityIdComponent>();
+            if (idComp == null) continue;
 
             Vector3 to = t.position - origin;
             float sqr = to.sqrMagnitude;
             if (sqr < 0.0001f) continue;
 
-            // только впереди (в конусе)
-            float dot = Vector3.Dot(forward, to / Mathf.Sqrt(sqr));
-            if (dot < cosMax)
-                continue;
+            float dist = Mathf.Sqrt(sqr);
+            float dot = Vector3.Dot(forward, to / dist);
+            if (dot < Mathf.Cos(maxAngleDeg * Mathf.Deg2Rad)) continue;
 
-            if (_useLineOfSight && !HasLineOfSight(origin, t.position))
-                continue;
+            bool los = !_useLineOfSight || HasLineOfSight(origin, t.position);
+            float score = dot - dist * 0.001f;
 
-            if (sqr < bestSqr)
+            if (score > bestScore)
             {
-                bestSqr = sqr;
-                best = t;
+                bestScore = score;
+                bestId = idComp.Id;
+                bestPos = t.position;
+                bestLos = los;
+                bestDist = dist;
             }
         }
 
-        return best;
+        if (!bestId.IsValid) return false;
+
+        var posN = UnityVectorAdapter.ToNumerics(bestPos);
+        info = new TargetInfo(bestId, posN, posN, bestDist, bestLos);
+        return true;
     }
 
-    public Transform[] FindAll(Vector3 origin, float radius, Func<Transform, bool> filter = null)
-    {
-        Collider[] hits = Physics.OverlapSphere(origin, radius, _layerMask, QueryTriggerInteraction.Ignore);
-        var list = new List<Transform>(hits.Length);
-
-        foreach (var hit in hits)
-        {
-            Transform t = hit.transform;
-            if (filter != null && !filter(t))
-                continue;
-
-            if (_useLineOfSight && !HasLineOfSight(origin, t.position))
-                continue;
-
-            list.Add(t);
-        }
-
-        return list.ToArray();
-    }
 
     private bool HasLineOfSight(Vector3 from, Vector3 to)
     {

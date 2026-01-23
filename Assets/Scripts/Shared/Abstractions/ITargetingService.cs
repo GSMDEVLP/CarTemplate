@@ -1,9 +1,11 @@
-using System;
-using UnityEngine;
+using NVec3 = System.Numerics.Vector3;
 
 public interface ITargetingService
 {
-    public Transform FindClosest(Vector3 origin, Vector3 forward, float radius, Func<Transform, bool> filter = null, float maxAngleDeg = 30f);
-
-    public Transform[] FindAll(Vector3 origin, float radius, Func<Transform, bool> filter = null);
+    bool TryFindTarget(
+        NVec3 origin,
+        NVec3 forward,
+        float radius,
+        out TargetInfo info,
+        float maxAngleDeg = 30f);
 }

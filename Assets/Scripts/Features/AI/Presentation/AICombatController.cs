@@ -1,4 +1,4 @@
-using System.Collections;
+using NVec3 = System.Numerics.Vector3;
 using UnityEngine;
 
 public class AICombatController : MonoBehaviour, IAITargetProvider
@@ -17,62 +17,97 @@ public class AICombatController : MonoBehaviour, IAITargetProvider
     private AIThreatTracker _threat;
     private AITargetSensor _target;
     private AIAvoidanceSystem _avoidance;
-    private AIPursuitDriver _pursuit;
-    private IEventBus _bus;
+    private AIServices _services;
+    private AIPursuitPlanner _pursuitPlanner;
+    private UnityPursuitDriver _pursuitDriver;
 
+
+    public AICombatConfig Config => _config;
     public bool HasTarget => _target != null && _target.HasTarget;
-    public Transform Target => _target != null ? _target.Target : null;
-    public Vector3 AimPoint => _target != null ? _target.AimPoint : Vector3.zero;
-    public Vector3 LastKnownPosition => _target != null ? _target.LastKnownPosition : Vector3.zero;
+    public EntityId TargetId => _target != null ? _target.TargetId : default;
+    public NVec3 AimPoint => _target != null ? _target.AimPoint : NVec3.Zero;
+    public NVec3 LastKnownPosition => _target != null ? _target.LastKnownPosition : NVec3.Zero;
     public float TargetDistance => _target != null ? _target.TargetDistance : 0f;
     public bool HasLineOfSight => _target != null && _target.HasLineOfSight;
-
-    private void Awake()
+    private bool _initialized;
+    
+    public void Init(AIServices services)
     {
-        if (_sensorOrigin == null)
-            _sensorOrigin = transform;
+        _services = services;
+        Setup();
+        TryBind();
+    }
 
-        _threat = new AIThreatTracker(transform, _entityIdComponent);
+    private void Setup()
+    {
+        if (_initialized || _services == null) return;
+            _initialized = true;
 
+        if (_sensorOrigin == null) _sensorOrigin = transform;
+
+        _threat = new AIThreatTracker(_entityIdComponent.Id, _services.EntityLocator, _services.Time);
         _target = new AITargetSensor(
-            selfRoot: transform,
-            sensorOrigin: _sensorOrigin,
-            overrideProvider: () => _playerOverride,
+            selfId: _entityIdComponent.Id,
+            targeting: _services.Targeting,
+            time: _services.Time,
+            overrideProvider: ResolveOverrideTargetId,
             config: _config,
-            threat: _threat);
+            threat: _threat
+        );
 
-        _avoidance = new AIAvoidanceSystem(transform, _target, _threat, _config);
-        _pursuit = new AIPursuitDriver(transform, _carAi, _config, _threat);
+        _avoidance = new AIAvoidanceSystem(
+            _target,
+            _threat,
+            _config,
+            _services.MineQuery,
+            _services.EntityLocator,
+            _services.Time
+        );
+        _pursuitPlanner = new AIPursuitPlanner(_config, _threat, _services.Time);
+        _pursuitDriver = new UnityPursuitDriver(transform, _carAi);
+
 
         TryBind();
     }
 
-    public void Init(IEventBus bus)
+    private EntityId? ResolveOverrideTargetId()
     {
-        _bus = bus;
-        TryBind();
+        if (_playerOverride == null) return null;
+        var idComp = _playerOverride.GetComponent<EntityIdComponent>();
+        return idComp != null ? idComp.Id : null;
     }
+
+
     private void TryBind()
     {
-        if (_bus != null && _threat != null)
-            _threat.Bind(_bus);
+        if (_services == null) return;
+        if (_services.EventBus != null && _threat != null)
+            _threat.Bind(_services.EventBus);
     }
 
     private void Update()
     {
-        if (_target == null)
-            return;
+        if (!_initialized) Setup();
+        if (_target == null) return;
 
-        _target.Update();
-        _avoidance.Update();
-        _pursuit.Update(_target, _avoidance.Offset);
+        var originN = UnityVectorAdapter.ToNumerics(_sensorOrigin.position);
+        var forwardN = UnityVectorAdapter.ToNumerics(_sensorOrigin.forward);
+        var selfPos = UnityVectorAdapter.ToNumerics(transform.position);
+        
+        _target.Update(originN, forwardN);
+        _avoidance.Update(selfPos);
+
+        if (_pursuitPlanner.TryGetPursuitTarget(_target, _avoidance.Offset, out var point, out var dist))
+            _pursuitDriver.Apply(point, dist);
+        else
+            _pursuitDriver.Disable();
     }
 
     private void OnDestroy()
     {
         if (_threat != null)
             _threat.Unbind();
-        if (_pursuit != null)
-            _pursuit.Dispose();
+        if(_pursuitDriver != null)
+            _pursuitDriver?.Dispose();
     }
 }
