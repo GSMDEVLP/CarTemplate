@@ -6,9 +6,6 @@ public class AICombatController : MonoBehaviour, IAITargetProvider
     [Header("Entity")]
     [SerializeField] private EntityIdComponent _entityIdComponent;
 
-    [Header("Config")]
-    [SerializeField] private AICombatConfig _config;
-
     [Header("References")]
     [SerializeField] private AnyCarAI _carAi;
     [SerializeField] private Transform _sensorOrigin;
@@ -21,8 +18,9 @@ public class AICombatController : MonoBehaviour, IAITargetProvider
     private AIPursuitPlanner _pursuitPlanner;
     private UnityPursuitDriver _pursuitDriver;
 
+    private AICombatConfigData _config;
 
-    public AICombatConfig Config => _config;
+
     public bool HasTarget => _target != null && _target.HasTarget;
     public EntityId TargetId => _target != null ? _target.TargetId : default;
     public NVec3 AimPoint => _target != null ? _target.AimPoint : NVec3.Zero;
@@ -31,9 +29,10 @@ public class AICombatController : MonoBehaviour, IAITargetProvider
     public bool HasLineOfSight => _target != null && _target.HasLineOfSight;
     private bool _initialized;
     
-    public void Init(AIServices services)
+    public void Init(AIServices services, AICombatConfigData config)
     {
         _services = services;
+        _config = config;
         Setup();
         TryBind();
     }
@@ -50,7 +49,6 @@ public class AICombatController : MonoBehaviour, IAITargetProvider
             selfId: _entityIdComponent.Id,
             targeting: _services.Targeting,
             time: _services.Time,
-            overrideProvider: ResolveOverrideTargetId,
             config: _config,
             threat: _threat
         );
@@ -65,17 +63,15 @@ public class AICombatController : MonoBehaviour, IAITargetProvider
         );
         _pursuitPlanner = new AIPursuitPlanner(_config, _threat, _services.Time);
         _pursuitDriver = new UnityPursuitDriver(transform, _carAi);
-
-
         TryBind();
     }
 
-    private EntityId? ResolveOverrideTargetId()
-    {
-        if (_playerOverride == null) return null;
-        var idComp = _playerOverride.GetComponent<EntityIdComponent>();
-        return idComp != null ? idComp.Id : null;
-    }
+    // private EntityId? ResolveOverrideTargetId()
+    // {
+    //     if (_playerOverride == null) return null;
+    //     var idComp = _playerOverride.GetComponent<EntityIdComponent>();
+    //     return idComp != null ? idComp.Id : null;
+    // }
 
 
     private void TryBind()
@@ -94,6 +90,7 @@ public class AICombatController : MonoBehaviour, IAITargetProvider
         var forwardN = UnityVectorAdapter.ToNumerics(_sensorOrigin.forward);
         var selfPos = UnityVectorAdapter.ToNumerics(transform.position);
         
+
         _target.Update(originN, forwardN);
         _avoidance.Update(selfPos);
 
@@ -101,6 +98,7 @@ public class AICombatController : MonoBehaviour, IAITargetProvider
             _pursuitDriver.Apply(point, dist);
         else
             _pursuitDriver.Disable();
+
     }
 
     private void OnDestroy()

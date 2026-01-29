@@ -1,17 +1,23 @@
-using UnityEngine;
+using NVec3 = System.Numerics.Vector3;
+using NQuat = System.Numerics.Quaternion;
 
+public enum RespawnMode { Simcade, AnyCarAI }
 public readonly struct RespawnRequested : IEvent
 {
-    public readonly GameObject Target;            
-    public readonly Vector3 Position;         
-    public readonly Quaternion Rotation;      
+    public readonly EntityId TargetId;
+    public readonly NVec3 Position;
+    public readonly NQuat Rotation;
     public readonly float Delay;
-    public RespawnRequested(GameObject target, Vector3 pos, Quaternion rot, float delay)
+
+    public readonly RespawnMode Mode;
+
+    public RespawnRequested(EntityId targetId, NVec3 pos, NQuat rot, float delay, RespawnMode mode)
     {
-        Target = target;
+        TargetId = targetId;
         Position = pos;
         Rotation = rot;
         Delay = delay;
+        Mode = mode;
     }
-        
 }
+

@@ -7,18 +7,18 @@ public sealed class WeaponSlotViewModel : ViewModelBase
     public ObservableProperty<string> CooldownText { get; } = new ObservableProperty<string>("");
     public ObservableProperty<bool> IsActive { get; } = new ObservableProperty<bool>(false);
 
-    private readonly WeaponConfig _config;
+    private readonly WeaponDefinition _data;
     private readonly IWeapon _weapon;
     private readonly IEventBus _bus;
 
-    public WeaponSlotViewModel(WeaponConfig config, IWeapon weapon, IEventBus bus)
+    public WeaponSlotViewModel(WeaponDefinition data, IWeapon weapon, IEventBus bus)
     {
-        _config = config;
+        _data = data;
         _weapon = weapon;
         _bus = bus;
 
-        if (_config != null)
-            Icon.Value = _config.Icon;
+        // if (_data != null)
+        //     Icon.Value = _data.Icon;
 
         _bus.Subscribe<ActiveWeaponChanged>(OnActiveWeaponChanged);
         Refresh();
@@ -26,7 +26,7 @@ public sealed class WeaponSlotViewModel : ViewModelBase
 
     private void OnActiveWeaponChanged(ActiveWeaponChanged e)
     {
-        IsActive.Value = e.Config == _config;
+        IsActive.Value = e.Data.Kind == _data.Kind;
     }
 
     public void Refresh()

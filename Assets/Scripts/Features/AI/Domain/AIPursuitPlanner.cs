@@ -2,11 +2,11 @@ using NVec3 = System.Numerics.Vector3;
 
 public sealed class AIPursuitPlanner
 {
-    private readonly AICombatConfig _config;
+    private readonly AICombatConfigData _config;
     private readonly AIThreatTracker _threat;
     private readonly ITime _time;
 
-    public AIPursuitPlanner(AICombatConfig config, AIThreatTracker threat, ITime time)
+    public AIPursuitPlanner(AICombatConfigData config, AIThreatTracker threat, ITime time)
     {
         _config = config;
         _threat = threat;
@@ -22,7 +22,7 @@ public sealed class AIPursuitPlanner
         pursuitPoint = NVec3.Zero;
         pursueDistance = 0f;
 
-        if (_config == null || target == null || !target.HasTarget)
+        if (target == null || !target.HasTarget)
             return false;
 
         if (_config.Pursuit.PursueOnlyOnHit)

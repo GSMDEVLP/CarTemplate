@@ -8,7 +8,7 @@ public sealed class AITargetSensor : IAITargetProvider
     private readonly ITargetingService _targeting;
     private readonly ITime _time;
     private readonly Func<EntityId?> _overrideProvider;
-    private readonly AICombatConfig _config;
+    private readonly AICombatConfigData _config;
     private readonly AIThreatTracker _threat;
 
     private TargetInfo _info;
@@ -27,13 +27,11 @@ public sealed class AITargetSensor : IAITargetProvider
         EntityId selfId,
         ITargetingService targeting,
         ITime time,
-        Func<EntityId?> overrideProvider,
-        AICombatConfig config,
+        AICombatConfigData config,
         AIThreatTracker threat)
     {
         _selfId = selfId;
         _targeting = targeting;
-        _overrideProvider = overrideProvider;
         _config = config;
         _threat = threat;
         _time = time;
@@ -44,23 +42,16 @@ public sealed class AITargetSensor : IAITargetProvider
         _info = default;
         _aimPoint = NVec3.Zero;
 
-        if (_config == null || _targeting == null)
+        if (_targeting == null)
             return;
 
-        var overrideId = _overrideProvider != null ? _overrideProvider() : null;
-        if (overrideId.HasValue && overrideId.Value.IsValid)
-        {
-            _info = new TargetInfo(overrideId.Value, origin, origin, 0f, true);
-        }
-        else
-        {
-            _targeting.TryFindTarget(
-                origin,
-                forward,
-                _config.Targeting.EngageDistance,
-                out _info);
-        }
+        _targeting.TryFindTarget(
+            origin,
+            forward,
+            _config.Targeting.EngageDistance,
+            out _info);
 
+        
         if (!_info.IsValid)
             return;
 

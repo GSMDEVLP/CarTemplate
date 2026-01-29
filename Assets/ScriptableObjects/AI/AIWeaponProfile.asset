@@ -18,7 +18,7 @@ MonoBehaviour:
     Priority: 10
     MinRange: 8
     MaxRange: 45
-    MinDot: 0.3
+    MinDot: 0
     MaxDot: 1
     RequiresLineOfSight: 0
     BurstMinShots: 6
@@ -32,7 +32,7 @@ MonoBehaviour:
     MaxRange: 70
     MinDot: 0.3
     MaxDot: 1
-    RequiresLineOfSight: 1
+    RequiresLineOfSight: 0
     BurstMinShots: 1
     BurstMaxShots: 1
     ShotInterval: 0.2
@@ -43,8 +43,8 @@ MonoBehaviour:
     MinRange: 0
     MaxRange: 12
     MinDot: -1
-    MaxDot: -0.2
-    RequiresLineOfSight: 1
+    MaxDot: -0.5
+    RequiresLineOfSight: 0
     BurstMinShots: 1
     BurstMaxShots: 1
     ShotInterval: 0.2

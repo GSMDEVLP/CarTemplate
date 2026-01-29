@@ -29,7 +29,7 @@ public sealed class WeaponConfigAdapter
                 heatPerShot: runtime.HeatPerShot,
                 coolRatePerSec: runtime.CoolRatePerSec);
 
-            defs[i] = new WeaponDefinition(cfg, runtime, stats);
+            defs[i] = new WeaponDefinition(cfg.Type, cfg.WeaponMount, stats, runtime);
         }
 
         return defs;

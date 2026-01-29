@@ -48,7 +48,7 @@ public sealed class UnityProjectileFactory : IProjectileFactory
             return;
         }
 
-        Transform target = null;
+        EntityId targetId = default;
         if (_targeting != null && rt.SeekRadius > 0f)
         {
             if (_targeting.TryFindTarget(
@@ -57,16 +57,15 @@ public sealed class UnityProjectileFactory : IProjectileFactory
                     rt.SeekRadius,
                     out var info))
             {
-                UnityEntityRegistry.TryGet(info.Id, out var gameObject);
-                target = gameObject != null ? gameObject.transform : null;
+                targetId = info.Id;    
             }
         }
 
         var ctx = new ProjectileContext
         {
             Rt = rt,
-            Owner = fire.Owner, // EntityId
-            Target = target,
+            Owner = fire.Owner, 
+            TargetId = targetId,
             DamageService = _damage
         };
 

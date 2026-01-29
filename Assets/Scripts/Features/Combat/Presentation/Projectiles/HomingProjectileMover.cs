@@ -23,7 +23,10 @@ public class HomingProjectileMover : ProjectilePart
     protected override void OnInit(ProjectileContext ctx)
     {
         _maxSpeed = ctx.Rt.Speed;
-        _target = ctx.Target;
+
+        _target = null;
+        if (ctx.TargetId.IsValid && UnityEntityRegistry.TryGet(ctx.TargetId, out var go))
+            _target = go.transform;
 
         if (!rb) rb = GetComponent<Rigidbody>();
 
@@ -41,6 +44,7 @@ public class HomingProjectileMover : ProjectilePart
         if (rb.velocity.sqrMagnitude < 0.01f)
             rb.velocity = transform.forward * Mathf.Min(_maxSpeed * 0.5f, 20f);
     }
+
     private void OnEnable()
     {
         if (rb != null)

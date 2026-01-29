@@ -20,7 +20,7 @@ public class UnityPhysicsTargeting : ITargetingService
     public bool TryFindTarget(NVec3 originN, NVec3 forwardN, float radius, out TargetInfo info, float maxAngleDeg = 30f)
     {
         info = default;
-
+        
         Vector3 origin = UnityVectorAdapter.ToUnity(originN);
         Vector3 forward = UnityVectorAdapter.ToUnity(forwardN);
 
@@ -40,7 +40,7 @@ public class UnityPhysicsTargeting : ITargetingService
 
             var idComp = t.GetComponentInParent<EntityIdComponent>();
             if (idComp == null) continue;
-
+            
             Vector3 to = t.position - origin;
             float sqr = to.sqrMagnitude;
             if (sqr < 0.0001f) continue;

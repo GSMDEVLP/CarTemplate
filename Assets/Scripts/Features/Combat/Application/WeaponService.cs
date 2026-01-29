@@ -36,6 +36,11 @@ public sealed class WeaponService
         _state.Tick(dt);
     }
 
+    public WeaponDefinition GetDefinition(int index)
+    {
+        return _state.GetDefinition(index);
+    }
+
     public FireDecision TryFire(int index, FireRequest fire)
     {
         return _fire.TryFire(_state, index, fire);

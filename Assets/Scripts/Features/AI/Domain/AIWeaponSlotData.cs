@@ -1,6 +1,7 @@
 public sealed class AIWeaponSlotData
 {
     public WeaponKind Kind;
+    public WeaponMount WeaponMount;
     public int Priority;
     public float MinRange;
     public float MaxRange;

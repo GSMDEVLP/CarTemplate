@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -10,7 +11,6 @@ public class RespawnExecutor : MonoBehaviour
         _bus = bus;
         _bus.Subscribe<RespawnRequested>(OnRespawnRequested);        
     }
-
 
     private void OnDestroy()
     {
@@ -26,26 +26,43 @@ public class RespawnExecutor : MonoBehaviour
     {
         yield return new WaitForSeconds(e.Delay);
 
-        var targetMb = e.Target;
-        if (targetMb == null) yield break;
+        if (!UnityEntityRegistry.TryGet(e.TargetId, out var targetGo) || targetGo == null)
+            yield break;
 
-       var rb = targetMb.GetComponent<Rigidbody>();
-        if (rb)
-        {
-            rb.velocity = Vector3.zero;
-            rb.angularVelocity = Vector3.zero;
 
-            rb.position = e.Position;
-            rb.rotation = e.Rotation;
-        }
-        else
-        {
-            targetMb.transform.SetPositionAndRotation(e.Position, e.Rotation);
-        }
-        targetMb.transform.position = e.Position;
-        targetMb.transform.rotation =  e.Rotation;
+        var pos = UnityVectorAdapter.ToUnity(e.Position);
+        var rot = UnityQuaternionAdapter.ToUnity(e.Rotation);
 
-        _bus.Invoke(new RespawnPerformed(e.Target));
+        Respawn(e, targetGo, pos, rot);
+
+        _bus.Invoke(new RespawnPerformed(e.TargetId, e.Position, e.Rotation));
         _bus.Invoke(new UpdateVehicleInfo());
+    }
+
+    private void Respawn(RespawnRequested e, GameObject targetGo, Vector3 pos, Quaternion rot)
+    {
+        if (targetGo.TryGetComponent<Rigidbody>(out var rb))
+        {
+           switch (e.Mode)
+            {
+                case RespawnMode.Simcade:
+                {
+                    rb.velocity = Vector3.zero;
+                    rb.angularVelocity = Vector3.zero;
+                    rb.isKinematic = true;
+                    rb.position = pos;
+                    rb.rotation = rot;
+                    rb.isKinematic = false;
+                    break;
+                }
+                case RespawnMode.AnyCarAI:
+                {
+                    rb.velocity = Vector3.zero;
+                    rb.angularVelocity = Vector3.zero;
+                    targetGo.transform.SetPositionAndRotation(pos, rot);
+                    break;
+                }
+            }                
+        }
     }
 }

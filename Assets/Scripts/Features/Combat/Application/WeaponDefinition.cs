@@ -1,13 +1,15 @@
 public readonly struct WeaponDefinition
 {
-    public readonly WeaponConfig Config;
-    public readonly WeaponRuntime Runtime;
+    public readonly WeaponKind Kind;
+    public readonly WeaponMount Mount;
     public readonly WeaponStats Stats;
+    public readonly WeaponRuntime Runtime;
 
-    public WeaponDefinition(WeaponConfig config, WeaponRuntime runtime, WeaponStats stats)
+    public WeaponDefinition(WeaponKind kind, WeaponMount mount, WeaponStats stats, WeaponRuntime runtime)
     {
-        Config = config;
-        Runtime = runtime;
+        Kind = kind;
+        Mount = mount;
         Stats = stats;
+        Runtime = runtime;
     }
 }

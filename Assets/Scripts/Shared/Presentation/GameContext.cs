@@ -3,7 +3,6 @@ using UnityEngine;
 public sealed class GameContext : MonoBehaviour
 {
     [Header("Global Services")]
-    [SerializeField] private LayerMask enemyLayer = 1 << 9;
     [SerializeField] private bool useLineOfSight = false;
 
     [Header("Installers")]
@@ -16,7 +15,7 @@ public sealed class GameContext : MonoBehaviour
     private void Awake()
     {
         Instance = this;
-        _services = new GameServices(enemyLayer, useLineOfSight);
+        _services = new GameServices(useLineOfSight);
 
         if (installers == null) return;
 

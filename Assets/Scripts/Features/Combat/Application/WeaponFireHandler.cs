@@ -20,10 +20,10 @@ public sealed class WeaponFireHandler
         if (!decision.Success)
             return decision;
 
-        var req = new ProjectileSpawnRequest(def.Config, def.Runtime, fire);
+        var req = new ProjectileSpawnRequest(def.Runtime, fire);
         _projectileFactory.Spawn(req);
 
-        _bus.Invoke(new WeaponFired(fire.Owner, def.Config.Type, def.Config.WeaponMount));
+        _bus.Invoke(new WeaponFired(fire.Owner, def.Kind, def.Mount));
         return decision;
     }
 }

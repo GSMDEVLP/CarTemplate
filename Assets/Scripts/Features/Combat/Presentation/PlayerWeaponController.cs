@@ -5,9 +5,6 @@ public class PlayerWeaponController : MonoBehaviour
     [Header("Entity")]
     [SerializeField] private EntityIdComponent _entityId;
 
-    [Header("Weapon Slots")]
-    [SerializeField] private WeaponConfig[] _weaponConfigs;
-
     [Header("Mount Points")]
     [SerializeField] private WeaponMounts _mounts;
 
@@ -16,7 +13,7 @@ public class PlayerWeaponController : MonoBehaviour
     private IWeapon[] _weapons;
     private int _currentIndex;
 
-    public WeaponConfig[] WeaponConfigs => _weaponConfigs;
+    public WeaponService WeaponService => _service;
     public IWeapon[] Weapons => _weapons;
     public int CurrentIndex => _currentIndex;
 
@@ -50,26 +47,26 @@ public class PlayerWeaponController : MonoBehaviour
         if (index < 0 || index >= _weapons.Length) return;
 
         _currentIndex = index;
-        _bus.Invoke(new ActiveWeaponChanged(_weaponConfigs[_currentIndex]));
+        var def = _service.GetDefinition(_currentIndex);
+        _bus.Invoke(new ActiveWeaponChanged(def));
         Debug.Log($"Switched to weapon slot: {index}");
     }
 
-    public Transform ResolveMount(WeaponConfig cfg)
+    public Transform ResolveMount(WeaponDefinition data)
     {
-        return _mounts.Get(cfg.WeaponMount);
+        return _mounts.Get(data.Mount);
     }
 
     private void HandleFire(OnWeaponFiredInput e)
     {
         var weapon = _weapons[_currentIndex];
-        var cfg = _weaponConfigs[_currentIndex];
-
-        if (weapon == null || cfg == null) return;
+        var def = _service.GetDefinition(_currentIndex);
+        if (weapon == null) return;
 
         if (!weapon.CanFire)
             return;
 
-        var mount = ResolveMount(cfg);
+        var mount = ResolveMount(def);
         if (mount == null) return;
 
         var ownerId = _entityId.Id;

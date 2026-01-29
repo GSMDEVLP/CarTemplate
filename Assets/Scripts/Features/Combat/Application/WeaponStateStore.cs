@@ -11,8 +11,6 @@ public sealed class WeaponStateStore
         for (int i = 0; i < _defs.Length; i++)
         {
             var def = _defs[i];
-            if (def.Config == null)
-                continue;
 
             _models[i] = new WeaponModel(def.Stats);
         }
@@ -22,7 +20,7 @@ public sealed class WeaponStateStore
 
     public bool IsConfigured(int index)
     {
-        return index >= 0 && index < _models.Length && _models[index] != null && _defs[index].Config != null;
+        return index >= 0 && index < _models.Length && _models[index] != null;
     }
 
     public bool TryGetSlot(int index, out WeaponDefinition def, out WeaponModel model)
@@ -35,7 +33,7 @@ public sealed class WeaponStateStore
 
         model = _models[index];
         def = _defs[index];
-        return model != null && def.Config != null;
+        return model != null;
     }
 
     public WeaponStatus GetStatus(int index, float now)
@@ -51,6 +49,11 @@ public sealed class WeaponStateStore
             model.CurrentAmmo,
             model.MaxAmmo,
             model.CooldownRemaining(now));
+    }
+    public WeaponDefinition GetDefinition(int index)
+    {
+        if (index < 0 || index >= _defs.Length) return default;
+        return _defs[index];
     }
 
     public void Tick(float dt)

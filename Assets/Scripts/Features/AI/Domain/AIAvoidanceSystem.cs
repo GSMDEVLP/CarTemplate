@@ -5,7 +5,7 @@ public sealed class AIAvoidanceSystem
 {
     private readonly IAITargetProvider _target;
     private readonly AIThreatTracker _threat;
-    private readonly AICombatConfig _config;
+    private readonly AICombatConfigData _config;
     private readonly IMineQuery _mines;
     private readonly IEntityLocator _locator;
     private readonly ITime _time;
@@ -16,7 +16,7 @@ public sealed class AIAvoidanceSystem
     public AIAvoidanceSystem(
         IAITargetProvider target,
         AIThreatTracker threat,
-        AICombatConfig config,
+        AICombatConfigData config,
         IMineQuery mines,
         IEntityLocator locator,
         ITime time)
@@ -31,9 +31,6 @@ public sealed class AIAvoidanceSystem
 
     public void Update(NVec3 selfPos)
     {
-        if (_config == null)
-            return;
-
         NVec3 offset = NVec3.Zero;
         offset += ComputeMineAvoidance(selfPos);
         offset += ComputeLineOfFireOffset(selfPos);

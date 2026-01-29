@@ -64,16 +64,16 @@ public sealed class GameUIRoot  : MonoBehaviour
         var controller = PlayerWeaponProvider.Instance?.Controller;
         if (controller == null) return false;
 
-        var cfgs = controller.WeaponConfigs;
+        var service = controller.WeaponService;
         var weapons = controller.Weapons;
-        if (cfgs == null || weapons == null) return false;
+        if (service == null || weapons == null) return false;
 
-        int count = Mathf.Min(cfgs.Length, weaponSlotViews.Length);
+        int count = Mathf.Min(service.WeaponCount, weaponSlotViews.Length);
         _weaponSlotVms = new WeaponSlotViewModel[count];
 
         for (int i = 0; i < count; i++)
         {
-            _weaponSlotVms[i] = new WeaponSlotViewModel(cfgs[i], weapons[i], _bus);
+            _weaponSlotVms[i] = new WeaponSlotViewModel(service.GetDefinition(i), weapons[i], _bus);
             weaponSlotViews[i].Bind(_weaponSlotVms[i]);
         }
         return true;

@@ -1,9 +1,9 @@
 
 public readonly struct ActiveWeaponChanged : IEvent
 {
-    public readonly WeaponConfig Config;
-    public ActiveWeaponChanged(WeaponConfig config)
+    public readonly WeaponDefinition Data;
+    public ActiveWeaponChanged(WeaponDefinition data)
     {
-        Config = config;
+        Data = data;
     }
 }

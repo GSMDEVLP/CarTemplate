@@ -1,6 +1,3 @@
-// Presentation/Controllers/RespawnDetector.cs
-using System;
-using System.Collections;
 using UnityEngine;
 
 public class RespawnDetector : MonoBehaviour, ITriggerEnterHandler
@@ -23,6 +20,8 @@ public class RespawnDetector : MonoBehaviour, ITriggerEnterHandler
 
     [SerializeField] private float _respawnDelay = 1f;
 
+    [SerializeField] private RespawnMode mode;
+
     private IEventBus _bus;
 
     private Transform _lastCheckpoint;
@@ -33,6 +32,9 @@ public class RespawnDetector : MonoBehaviour, ITriggerEnterHandler
 
     private string _gameObjectTag = "Player";
     private EntityId _targetId;
+
+    private string _lastReason;
+
 
     public void Init(IEventBus bus)
     {
@@ -59,10 +61,10 @@ public class RespawnDetector : MonoBehaviour, ITriggerEnterHandler
     {
         if (_target.tag == _gameObjectTag)
         {
-            CheckIfOnRoad();
-            CheckIfReversing();
+            CheckOnRoad();
+            CheckReversing();
         }
-        CheckIfFlipped();
+        CheckFlipped();
     }
 
     public void OnTriggerEntered(Collider other)
@@ -76,7 +78,7 @@ public class RespawnDetector : MonoBehaviour, ITriggerEnterHandler
             }
             _lastCheckpoint = cp.GetCheckPointPosition();
             _roadForward = other.transform.forward;
-            // _bus.Publish(new CheckpointUpdated(_lastCheckpoint, _roadForward));
+            Debug.Log($"Checkpoint set: {cp.name} pos={_lastCheckpoint.position}");
         }
     }
 
@@ -90,24 +92,24 @@ public class RespawnDetector : MonoBehaviour, ITriggerEnterHandler
         }
     }
 
-    void CheckIfReversing()
+    void CheckReversing()
     {
         if (_isRespawning || _rb.velocity.sqrMagnitude < 0.01f || _roadForward == Vector3.zero) return;
 
         var movementDir = _rb.velocity.normalized;
         float angle = Vector3.Angle(_roadForward, movementDir);
         float dot   = Vector3.Dot(_roadForward, transform.forward);
-
+        _lastReason = "Reverse";
         if (dot < 0f && angle > reverseRotateAngle)
         {
             Debug.Log("Едет обратно");
-            // _bus.Publish(new ReversingDetected(this));
             RequestRespawn(reverseDelay);
         }
     }
 
-    void CheckIfOnRoad()
+    void CheckOnRoad()
     {
+        _lastReason = "OffRoad";
         if (Physics.Raycast(_target.transform.position, Vector3.down, out _, rayDistance, _roadLayerMask))
         {
             _offTimer = 0f;
@@ -118,21 +120,21 @@ public class RespawnDetector : MonoBehaviour, ITriggerEnterHandler
             if (_offTimer >= offRoadWarningTime && !_isRespawning)
             {
                 Debug.Log("Не на дороге");
-                // _bus.Publish(new OutOfRoadTimeout(this, _offTimer));
                 RequestRespawn(offRoadDelay);
             }
         }
     }
 
-    void CheckIfFlipped()
+    void CheckFlipped()
     {
+        _lastReason = "Flipped";
         float z = _target.transform.eulerAngles.z;
         if (z > 180f) z -= 360f;
 
-        if (Mathf.Abs(z) > crashRotateAngle && !_isRespawning)
+        float tilt = Vector3.Angle(_rb.transform.up, Vector3.up);
+        if (tilt > crashRotateAngle && !_isRespawning)
         {
             Debug.Log("Перевернулся");
-            // _bus.Publish(new FlippedDetected(this));
             RequestRespawn(flippedDelay);
         }
     }
@@ -141,20 +143,19 @@ public class RespawnDetector : MonoBehaviour, ITriggerEnterHandler
     {
         if (_lastCheckpoint == null) return;
         _isRespawning = true;
-
-        Debug.Log($"Respawn! pos={_lastCheckpoint.position}, rot={_lastCheckpoint.rotation.eulerAngles}");
         
         _bus.Invoke(new RespawnRequested(
-            target: _target,
-            pos: _lastCheckpoint.position,
-            rot: _lastCheckpoint.rotation,
-            delay: delay
+            targetId: _targetId,
+            pos: UnityVectorAdapter.ToNumerics(_lastCheckpoint.position),
+            rot: UnityQuaternionAdapter.ToNumerics(_lastCheckpoint.rotation),
+            delay: delay, 
+            mode: mode
         ));
     }
 
     private void OnRespawnCompleted(RespawnPerformed e)
     {
-        if (e.Target == _target)
-            _isRespawning = false;
+        if (e.TargetId.Equals(_targetId))
+            _isRespawning = false;    
     }
 }
