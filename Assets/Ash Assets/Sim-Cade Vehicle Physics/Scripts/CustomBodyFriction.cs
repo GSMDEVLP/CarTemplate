@@ -9,18 +9,18 @@ namespace Ashsvp
     {
         public SimcadeVehicleController SimcadeVehicleController;
         public Collider bodyCollider;
-        private PhysicMaterial bodyFrictionMaterial;
+        private PhysicsMaterial bodyFrictionMaterial;
         public float LowerBodyFriction = 0f;
         public float UpperBodyFriction = 0.5f;
 
         private void Start()
         {
-            bodyFrictionMaterial = new PhysicMaterial();
+            bodyFrictionMaterial = new PhysicsMaterial();
             bodyFrictionMaterial.dynamicFriction = LowerBodyFriction;
             bodyFrictionMaterial.staticFriction = LowerBodyFriction;
             bodyFrictionMaterial.bounciness = 0;
-            bodyFrictionMaterial.frictionCombine = PhysicMaterialCombine.Minimum;
-            bodyFrictionMaterial.bounceCombine = PhysicMaterialCombine.Minimum;
+            bodyFrictionMaterial.frictionCombine = PhysicsMaterialCombine.Minimum;
+            bodyFrictionMaterial.bounceCombine = PhysicsMaterialCombine.Minimum;
 
             if (bodyCollider != null)
             {

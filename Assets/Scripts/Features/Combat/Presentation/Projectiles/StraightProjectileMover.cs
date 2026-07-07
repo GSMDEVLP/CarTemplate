@@ -11,6 +11,11 @@ public class StraightProjectileMover : ProjectilePart
 
     private void Update()
     {
+        ProjectileMove();
+    }
+
+    private void ProjectileMove()
+    {
         if (!IsInitialized)
             return;
 

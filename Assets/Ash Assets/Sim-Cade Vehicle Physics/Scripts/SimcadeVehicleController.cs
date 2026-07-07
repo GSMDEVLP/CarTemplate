@@ -195,8 +195,8 @@ namespace Ashsvp
 
         void FixedUpdate()
         {
-            localVehicleVelocity = transform.InverseTransformDirection(rb.velocity);
-            driftAngle = Mathf.Abs(Vector3.Angle(transform.forward, Vector3.ProjectOnPlane(rb.velocity, transform.up)));
+            localVehicleVelocity = transform.InverseTransformDirection(rb.linearVelocity);
+            driftAngle = Mathf.Abs(Vector3.Angle(transform.forward, Vector3.ProjectOnPlane(rb.linearVelocity, transform.up)));
 
             AckermannSteering(steerInput);
 
@@ -249,7 +249,7 @@ namespace Ashsvp
                 }
 
                 //ground angular drag
-                rb.angularDrag = 1;
+                rb.angularDamping = 1;
 
                 //downforce
                 rb.AddForce(-transform.up * DownForce * rb.mass);
@@ -262,7 +262,7 @@ namespace Ashsvp
                 }
 
                 // air angular drag
-                rb.angularDrag = airAngularDrag;
+                rb.angularDamping = airAngularDrag;
             }
 
             //friction
@@ -327,16 +327,16 @@ namespace Ashsvp
             {
                 deltaSpeed = (1 + Mathf.Abs(localVehicleVelocity.z / MaxSpeed)) * Acceleration * adjustedAccelerationInput * Time.fixedDeltaTime;
             }
-            if (handbrakeInput < 0.1f && (rb.velocity.magnitude * _constSpeed) < MaxSpeed)
+            if (handbrakeInput < 0.1f && (rb.linearVelocity.magnitude * _constSpeed) < MaxSpeed)
             {
-                rb.velocity += transform.forward * deltaSpeed;
+                rb.linearVelocity += transform.forward * deltaSpeed;
             }
             // SetSpeedometer();            
         }
 
         void AddRollingResistance()
         {
-            float localSpeed = Vector3.Dot(rb.velocity, transform.forward);
+            float localSpeed = Vector3.Dot(rb.linearVelocity, transform.forward);
 
             float deltaSpeed = RollingResistance * Time.fixedDeltaTime * Mathf.Clamp01(Mathf.Abs(localSpeed));
             deltaSpeed = Mathf.Clamp(deltaSpeed, -MaxSpeed, MaxSpeed);
@@ -344,11 +344,11 @@ namespace Ashsvp
             {
                 if (localSpeed > 0)
                 {
-                    rb.velocity -= transform.forward * deltaSpeed;
+                    rb.linearVelocity -= transform.forward * deltaSpeed;
                 }
                 else
                 {
-                    rb.velocity += transform.forward * deltaSpeed;
+                    rb.linearVelocity += transform.forward * deltaSpeed;
                 }
             }
 
@@ -356,17 +356,17 @@ namespace Ashsvp
 
         void brakeLogic(float brakeInput)
         {
-            float localSpeed = Vector3.Dot(rb.velocity, transform.forward);
+            float localSpeed = Vector3.Dot(rb.linearVelocity, transform.forward);
 
             float deltaSpeed = brakeAcceleration * brakeInput * Time.fixedDeltaTime * Mathf.Clamp01(Mathf.Abs(localSpeed));
             deltaSpeed = Mathf.Clamp(deltaSpeed, -MaxSpeed, MaxSpeed);
             if (localSpeed > 0)
             {
-                rb.velocity -= transform.forward * deltaSpeed;
+                rb.linearVelocity -= transform.forward * deltaSpeed;
             }
             else
             {
-                rb.velocity += transform.forward * deltaSpeed;
+                rb.linearVelocity += transform.forward * deltaSpeed;
             }
 
         }
@@ -565,9 +565,9 @@ namespace Ashsvp
             // auto counter steering
             if (localVehicleVelocity.z > 0 && AutoCounterSteer && Mathf.Abs(localVehicleVelocity.x) > 1f)
             {
-                ackermennLeftAngle += Vector3.SignedAngle(transform.forward, rb.velocity + transform.forward, transform.up);
+                ackermennLeftAngle += Vector3.SignedAngle(transform.forward, rb.linearVelocity + transform.forward, transform.up);
                 ackermennLeftAngle = Mathf.Clamp(ackermennLeftAngle, -70, 70);
-                ackermennRightAngle += Vector3.SignedAngle(transform.forward, rb.velocity + transform.forward, transform.up);
+                ackermennRightAngle += Vector3.SignedAngle(transform.forward, rb.linearVelocity + transform.forward, transform.up);
                 ackermennRightAngle = Mathf.Clamp(ackermennRightAngle, -70, 70);
             }
 
@@ -657,9 +657,9 @@ namespace Ashsvp
 
         void bodyAnimation()
         {
-            Vector3 accel = Vector3.ProjectOnPlane((rb.velocity - lastVelocity) / Time.fixedDeltaTime, transform.up);
+            Vector3 accel = Vector3.ProjectOnPlane((rb.linearVelocity - lastVelocity) / Time.fixedDeltaTime, transform.up);
             accel = transform.InverseTransformDirection(accel);
-            lastVelocity = rb.velocity;
+            lastVelocity = rb.linearVelocity;
 
             VehicleBody.localRotation = Quaternion.Lerp(VehicleBody.localRotation, Quaternion.Euler(Mathf.Clamp(-accel.z / 10, -forwardBodyTilt, forwardBodyTilt), 0, Mathf.Clamp(accel.x / 5, -sidewaysBodyTilt, sidewaysBodyTilt)), 0.1f);
         }

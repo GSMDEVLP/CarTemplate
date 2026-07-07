@@ -46,7 +46,7 @@ public sealed class GameUIRoot  : MonoBehaviour
         if (provider == null) return false;
 
         _speedVm = new SpeedometerViewModel(
-            () => provider.Rigidbody.velocity.magnitude * speedMultiplier,
+            () => provider.Rigidbody.linearVelocity.magnitude * speedMultiplier,
             minAngle,
             maxAngle,
             maxSpeed,

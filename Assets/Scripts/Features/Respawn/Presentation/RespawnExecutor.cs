@@ -47,7 +47,7 @@ public class RespawnExecutor : MonoBehaviour
             {
                 case RespawnMode.Simcade:
                 {
-                    rb.velocity = Vector3.zero;
+                    rb.linearVelocity = Vector3.zero;
                     rb.angularVelocity = Vector3.zero;
                     rb.isKinematic = true;
                     rb.position = pos;
@@ -57,7 +57,7 @@ public class RespawnExecutor : MonoBehaviour
                 }
                 case RespawnMode.AnyCarAI:
                 {
-                    rb.velocity = Vector3.zero;
+                    rb.linearVelocity = Vector3.zero;
                     rb.angularVelocity = Vector3.zero;
                     targetGo.transform.SetPositionAndRotation(pos, rot);
                     break;

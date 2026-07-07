@@ -16,7 +16,7 @@ public class CameraController : MonoBehaviour
 
     void Update()
     {
-        Vector3 carForward = (_carRigidbody.velocity + _target.transform.forward).normalized;
+        Vector3 carForward = (_carRigidbody.linearVelocity + _target.transform.forward).normalized;
         transform.position = Vector3.Lerp(transform.position, 
             _target.position + _target.transform.TransformVector(_offset) + carForward * (-5f), 
             _speed * Time.deltaTime);

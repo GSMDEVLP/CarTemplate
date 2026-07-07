@@ -41,15 +41,15 @@ public class HomingProjectileMover : ProjectilePart
 
         _targetRb = _target ? _target.GetComponent<Rigidbody>() : null;
 
-        if (rb.velocity.sqrMagnitude < 0.01f)
-            rb.velocity = transform.forward * Mathf.Min(_maxSpeed * 0.5f, 20f);
+        if (rb.linearVelocity.sqrMagnitude < 0.01f)
+            rb.linearVelocity = transform.forward * Mathf.Min(_maxSpeed * 0.5f, 20f);
     }
 
     private void OnEnable()
     {
         if (rb != null)
         {
-            rb.velocity = Vector3.zero;
+            rb.linearVelocity = Vector3.zero;
             rb.angularVelocity = Vector3.zero;
         }
     }
@@ -74,9 +74,9 @@ public class HomingProjectileMover : ProjectilePart
         }
 
         Vector3 targetPos = _target.position;
-        Vector3 targetVel = _targetRb ? _targetRb.velocity : Vector3.zero;
+        Vector3 targetVel = _targetRb ? _targetRb.linearVelocity : Vector3.zero;
 
-        float missileSpeed = Mathf.Max(rb.velocity.magnitude, 0.1f);
+        float missileSpeed = Mathf.Max(rb.linearVelocity.magnitude, 0.1f);
         Vector3 aimPoint = ComputeInterceptPoint(
             rb.position,
             Mathf.Max(missileSpeed, _maxSpeed),
@@ -93,7 +93,7 @@ public class HomingProjectileMover : ProjectilePart
 
         Vector3 forward = rb.rotation * Vector3.forward;
         Vector3 desiredVel = forward * _maxSpeed;
-        rb.velocity = Vector3.MoveTowards(rb.velocity, desiredVel, acceleration * dt);
+        rb.linearVelocity = Vector3.MoveTowards(rb.linearVelocity, desiredVel, acceleration * dt);
         return true;
     }
 
@@ -101,7 +101,7 @@ public class HomingProjectileMover : ProjectilePart
     {
         Vector3 forward = rb.rotation * Vector3.forward;
         Vector3 desiredVel = forward * _maxSpeed;
-        rb.velocity = Vector3.MoveTowards(rb.velocity, desiredVel, acceleration * dt);
+        rb.linearVelocity = Vector3.MoveTowards(rb.linearVelocity, desiredVel, acceleration * dt);
     }
 
     private static Vector3 ComputeInterceptPoint(

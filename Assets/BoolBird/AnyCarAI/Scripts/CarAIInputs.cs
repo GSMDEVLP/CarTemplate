@@ -84,9 +84,9 @@ public class CarAIInputs : MonoBehaviour
             #region MAX SPEED
 
             Vector3 fwd = transform.forward;
-            if (carAIReference.rb.velocity.magnitude > carAIReference.maxSpeed * 0.1f)
+            if (carAIReference.rb.linearVelocity.magnitude > carAIReference.maxSpeed * 0.1f)
             {
-                fwd = carAIReference.rb.velocity;
+                fwd = carAIReference.rb.linearVelocity;
             }
 
             float desiredSpeed = carAIReference.maxSpeed;

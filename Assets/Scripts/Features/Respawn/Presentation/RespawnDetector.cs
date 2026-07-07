@@ -28,6 +28,7 @@ public class RespawnDetector : MonoBehaviour, ITriggerEnterHandler
     private Vector3 _roadForward;
     private int _roadLayerMask;
     private float _offTimer;
+    private float _reverseTimer;
     private bool _isRespawning;
 
     private string _gameObjectTag = "Player";
@@ -52,6 +53,7 @@ public class RespawnDetector : MonoBehaviour, ITriggerEnterHandler
 
     private void OnDestroy()
     {
+        if(_bus == null) return;
         _bus.Unsubscribe<RespawnPerformed>(OnRespawnCompleted);
         _bus.Unsubscribe<VehicleDestroyed>(OnVehicleDestroyed);
     }
@@ -61,6 +63,7 @@ public class RespawnDetector : MonoBehaviour, ITriggerEnterHandler
     {
         if (_target.tag == _gameObjectTag)
         {
+            
             CheckOnRoad();
             CheckReversing();
         }
@@ -94,16 +97,29 @@ public class RespawnDetector : MonoBehaviour, ITriggerEnterHandler
 
     void CheckReversing()
     {
-        if (_isRespawning || _rb.velocity.sqrMagnitude < 0.01f || _roadForward == Vector3.zero) return;
+        if (_isRespawning || _rb.linearVelocity.sqrMagnitude < 0.01f || _roadForward == Vector3.zero)
+        {
+            _reverseTimer = 0f;
+            return;
+        }
 
-        var movementDir = _rb.velocity.normalized;
+        var movementDir = _rb.linearVelocity.normalized;
         float angle = Vector3.Angle(_roadForward, movementDir);
-        float dot   = Vector3.Dot(_roadForward, transform.forward);
+        float dot = Vector3.Dot(_roadForward, _target.transform.forward);
         _lastReason = "Reverse";
-        if (dot < 0f && angle > reverseRotateAngle)
+
+        bool isDrivingWrongWay = dot < 0f && angle > reverseRotateAngle;
+        if (!isDrivingWrongWay)
+        {
+            _reverseTimer = 0f;
+            return;
+        }
+
+        _reverseTimer += Time.fixedDeltaTime;
+        if (_reverseTimer >= reverseDelay)
         {
             Debug.Log("Едет обратно");
-            RequestRespawn(reverseDelay);
+            RequestRespawn(0f);
         }
     }
 
@@ -143,6 +159,7 @@ public class RespawnDetector : MonoBehaviour, ITriggerEnterHandler
     {
         if (_lastCheckpoint == null) return;
         _isRespawning = true;
+        _reverseTimer = 0f;
         
         _bus.Invoke(new RespawnRequested(
             targetId: _targetId,

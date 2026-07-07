@@ -240,7 +240,7 @@ namespace AshDev.Utility
                     break;
             }
 
-            if (vehicleRigidbody.velocity.magnitude < maxSpeed || maxSpeed <= 0)
+            if (vehicleRigidbody.linearVelocity.magnitude < maxSpeed || maxSpeed <= 0)
             {
                 float appliedPower = boostPower;
                 if (boostType == BoostType.CustomCurve)

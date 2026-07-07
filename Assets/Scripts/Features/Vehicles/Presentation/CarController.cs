@@ -32,7 +32,7 @@ public class CarController : MonoBehaviour
     
     void Update()
     {
-        _speed = _carRigidbody.velocity.magnitude;
+        _speed = _carRigidbody.linearVelocity.magnitude;
         CheckInput();
         ApplyMotor();
         ApplySteering();
@@ -43,7 +43,7 @@ public class CarController : MonoBehaviour
     {
         _gasInput = Input.GetAxis("Vertical");
         _steeringInput = Input.GetAxis("Horizontal");
-        _slipAngle = Vector3.Angle(transform.forward, _carRigidbody.velocity - transform.forward);
+        _slipAngle = Vector3.Angle(transform.forward, _carRigidbody.linearVelocity - transform.forward);
         if (_slipAngle < 120f)
         {
             if (_gasInput < 0)
@@ -82,7 +82,7 @@ public class CarController : MonoBehaviour
         float steeringAngle = _steeringInput * _steeringCurve.Evaluate(_speed);
         if (_slipAngle < 120f)
         {
-            steeringAngle += Vector3.SignedAngle(transform.forward, _carRigidbody.velocity + transform.forward, Vector3.up);
+            steeringAngle += Vector3.SignedAngle(transform.forward, _carRigidbody.linearVelocity + transform.forward, Vector3.up);
         }
         _wheelColliders.FRWheel.steerAngle = steeringAngle; 
         _wheelColliders.FLWheel.steerAngle = steeringAngle; 

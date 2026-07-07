@@ -525,12 +525,12 @@ public class AnyCarAI : MonoBehaviour
         {
             case SpeedTypeAI.MPH:
 
-                currentSpeed = rb.velocity.magnitude * 2.23693629f;
+                currentSpeed = rb.linearVelocity.magnitude * 2.23693629f;
 
                 break;
             case SpeedTypeAI.KPH:
 
-                currentSpeed = rb.velocity.magnitude * 3.6f;
+                currentSpeed = rb.linearVelocity.magnitude * 3.6f;
 
                 break;
         }
@@ -699,7 +699,7 @@ public class AnyCarAI : MonoBehaviour
         {
             var turnadjust = (transform.eulerAngles.y - oldRotation) * steerHelper;
             Quaternion velRotation = Quaternion.AngleAxis(turnadjust, Vector3.up);
-            rb.velocity = velRotation * rb.velocity;
+            rb.linearVelocity = velRotation * rb.linearVelocity;
         }
         oldRotation = transform.eulerAngles.y;
     }
@@ -769,7 +769,7 @@ public class AnyCarAI : MonoBehaviour
 
         if (footbrake > 0)
         {
-            if (currentSpeed > 5 && Vector3.Angle(transform.forward, rb.velocity) < 50f)
+            if (currentSpeed > 5 && Vector3.Angle(transform.forward, rb.linearVelocity) < 50f)
             {
                 reverseGearOn = false;
             }
@@ -785,7 +785,7 @@ public class AnyCarAI : MonoBehaviour
 
         if (!ABS)
         {
-            if (currentSpeed > 5 && Vector3.Angle(transform.forward, rb.velocity) < 50f)
+            if (currentSpeed > 5 && Vector3.Angle(transform.forward, rb.linearVelocity) < 50f)
             {
                 frontLeftCol.GetComponent<WheelCollider>().brakeTorque = brakeTorque * footbrake;
                 frontRightCol.GetComponent<WheelCollider>().brakeTorque = brakeTorque * footbrake;
@@ -828,7 +828,7 @@ public class AnyCarAI : MonoBehaviour
         }
         else
         {
-            if (currentSpeed > 5 && Vector3.Angle(transform.forward, rb.velocity) < 50f)
+            if (currentSpeed > 5 && Vector3.Angle(transform.forward, rb.linearVelocity) < 50f)
             {
                 StartCoroutine(ABSCoroutine(footbrake));
 
@@ -873,13 +873,13 @@ public class AnyCarAI : MonoBehaviour
             case SpeedTypeAI.MPH:
 
                 if (currentSpeed > maxSpeed)
-                    rb.velocity = (maxSpeed / 2.23693629f) * rb.velocity.normalized;
+                    rb.linearVelocity = (maxSpeed / 2.23693629f) * rb.linearVelocity.normalized;
                 break;
 
             case SpeedTypeAI.KPH:
 
                 if (currentSpeed > maxSpeed)
-                    rb.velocity = (maxSpeed / 3.6f) * rb.velocity.normalized;
+                    rb.linearVelocity = (maxSpeed / 3.6f) * rb.linearVelocity.normalized;
                 break;        
         }
     }
@@ -923,7 +923,7 @@ public class AnyCarAI : MonoBehaviour
 
     private void isDrivingDebug()
     {
-        if (rb.velocity.magnitude < 1)
+        if (rb.linearVelocity.magnitude < 1)
         {
             if (isDriving)
             {
@@ -1115,7 +1115,7 @@ public class AnyCarAI : MonoBehaviour
     #region AERODYNAMICS
     private void AddDownForce()
     {
-        rb.AddForce(-transform.up * downForce * rb.velocity.magnitude);
+        rb.AddForce(-transform.up * downForce * rb.linearVelocity.magnitude);
     }
 
     private void TractionControl()
