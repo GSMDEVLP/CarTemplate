@@ -7,6 +7,7 @@ public class VehicleHealthAdapter : MonoBehaviour, ITakesDamage
 {
     [SerializeField] private Rigidbody _rb;
     [SerializeField] private float _maxHP = 100f;
+
     private IEventBus _bus;
 
     public float CurrentHP { get; private set; }

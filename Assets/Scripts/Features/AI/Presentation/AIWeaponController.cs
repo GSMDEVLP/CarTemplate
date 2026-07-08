@@ -171,7 +171,7 @@ public class AIWeaponController : MonoBehaviour
             UnityVectorAdapter.ToNumerics(dir),
             ownerId);
 
-        Debug.Log($"AIWeapon FIRE: slot={slotIndex} weapon={weapon} mount={mount.name} pos={mount.position} dir={dir} owner={ownerId}");
+        // Debug.Log($"AIWeapon FIRE: slot={slotIndex} weapon={weapon} mount={mount.name} pos={mount.position} dir={dir} owner={ownerId}");
 
         weapon.Fire(ctx);
         _planner.ConsumeShot(Time.time, _slotData[slotIndex]);

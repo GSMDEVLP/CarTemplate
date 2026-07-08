@@ -8,13 +8,13 @@ public class ProjectileDamageOnHit : ProjectilePart
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("ProjectileDamageOnHit OnTriggerEnter with " + other.name);
+        // Debug.Log("ProjectileDamageOnHit OnTriggerEnter with " + other.name);
         HandleTrigger(other);
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        Debug.Log("ProjectileDamageOnHit OnCollisionEnter with " + collision.gameObject.name);
+        // Debug.Log("ProjectileDamageOnHit OnCollisionEnter with " + collision.gameObject.name);
         HandleCollision(collision);
     }
 
@@ -33,6 +33,8 @@ public class ProjectileDamageOnHit : ProjectilePart
     {
         if (!IsInitialized || _consumed) return;
         if (!TryGetTargetId(other, out var targetId)) return;
+
+        if (targetId.Equals(Ctx.Owner)) return;
 
         if (Ctx.DamageService != null)
         {
@@ -58,6 +60,8 @@ public class ProjectileDamageOnHit : ProjectilePart
         if (!IsInitialized || _consumed) return;
         if (!TryGetTargetId(collision.collider, out var targetId)) return;
 
+        if (targetId.Equals(Ctx.Owner)) return;
+        
         if (Ctx.DamageService != null)
         {
             var contact = collision.GetContact(0);

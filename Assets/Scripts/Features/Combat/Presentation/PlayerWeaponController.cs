@@ -49,7 +49,7 @@ public class PlayerWeaponController : MonoBehaviour
         _currentIndex = index;
         var def = _service.GetDefinition(_currentIndex);
         _bus.Invoke(new ActiveWeaponChanged(def));
-        Debug.Log($"Switched to weapon slot: {index}");
+        // Debug.Log($"Switched to weapon slot: {index}");
     }
 
     public Transform ResolveMount(WeaponDefinition data)

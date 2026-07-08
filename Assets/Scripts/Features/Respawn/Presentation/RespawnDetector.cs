@@ -64,9 +64,9 @@ public class RespawnDetector : MonoBehaviour, ITriggerEnterHandler
         if (_target.tag == _gameObjectTag)
         {
             
-            CheckOnRoad();
             CheckReversing();
         }
+        CheckOnRoad();
         CheckFlipped();
     }
 
