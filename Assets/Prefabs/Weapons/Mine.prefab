@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 501441876430625125}
   - component: {fileID: 8718484028785743543}
   - component: {fileID: 3944414203501184082}
-  - component: {fileID: 6700616874446897101}
+  - component: {fileID: 303133864767764966}
   - component: {fileID: 7221203216466479541}
   - component: {fileID: 3240108301364136056}
   m_Layer: 10
@@ -93,8 +93,8 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &6700616874446897101
-SphereCollider:
+--- !u!136 &303133864767764966
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -111,9 +111,11 @@ SphereCollider:
   m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 3
+  serializedVersion: 2
   m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Height: 11.787973
+  m_Direction: 1
+  m_Center: {x: 0, y: 5.3727636, z: 0}
 --- !u!114 &7221203216466479541
 MonoBehaviour:
   m_ObjectHideFlags: 0

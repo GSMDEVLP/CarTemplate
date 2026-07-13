@@ -81,9 +81,7 @@ public class CarAIWaipointTracker : MonoBehaviour
         {
             if(ACAI.persuitTarget != null)
             {
-                Transform tempPersuitCollider = ACAI.persuitTarget.GetComponentInChildren<MeshCollider>().transform;
-
-                target = tempPersuitCollider;
+                target = ACAI.persuitTarget.transform;
             }
             else
             {

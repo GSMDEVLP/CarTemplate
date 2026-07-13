@@ -165,7 +165,7 @@ public class CarAIInputs : MonoBehaviour
             {
                 if(carAIReference.persuitTarget != null)
                 {
-                    Transform tempTarget = carAIReference.persuitTarget.GetComponentInChildren<MeshCollider>().transform;
+                    Transform tempTarget = carAIReference.persuitTarget.transform;
                     Vector3 relativeVector = transform.InverseTransformPoint(tempTarget.position);
                     targetAngle = (relativeVector.x / relativeVector.magnitude) * carAIReference.maximumSteerAngle;
                 }
