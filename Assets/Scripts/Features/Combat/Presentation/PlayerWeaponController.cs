@@ -47,8 +47,7 @@ public class PlayerWeaponController : MonoBehaviour
         if (index < 0 || index >= _weapons.Length) return;
 
         _currentIndex = index;
-        var def = _service.GetDefinition(_currentIndex);
-        _bus.Invoke(new ActiveWeaponChanged(def));
+        _bus.Invoke(new ActiveWeaponChanged(_currentIndex));
         // Debug.Log($"Switched to weapon slot: {index}");
     }
 

@@ -1,4 +1,3 @@
-using System.Collections;
 using UnityEngine;
 
 public sealed class GameUIRoot  : MonoBehaviour
@@ -11,7 +10,6 @@ public sealed class GameUIRoot  : MonoBehaviour
     [Header("Speedometer Settings")]
     [SerializeField] private float maxSpeed = 250f;
     
-    private float speedMultiplier = 3.6f;
     private float minAngle = 0f;
     private float maxAngle = -275f;
     
@@ -19,79 +17,56 @@ public sealed class GameUIRoot  : MonoBehaviour
     private HealthViewModel _healthVm;
     private WeaponSlotViewModel[] _weaponSlotVms;
 
-    private IEventBus _bus;
     private bool _initialized;
 
-
-    public void Init(IEventBus bus)
+    public void Init(
+        IEventBus bus,
+        IWeaponHudSource weaponSource,
+        IVehicleTelemetrySource telemetrySource,
+        IPlayerHealthSource healthSource)
     {
-        _bus = bus;
-        if (!_initialized) StartCoroutine(InitRoutine());
-    }
-
-    private IEnumerator InitRoutine()
-    {
+        if (_initialized) return;
         _initialized = true;
 
-        while (PlayerWeaponProvider.Instance == null || PlayerVehicleProvider.Instance == null)
-            yield return null;
-
-        InitializePlayerWeaponProvider();
-        InitializePlayerVehicleProvider();
-    }
-
-    private bool InitializePlayerVehicleProvider()
-    {
-        var provider = PlayerVehicleProvider.Instance;
-        if (provider == null) return false;
-
         _speedVm = new SpeedometerViewModel(
-            () => provider.Rigidbody.linearVelocity.magnitude * speedMultiplier,
+            telemetrySource,
             minAngle,
             maxAngle,
-            maxSpeed,
-            provider.GearSystem
-        );
-        _healthVm = new HealthViewModel(provider.DamageResolve, _bus, provider.EntityIdComponent);
+            maxSpeed);
+        _healthVm = new HealthViewModel(healthSource, bus);
 
         healthView.Bind(_healthVm);
         speedometerView.Bind(_speedVm);
-        return true;
-    }
 
-    private bool InitializePlayerWeaponProvider()
-    {
-        var controller = PlayerWeaponProvider.Instance?.Controller;
-        if (controller == null) return false;
-
-        var service = controller.WeaponService;
-        var weapons = controller.Weapons;
-        if (service == null || weapons == null) return false;
-
-        int count = Mathf.Min(service.WeaponCount, weaponSlotViews.Length);
+        int count = Mathf.Min(weaponSource.SlotCount, weaponSlotViews.Length);
         _weaponSlotVms = new WeaponSlotViewModel[count];
 
         for (int i = 0; i < count; i++)
         {
-            _weaponSlotVms[i] = new WeaponSlotViewModel(service.GetDefinition(i), weapons[i], _bus);
+            _weaponSlotVms[i] = new WeaponSlotViewModel(i, weaponSource);
             weaponSlotViews[i].Bind(_weaponSlotVms[i]);
         }
-        return true;
     }
 
     private void Update()
     {   
-        if (_weaponSlotVms == null) return;
-        foreach (var vm in _weaponSlotVms)
-            vm.Refresh();
+        if (_weaponSlotVms != null)
+        {
+            foreach (var vm in _weaponSlotVms)
+                vm.Refresh();
+        }
+
         _speedVm?.RefreshSpeed();
     }
 
     private void OnDestroy()
     {
-        if (_weaponSlotVms == null) return;
-        foreach (var vm in _weaponSlotVms)
-            vm.Dispose();
+        if (_weaponSlotVms != null)
+        {
+            foreach (var vm in _weaponSlotVms)
+                vm.Dispose();
+        }
+
         _speedVm?.Dispose();
         _healthVm?.Dispose();
     }

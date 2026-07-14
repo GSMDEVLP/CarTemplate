@@ -11,7 +11,18 @@ public sealed class UIContext : MonoBehaviour
         while (GameContext.Instance == null)
             yield return null;
 
-        // Debug.Log("UIContext GameContext.Instance is available");
-        installer.Install(GameContext.Instance.Services);
+        while (PlayerWeaponProvider.Instance == null ||
+               !PlayerWeaponProvider.Instance.IsReady ||
+               PlayerVehicleTelemetryProvider.Instance == null ||
+               PlayerHealthProvider.Instance == null)
+        {
+            yield return null;
+        }
+
+        installer.Install(
+            GameContext.Instance.Services,
+            PlayerWeaponProvider.Instance.HudSource,
+            PlayerVehicleTelemetryProvider.Instance,
+            PlayerHealthProvider.Instance);
     }
 }

@@ -21,6 +21,17 @@ public sealed class PlayerCombatInstaller : MonoBehaviour, IInstaller
             var defs = adapter.Build(playerWeaponConfigs);
             var service = new WeaponService(services.Time, services.EventBus, factory, defs);
             playerController.Init(service, services.EventBus);
+
+            var provider = playerController.GetComponent<PlayerWeaponProvider>();
+            if (provider != null)
+            {
+                var hudSource = new WeaponHudAdapter(service, services.EventBus, playerController.CurrentIndex);
+                provider.Initialize(hudSource);
+            }
+            else
+            {
+                Debug.LogError("PlayerWeaponProvider was not found in the player hierarchy.", playerController);
+            }
         }
     }
 }

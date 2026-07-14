@@ -7,9 +7,10 @@ namespace Ashsvp
 {
     public class GearSystem : MonoBehaviour
     {
+        [SerializeField] private SimcadeVehicleController vehicleController;
+
         public float VehicleSpeed;
         public int currentGear;
-        private SimcadeVehicleController vehicleController;
         public int[] gearSpeeds = new int[] { 40, 80, 120, 160, 220 };
 
         public AudioSystem AudioSystem;
@@ -18,7 +19,6 @@ namespace Ashsvp
         private float currentGearTemp;
         void Start()
         {
-            vehicleController = GetComponent<SimcadeVehicleController>();
             currentGear = 1;
         }
 

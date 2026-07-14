@@ -1,21 +1,17 @@
-using System;
 using UnityEngine;
 
 public class HealthViewModel : ViewModelBase
 {
     public ObservableProperty<string> HpText { get; } = new ObservableProperty<string>("0");
 
-    private readonly ITakesDamage _hp;
+    private readonly IPlayerHealthSource _health;
     private readonly IEventBus _bus;
-    private readonly string _fullHP;
-
     private readonly EntityId _playerId;
 
-    public HealthViewModel(ITakesDamage hp,IEventBus bus, EntityIdComponent entityIdComponent, string fullHP = "100")
+    public HealthViewModel(IPlayerHealthSource health, IEventBus bus)
     {
-        _hp = hp;
-        _fullHP = fullHP;
-        _playerId = entityIdComponent.Id;
+        _health = health;
+        _playerId = health.EntityId;
         _bus = bus;
         _bus.Subscribe<DamageTaken>(OnDamage);
         _bus.Subscribe<VehicleDestroyed>(OnVehicleDestroyed);
@@ -38,13 +34,13 @@ public class HealthViewModel : ViewModelBase
 
     private void OnVehicleRespawn(UpdateVehicleInfo e)
     {
-        HpText.Value = _fullHP;
+        Refresh();
     }
 
     private void Refresh()
     {
-        if (_hp == null) return;
-        HpText.Value = Mathf.CeilToInt(_hp.CurrentHP).ToString();
+        if (_health == null) return;
+        HpText.Value = Mathf.CeilToInt(_health.CurrentHealth).ToString();
     }
 
     public override void Dispose()

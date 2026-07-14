@@ -1,3 +1,5 @@
+using System;
+
 public sealed class WeaponService
 {
     private readonly ITime _time;
@@ -7,6 +9,8 @@ public sealed class WeaponService
 
     public IWeapon[] Weapons => _weapons;
     public int WeaponCount => _state.Count;
+
+    public event Action<int> SlotStateChanged;
 
     public WeaponService(
         ITime time,
@@ -43,7 +47,11 @@ public sealed class WeaponService
 
     public FireDecision TryFire(int index, FireRequest fire)
     {
-        return _fire.TryFire(_state, index, fire);
+        var decision = _fire.TryFire(_state, index, fire);
+        if (decision.Success)
+            SlotStateChanged?.Invoke(index);
+
+        return decision;
     }
 
     public bool CanFire(int index)

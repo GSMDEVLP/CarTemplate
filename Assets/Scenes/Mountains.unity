@@ -6851,7 +6851,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &371890751
 Transform:
   m_ObjectHideFlags: 0
@@ -46292,6 +46292,70 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5363829247875159169, guid: 582909e8a32724c4e88df0602045970d, type: 3}
   m_PrefabInstance: {fileID: 2140780833}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &2145575621
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2145575622}
+  - component: {fileID: 2145575624}
+  - component: {fileID: 2145575623}
+  m_Layer: 11
+  m_Name: Gear
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2145575622
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2145575621}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5813866823158119563}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2145575623
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2145575621}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bea1113afac9d4f44b4d0e5ac65a97c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rb: {fileID: 7070938443758039696}
+  gearSystem: {fileID: 2145575624}
+--- !u!114 &2145575624
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2145575621}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 266f8bf93a4c57c44b362c816d29049c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  vehicleController: {fileID: 7070938443758039711}
+  VehicleSpeed: 0
+  currentGear: 0
+  gearSpeeds: 280000005000000078000000a0000000dc000000
+  AudioSystem: {fileID: 1107213778229754004}
 --- !u!1001 &2146894908
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -46970,7 +47034,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad36e637430f1b140875f8bfae33182c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gearSystem: {fileID: 7070938443758039700}
+  gearSystem: {fileID: 2145575624}
   SimcadeVehicleController: {fileID: 7070938443758039711}
   vehicle_rb: {fileID: 7070938443758039696}
   engineSound: {fileID: 2301731261374514845}
@@ -47677,6 +47741,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1743895410521240037}
   - component: {fileID: 1300649869156873556}
+  - component: {fileID: 2340897645591816494}
   m_Layer: 11
   m_Name: Health
   m_TagString: Untagged
@@ -47684,6 +47749,20 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &2340897645591816494
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2340897645591816493}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a81327489c447e1a3e4cf16b19518d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageResolve: {fileID: 2340897645591816493}
+  entityIdComponent: {fileID: 5236170115204060096}
 --- !u!4 &2357352652585828032
 Transform:
   m_ObjectHideFlags: 0
@@ -48191,7 +48270,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0ccd7e1ffc9e2740af5973d70997da5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  controller: {fileID: 7556206579384502763}
 --- !u!4 &3395083386233756052
 Transform:
   m_ObjectHideFlags: 0
@@ -49825,22 +49903,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5a97818f1dd63714d87dd7b8d1640266, type: 3}
---- !u!114 &5293405779337301525
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7070938443758039913}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bea1113afac9d4f44b4d0e5ac65a97c3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rb: {fileID: 7070938443758039696}
-  gearSystem: {fileID: 7070938443758039700}
-  _damageResolve: {fileID: 2340897645591816493}
-  _entityIdComponent: {fileID: 5236170115204060096}
 --- !u!1001 &5339123360253628556
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -50375,6 +50437,7 @@ Transform:
   - {fileID: 1743895410521240037}
   - {fileID: 3885552854363984173}
   - {fileID: 887219635395821194}
+  - {fileID: 2145575622}
   m_Father: {fileID: 7070938443758039710}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &5827841645881128332
@@ -56653,22 +56716,6 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 0
   m_CollisionDetection: 1
---- !u!114 &7070938443758039700
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7070938443758039913}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 266f8bf93a4c57c44b362c816d29049c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  VehicleSpeed: 0
-  currentGear: 0
-  gearSpeeds: 280000005000000078000000a0000000dc000000
-  AudioSystem: {fileID: 1107213778229754004}
 --- !u!4 &7070938443758039710
 Transform:
   m_ObjectHideFlags: 0
@@ -56915,8 +56962,6 @@ GameObject:
   - component: {fileID: 5236170115204060096}
   - component: {fileID: 7070938443758039711}
   - component: {fileID: 7070938443758039696}
-  - component: {fileID: 5293405779337301525}
-  - component: {fileID: 7070938443758039700}
   - component: {fileID: 8395182108303189917}
   - component: {fileID: 8395182108303189918}
   m_Layer: 11

@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 public sealed class SpeedometerViewModel : ViewModelBase
@@ -7,31 +6,33 @@ public sealed class SpeedometerViewModel : ViewModelBase
     public ObservableProperty<float> ArrowAngle { get; } = new ObservableProperty<float>(0f);
     public ObservableProperty<string> GearText { get; } = new ObservableProperty<string>("1");
 
-    private readonly Func<float> _getSpeed;
+    private readonly IVehicleTelemetrySource _telemetry;
     private readonly float _minAngle;
     private readonly float _maxAngle;
     private readonly float _maxSpeed;
-    private readonly Ashsvp.GearSystem _gearSystem;
 
-    public SpeedometerViewModel(Func<float> getSpeed, float minAngle, float maxAngle, float maxSpeed, Ashsvp.GearSystem gearSystem)
+    public SpeedometerViewModel(
+        IVehicleTelemetrySource telemetry,
+        float minAngle,
+        float maxAngle,
+        float maxSpeed)
     {
-        _getSpeed = getSpeed;
+        _telemetry = telemetry;
         _minAngle = minAngle;
         _maxAngle = maxAngle;
         _maxSpeed = maxSpeed;
-        _gearSystem = gearSystem;
 
-        if (_gearSystem != null)
+        if (_telemetry != null)
         {
-            GearText.Value = _gearSystem.currentGear.ToString();
-            _gearSystem.OnGearChanged += OnGearChanged;
+            GearText.Value = _telemetry.CurrentGear.ToString();
+            _telemetry.GearChanged += OnGearChanged;
         }
     }
 
     public void RefreshSpeed()
     {
-        if (_getSpeed == null) return;
-        float speed = _getSpeed();
+        if (_telemetry == null) return;
+        float speed = _telemetry.SpeedKph;
 
         SpeedText.Value = ((int)speed).ToString();
         float t = _maxSpeed <= 0f ? 0f : speed / _maxSpeed;
@@ -45,8 +46,8 @@ public sealed class SpeedometerViewModel : ViewModelBase
 
     public override void Dispose()
     {
-        if (_gearSystem != null)
-            _gearSystem.OnGearChanged -= OnGearChanged;
+        if (_telemetry != null)
+            _telemetry.GearChanged -= OnGearChanged;
     }
 
 }

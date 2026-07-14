@@ -4,9 +4,13 @@ public sealed class UIInstaller : MonoBehaviour
 {
     [SerializeField] private GameUIRoot gameUIRoot;
 
-    public void Install(GameServices services)
+    public void Install(
+        GameServices services,
+        IWeaponHudSource weaponSource,
+        IVehicleTelemetrySource telemetrySource,
+        IPlayerHealthSource healthSource)
     {
         if (gameUIRoot != null)
-            gameUIRoot.Init(services.EventBus);
+            gameUIRoot.Init(services.EventBus, weaponSource, telemetrySource, healthSource);
     }
 }

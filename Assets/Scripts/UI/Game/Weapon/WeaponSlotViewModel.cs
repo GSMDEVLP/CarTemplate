@@ -7,40 +7,50 @@ public sealed class WeaponSlotViewModel : ViewModelBase
     public ObservableProperty<string> CooldownText { get; } = new ObservableProperty<string>("");
     public ObservableProperty<bool> IsActive { get; } = new ObservableProperty<bool>(false);
 
-    private readonly WeaponDefinition _data;
-    private readonly IWeapon _weapon;
-    private readonly IEventBus _bus;
+    private readonly int _slotIndex;
+    private readonly IWeaponHudSource _source;
+    private float _cooldownRemaining;
 
-    public WeaponSlotViewModel(WeaponDefinition data, IWeapon weapon, IEventBus bus)
+    public WeaponSlotViewModel(int slotIndex, IWeaponHudSource source)
     {
-        _data = data;
-        _weapon = weapon;
-        _bus = bus;
+        _slotIndex = slotIndex;
+        _source = source;
 
-        // if (_data != null)
-        //     Icon.Value = _data.Icon;
-
-        _bus.Subscribe<ActiveWeaponChanged>(OnActiveWeaponChanged);
-        Refresh();
+        _source.SlotStateChanged += OnSlotStateChanged;
+        _source.ActiveSlotChanged += OnActiveSlotChanged;
+        ApplyState(_source.GetSlotState(_slotIndex));
     }
 
-    private void OnActiveWeaponChanged(ActiveWeaponChanged e)
+    private void OnSlotStateChanged(WeaponSlotState state)
     {
-        IsActive.Value = e.Data.Kind == _data.Kind;
+        if (state.SlotIndex == _slotIndex)
+            ApplyState(state);
+    }
+
+    private void OnActiveSlotChanged(int slotIndex)
+    {
+        IsActive.Value = slotIndex == _slotIndex;
     }
 
     public void Refresh()
     {
-        if (_weapon == null) return;
-
-        AmmoText.Value = $"{_weapon.CurrentAmmo}/{_weapon.MaxAmmo}";
-
-        var cd = _weapon.CooldownRemaining;
-        CooldownText.Value = cd > 0f ? cd.ToString("0.0") : "";
+        _cooldownRemaining = Mathf.Max(0f, _cooldownRemaining - Time.deltaTime);
+        CooldownText.Value = _cooldownRemaining > 0f
+            ? _cooldownRemaining.ToString("0.0")
+            : "";
     }
 
     public override void Dispose()
     {
-        _bus.Unsubscribe<ActiveWeaponChanged>(OnActiveWeaponChanged);
+        _source.SlotStateChanged -= OnSlotStateChanged;
+        _source.ActiveSlotChanged -= OnActiveSlotChanged;
+    }
+
+    private void ApplyState(WeaponSlotState state)
+    {
+        AmmoText.Value = $"{state.CurrentAmmo}/{state.MaxAmmo}";
+        IsActive.Value = state.IsActive;
+        _cooldownRemaining = state.CooldownRemaining;
+        Refresh();
     }
 }

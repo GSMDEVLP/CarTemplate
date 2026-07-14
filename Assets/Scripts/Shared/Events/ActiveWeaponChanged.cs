@@ -1,9 +1,10 @@
 
 public readonly struct ActiveWeaponChanged : IEvent
 {
-    public readonly WeaponDefinition Data;
-    public ActiveWeaponChanged(WeaponDefinition data)
+    public readonly int SlotIndex;
+
+    public ActiveWeaponChanged(int slotIndex)
     {
-        Data = data;
+        SlotIndex = slotIndex;
     }
 }
