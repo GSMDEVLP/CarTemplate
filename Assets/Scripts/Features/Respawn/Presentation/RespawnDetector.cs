@@ -33,9 +33,9 @@ public class RespawnDetector : MonoBehaviour, ITriggerEnterHandler
 
     private string _gameObjectTag = "Player";
     private EntityId _targetId;
-
     private string _lastReason;
 
+    private bool _isDied = false;
 
     public void Init(IEventBus bus)
     {
@@ -91,6 +91,7 @@ public class RespawnDetector : MonoBehaviour, ITriggerEnterHandler
         if (!_isRespawning)
         {
             Debug.Log("Destroy Respawn");
+            _isDied = true;
             RequestRespawn(_respawnDelay);
         }
     }
@@ -166,8 +167,10 @@ public class RespawnDetector : MonoBehaviour, ITriggerEnterHandler
             pos: UnityVectorAdapter.ToNumerics(_lastCheckpoint.position),
             rot: UnityQuaternionAdapter.ToNumerics(_lastCheckpoint.rotation),
             delay: delay, 
-            mode: mode
+            mode: mode,
+            isDied : _isDied
         ));
+        _isDied = false;
     }
 
     private void OnRespawnCompleted(RespawnPerformed e)

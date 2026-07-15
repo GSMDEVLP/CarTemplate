@@ -8,16 +8,18 @@ public readonly struct RespawnRequested : IEvent
     public readonly NVec3 Position;
     public readonly NQuat Rotation;
     public readonly float Delay;
+    public readonly bool IsDied;
 
     public readonly RespawnMode Mode;
 
-    public RespawnRequested(EntityId targetId, NVec3 pos, NQuat rot, float delay, RespawnMode mode)
+    public RespawnRequested(EntityId targetId, NVec3 pos, NQuat rot, float delay, RespawnMode mode, bool isDied)
     {
         TargetId = targetId;
         Position = pos;
         Rotation = rot;
         Delay = delay;
         Mode = mode;
+        IsDied = isDied;
     }
 }
 

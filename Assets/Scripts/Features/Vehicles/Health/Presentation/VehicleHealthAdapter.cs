@@ -5,9 +5,10 @@ using UnityEngine;
 
 public class VehicleHealthAdapter : MonoBehaviour, ITakesDamage
 {
-    [SerializeField] private Rigidbody _rb;
+    [SerializeField] private GameObject _vehicleObject;
     [SerializeField] private float _maxHP = 100f;
 
+    private EntityId _entityId;
     private IEventBus _bus;
 
     public float CurrentHP { get; private set; }
@@ -16,6 +17,8 @@ public class VehicleHealthAdapter : MonoBehaviour, ITakesDamage
 
     private void Awake()
     {
+        var idComp = _vehicleObject.GetComponent<EntityIdComponent>();
+        _entityId = idComp != null ? idComp.Id : default;
         CurrentHP = _maxHP;
     }
     
@@ -33,7 +36,7 @@ public class VehicleHealthAdapter : MonoBehaviour, ITakesDamage
 
     private void OnUpdateHP(UpdateVehicleInfo performed)
     {
-        if(CurrentHP <= 0)
+        if (performed.TargetId.Equals(_entityId))
             CurrentHP = _maxHP;
     }
 

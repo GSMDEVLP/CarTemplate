@@ -36,7 +36,8 @@ public class RespawnExecutor : MonoBehaviour
         Respawn(e, targetGo, pos, rot);
 
         _bus.Invoke(new RespawnPerformed(e.TargetId, e.Position, e.Rotation));
-        _bus.Invoke(new UpdateVehicleInfo());
+        if(e.IsDied)
+            _bus.Invoke(new UpdateVehicleInfo(e.TargetId));
     }
 
     private void Respawn(RespawnRequested e, GameObject targetGo, Vector3 pos, Quaternion rot)

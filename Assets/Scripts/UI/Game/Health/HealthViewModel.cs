@@ -34,7 +34,8 @@ public class HealthViewModel : ViewModelBase
 
     private void OnVehicleRespawn(UpdateVehicleInfo e)
     {
-        Refresh();
+        if (e.TargetId.Equals(_playerId))
+            Refresh();
     }
 
     private void Refresh()

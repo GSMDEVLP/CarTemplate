@@ -46304,7 +46304,7 @@ GameObject:
   - component: {fileID: 2145575624}
   - component: {fileID: 2145575623}
   m_Layer: 11
-  m_Name: Gear
+  m_Name: PlayerGear
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -46494,7 +46494,7 @@ GameObject:
   - component: {fileID: 7230917319316311096}
   - component: {fileID: 5945422839382663378}
   m_Layer: 9
-  m_Name: CarHealth
+  m_Name: AIHealth
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -46511,7 +46511,7 @@ GameObject:
   - component: {fileID: 3885552854363984173}
   - component: {fileID: 643215672800616022}
   m_Layer: 11
-  m_Name: Collision
+  m_Name: PlayerCollision
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -46603,7 +46603,7 @@ GameObject:
   - component: {fileID: 887219635395821194}
   - component: {fileID: 7328976992824674332}
   m_Layer: 11
-  m_Name: VFX
+  m_Name: PlayerVFX
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -47054,7 +47054,7 @@ GameObject:
   - component: {fileID: 2301731261374514845}
   - component: {fileID: 5340275445642085669}
   m_Layer: 11
-  m_Name: Audio
+  m_Name: PlayerAudio
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -47167,7 +47167,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 408100e8cd24e60439e2c0bc02b87d91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _rb: {fileID: 7070938443758039696}
+  _vehicleObject: {fileID: 7070938443758039913}
   _maxHP: 100
 --- !u!1 &1471136024077797212
 GameObject:
@@ -47213,7 +47213,7 @@ GameObject:
   - component: {fileID: 999192364597875853}
   - component: {fileID: 4704001866967192804}
   m_Layer: 9
-  m_Name: Collision
+  m_Name: AICollision
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -47743,7 +47743,7 @@ GameObject:
   - component: {fileID: 1300649869156873556}
   - component: {fileID: 2340897645591816494}
   m_Layer: 11
-  m_Name: Health
+  m_Name: PlayerHealth
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -49292,7 +49292,7 @@ GameObject:
   - component: {fileID: 3035931604586062940}
   - component: {fileID: 1979834627730883870}
   m_Layer: 9
-  m_Name: Respawn
+  m_Name: AIRespawn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -50158,7 +50158,7 @@ GameObject:
   - component: {fileID: 7001391252370132067}
   - component: {fileID: 8232173489250837234}
   m_Layer: 11
-  m_Name: Respawn
+  m_Name: PlayerRespawn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -50517,7 +50517,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 408100e8cd24e60439e2c0bc02b87d91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _rb: {fileID: 6175705721571308555}
+  _vehicleObject: {fileID: 6175705721571308788}
   _maxHP: 100
 --- !u!4 &6098095861722053200 stripped
 Transform:
@@ -57713,7 +57713,7 @@ GameObject:
   - component: {fileID: 8127998264838563378}
   - component: {fileID: 4300355142150978407}
   m_Layer: 11
-  m_Name: Input
+  m_Name: PlayerInput
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
