@@ -1,0 +1,2 @@
+[0715/101427.897:ERROR:third_party\crashpad\crashpad\util\win\registration_protocol_win.cc:108] CreateFile: Отказано в доступе. (0x5)
+[0721/123947.232:ERROR:third_party\crashpad\crashpad\util\win\registration_protocol_win.cc:108] CreateFile: Отказано в доступе. (0x5)

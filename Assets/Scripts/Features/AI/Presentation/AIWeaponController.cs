@@ -24,12 +24,27 @@ public class AIWeaponController : MonoBehaviour
     private IEventBus _bus;
 
     private int _currentSlotIndex = -1;
+    private bool _firingEnabled = true;
 
     public void Init(WeaponService service, IEventBus bus, AIWeaponSlotData[] slotData)
     {
         _service = service;
         _slotData = slotData;
         _bus = bus;
+    }
+
+    public void SetFiringEnabled(bool enabled)
+    {
+        if (_firingEnabled == enabled)
+        return;
+
+        _firingEnabled = enabled;
+
+        if (!enabled)
+        {
+            _currentSlotIndex = -1;
+            _planner?.Reset();
+        }
     }
 
     private void Awake()
@@ -47,13 +62,16 @@ public class AIWeaponController : MonoBehaviour
 
     private void LateUpdate()
     {
-
-        if (!IsReady()) return;
-        if (_service == null) return;
+        if (_service == null)
+            return;
 
         _service.Tick(Time.deltaTime);
 
-        if (!HasValidTarget()) return;
+        if (!_firingEnabled || !IsReady())
+            return;
+
+        if (!HasValidTarget())
+            return;
 
         float dot = ComputeTargetDot();
         int slotIndex = SelectSlotIndex(dot);
@@ -63,7 +81,7 @@ public class AIWeaponController : MonoBehaviour
 
         if (!TryGetWeapon(out var slot, out var weapon))
             return;
-    
+
         if (!CanFire(slotIndex, weapon))
             return;
 
@@ -190,5 +208,19 @@ public class AIWeaponController : MonoBehaviour
             dir = transform.forward;
 
         return dir.normalized;
+    }
+
+    public bool CanEngageCurrentTarget()
+    {
+        if (!IsReady())
+            return false;
+
+        if (!HasValidTarget())
+            return false;
+
+        float dot = ComputeTargetDot();
+        int slotIndex = SelectSlotIndex(dot);
+
+        return slotIndex >= 0;
     }
 }

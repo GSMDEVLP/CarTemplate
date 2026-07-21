@@ -1,5 +1,6 @@
 using NVec3 = System.Numerics.Vector3;
 using UnityEngine;
+using System;
 
 public class AICombatController : MonoBehaviour, IAITargetProvider
 {
@@ -17,8 +18,10 @@ public class AICombatController : MonoBehaviour, IAITargetProvider
     private AIServices _services;
     private AIPursuitPlanner _pursuitPlanner;
     private UnityPursuitDriver _pursuitDriver;
-
     private AICombatConfigData _config;
+
+    private EnemyStateMachine _stateMachine;
+    private AIWeaponController _weaponController;
 
 
     public bool HasTarget => _target != null && _target.HasTarget;
@@ -28,6 +31,7 @@ public class AICombatController : MonoBehaviour, IAITargetProvider
     public float TargetDistance => _target != null ? _target.TargetDistance : 0f;
     public bool HasLineOfSight => _target != null && _target.HasLineOfSight;
     private bool _initialized;
+    private bool _eventsBound;
     
     public void Init(AIServices services, AICombatConfigData config)
     {
@@ -63,28 +67,49 @@ public class AICombatController : MonoBehaviour, IAITargetProvider
         );
         _pursuitPlanner = new AIPursuitPlanner(_config, _threat, _services.Time);
         _pursuitDriver = new UnityPursuitDriver(transform, _carAi);
+        CreateStateMachine();
         TryBind();
     }
 
-    // private EntityId? ResolveOverrideTargetId()
-    // {
-    //     if (_playerOverride == null) return null;
-    //     var idComp = _playerOverride.GetComponent<EntityIdComponent>();
-    //     return idComp != null ? idComp.Id : null;
-    // }
+    private void CreateStateMachine()
+    {
+        _weaponController = GetComponent<AIWeaponController>();
 
+        _stateMachine = new EnemyStateMachine();
+        _stateMachine.AddState(EnemyStateId.Patrol, new PatrolState(this, _pursuitDriver, _weaponController));
+        _stateMachine.AddState(EnemyStateId.Chase, new ChaseState(this, _pursuitPlanner, _avoidance, _pursuitDriver, _weaponController));
+        _stateMachine.AddState(EnemyStateId.Attack, new AttackState(this, _pursuitPlanner, _avoidance, _pursuitDriver, _weaponController));
+        _stateMachine.AddState(EnemyStateId.Dead, new DeadState(_carAi, _pursuitDriver, _weaponController));
+        _stateMachine.ChangeState(EnemyStateId.Patrol);
+    }
 
     private void TryBind()
     {
-        if (_services == null) return;
-        if (_services.EventBus != null && _threat != null)
-            _threat.Bind(_services.EventBus);
+        if (_eventsBound || _services?.EventBus == null)
+            return;
+
+        _eventsBound = true;
+
+        IEventBus bus = _services.EventBus;
+
+        _threat?.Bind(bus);
+
+        bus.Subscribe<VehicleDestroyed>(OnVehicleDestroyed);
+        bus.Subscribe<RespawnPerformed>(OnRespawnPerformed);
     }
+
+
 
     private void Update()
     {
         if (!_initialized) Setup();
         if (_target == null) return;
+
+        if (_stateMachine?.CurrentId == EnemyStateId.Dead)
+        {
+            _stateMachine.Tick(Time.deltaTime);
+            return;
+        }
 
         var originN = UnityVectorAdapter.ToNumerics(_sensorOrigin.position);
         var forwardN = UnityVectorAdapter.ToNumerics(_sensorOrigin.forward);
@@ -94,18 +119,47 @@ public class AICombatController : MonoBehaviour, IAITargetProvider
         _target.Update(originN, forwardN);
         _avoidance.Update(selfPos);
 
-        if (_pursuitPlanner.TryGetPursuitTarget(_target, _avoidance.Offset, out var point, out var dist))
-            _pursuitDriver.Apply(point, dist);
-        else
-            _pursuitDriver.Disable();
-
+        _stateMachine?.Tick(Time.deltaTime);
     }
 
     private void OnDestroy()
     {
+        if (_eventsBound && _services?.EventBus != null)
+        {
+            IEventBus bus = _services.EventBus;
+
+            bus.Unsubscribe<VehicleDestroyed>(OnVehicleDestroyed);
+            bus.Unsubscribe<RespawnPerformed>(OnRespawnPerformed);
+
+            _eventsBound = false;
+        }
+
         if (_threat != null)
             _threat.Unbind();
         if(_pursuitDriver != null)
             _pursuitDriver?.Dispose();
+    }
+
+    private void OnVehicleDestroyed(VehicleDestroyed e)
+    {
+        if (_entityIdComponent == null ||
+            !e.Target.Equals(_entityIdComponent.Id))
+        {
+            return;
+        }
+
+        _stateMachine?.ChangeState(EnemyStateId.Dead);
+    }
+
+    private void OnRespawnPerformed(RespawnPerformed e)
+    {
+        if (_entityIdComponent == null ||
+            !e.TargetId.Equals(_entityIdComponent.Id))
+        {
+            return;
+        }
+
+        if (_stateMachine?.CurrentId == EnemyStateId.Dead)
+            _stateMachine.ChangeState(EnemyStateId.Patrol);
     }
 }
