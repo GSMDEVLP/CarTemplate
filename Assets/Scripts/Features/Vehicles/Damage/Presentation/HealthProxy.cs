@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public sealed class DamageProxy : MonoBehaviour, ITakesDamage
+public sealed class HealthProxy : MonoBehaviour, ITakesDamage, IHealable
 {
     [SerializeField] private VehicleHealthAdapter target;
 
@@ -11,5 +11,10 @@ public sealed class DamageProxy : MonoBehaviour, ITakesDamage
     public void ApplyDamage(float amount, EntityId source = default)
     {
         target.ApplyDamage(amount, source);
+    }
+
+    public void Heal(float amount)
+    {
+        target.Heal(amount);
     }
 }

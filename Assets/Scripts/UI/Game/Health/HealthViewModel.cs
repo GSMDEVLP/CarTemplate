@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class HealthViewModel : ViewModelBase
@@ -13,11 +14,18 @@ public class HealthViewModel : ViewModelBase
         _health = health;
         _playerId = health.EntityId;
         _bus = bus;
+        _bus.Subscribe<HealthTaken>(OnHealthTaken);
         _bus.Subscribe<DamageTaken>(OnDamage);
         _bus.Subscribe<VehicleDestroyed>(OnVehicleDestroyed);
         _bus.Subscribe<UpdateVehicleInfo>(OnVehicleRespawn);
 
         Refresh();
+    }
+
+    private void OnHealthTaken(HealthTaken e)
+    {
+        if (e.Target.Equals(_playerId))
+            Refresh();
     }
 
     private void OnDamage(DamageTaken e)

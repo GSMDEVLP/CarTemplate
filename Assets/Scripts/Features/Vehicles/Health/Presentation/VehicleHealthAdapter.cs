@@ -1,9 +1,7 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class VehicleHealthAdapter : MonoBehaviour, ITakesDamage
+public class VehicleHealthAdapter : MonoBehaviour, ITakesDamage, IHealable
 {
     [SerializeField] private GameObject _vehicleObject;
     [SerializeField] private float _maxHP = 100f;
@@ -45,4 +43,8 @@ public class VehicleHealthAdapter : MonoBehaviour, ITakesDamage
         CurrentHP = Mathf.Clamp(CurrentHP - amount, 0, _maxHP);
     }
 
+    public void Heal(float amount)
+    {
+        CurrentHP = Mathf.Clamp(CurrentHP + amount, 0, _maxHP);
+    }
 }
