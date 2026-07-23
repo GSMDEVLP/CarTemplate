@@ -11131,6 +11131,100 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8479415453663957793, guid: 20fa566cb2596b94c89194bd2d1c564c, type: 3}
   m_PrefabInstance: {fileID: 560262348}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &568339201
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1967838483}
+    m_Modifications:
+    - target: {fileID: 1021633000393874518, guid: 5cd5dc06e667c2549ab77dceccbca131, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.035
+      objectReference: {fileID: 0}
+    - target: {fileID: 1021633000393874518, guid: 5cd5dc06e667c2549ab77dceccbca131, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.017
+      objectReference: {fileID: 0}
+    - target: {fileID: 1021633000728979900, guid: 5cd5dc06e667c2549ab77dceccbca131, type: 3}
+      propertyPath: boostType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1021633000728979900, guid: 5cd5dc06e667c2549ab77dceccbca131, type: 3}
+      propertyPath: activationMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1021633000728979900, guid: 5cd5dc06e667c2549ab77dceccbca131, type: 3}
+      propertyPath: vehicleRigidbody
+      value: 
+      objectReference: {fileID: 7070938443758039696}
+    - target: {fileID: 1021633000728979901, guid: 5cd5dc06e667c2549ab77dceccbca131, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.029006723
+      objectReference: {fileID: 0}
+    - target: {fileID: 1021633000728979901, guid: 5cd5dc06e667c2549ab77dceccbca131, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.30682373
+      objectReference: {fileID: 0}
+    - target: {fileID: 1021633000728979901, guid: 5cd5dc06e667c2549ab77dceccbca131, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -2.1889956
+      objectReference: {fileID: 0}
+    - target: {fileID: 1021633000728979901, guid: 5cd5dc06e667c2549ab77dceccbca131, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1021633000728979901, guid: 5cd5dc06e667c2549ab77dceccbca131, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1021633000728979901, guid: 5cd5dc06e667c2549ab77dceccbca131, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1021633000728979901, guid: 5cd5dc06e667c2549ab77dceccbca131, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1021633000728979901, guid: 5cd5dc06e667c2549ab77dceccbca131, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1021633000728979901, guid: 5cd5dc06e667c2549ab77dceccbca131, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1021633000728979901, guid: 5cd5dc06e667c2549ab77dceccbca131, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1021633000728979902, guid: 5cd5dc06e667c2549ab77dceccbca131, type: 3}
+      propertyPath: m_Name
+      value: Nitro Ability
+      objectReference: {fileID: 0}
+    - target: {fileID: 1021633001794481543, guid: 5cd5dc06e667c2549ab77dceccbca131, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.114
+      objectReference: {fileID: 0}
+    - target: {fileID: 1021633001794481543, guid: 5cd5dc06e667c2549ab77dceccbca131, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.019
+      objectReference: {fileID: 0}
+    - target: {fileID: 1021633001794481543, guid: 5cd5dc06e667c2549ab77dceccbca131, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 5cd5dc06e667c2549ab77dceccbca131, type: 3}
+--- !u!4 &568339202 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1021633000728979901, guid: 5cd5dc06e667c2549ab77dceccbca131, type: 3}
+  m_PrefabInstance: {fileID: 568339201}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &581040027
 GameObject:
   m_ObjectHideFlags: 0
@@ -26162,7 +26256,7 @@ GameObject:
   - component: {fileID: 1213563101}
   - component: {fileID: 1213563100}
   m_Layer: 0
-  m_Name: HealBuff
+  m_Name: NitroBuff
   m_TagString: Buff
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -26195,7 +26289,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41716e6c770d3d94caec2fec4bd11e04, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Buff
-  _buffType: 1
+  _buffType: 2
 --- !u!135 &1213563101
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -27392,6 +27486,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4295015714880215695, guid: 7a3f7949fc183324ba6f2748deddc2c8, type: 3}
   m_PrefabInstance: {fileID: 1257047680}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1260003401 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1021633000728979900, guid: 5cd5dc06e667c2549ab77dceccbca131, type: 3}
+  m_PrefabInstance: {fileID: 568339201}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e3519ce283fa4049a86d590d77158fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1260174860
 GameObject:
   m_ObjectHideFlags: 0
@@ -28990,6 +29095,7 @@ MonoBehaviour:
   _buffsController: {fileID: 2030183190}
   powerUpConfigs:
   - {fileID: 11400000, guid: 4536a06e7bb37084a9a7e2b7513d0180, type: 2}
+  - {fileID: 11400000, guid: f2175014a9979c94cb41e3977b206b2e, type: 2}
 --- !u!1001 &1330804593
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -43055,6 +43161,38 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4706339223115927701, guid: 4f13f45de7991d94e843b136cdc63f51, type: 3}
   m_PrefabInstance: {fileID: 1967688847}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1967838482
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1967838483}
+  m_Layer: 11
+  m_Name: Buffs
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1967838483
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1967838482}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 568339202}
+  m_Father: {fileID: 7070938443758039710}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1972679586
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -56990,6 +57128,7 @@ Transform:
   - {fileID: 7070938445251970049}
   - {fileID: 7070938443884019013}
   - {fileID: 7070938443746993069}
+  - {fileID: 1967838483}
   m_Father: {fileID: 1538648876}
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
 --- !u!114 &7070938443758039711
@@ -57217,6 +57356,7 @@ GameObject:
   - component: {fileID: 7070938443758039711}
   - component: {fileID: 7070938443758039696}
   - component: {fileID: 8395182108303189917}
+  - component: {fileID: 8395182108303189919}
   - component: {fileID: 8395182108303189918}
   m_Layer: 11
   m_Name: Ash_Pictoris
@@ -58399,6 +58539,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 1300649869156873556}
+--- !u!114 &8395182108303189919
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7070938443758039913}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3c7b5a6806cd526429a1216144d591c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BuffHUB
+  _nitroBoost: {fileID: 1260003401}
 --- !u!4 &8455311894282839113
 Transform:
   m_ObjectHideFlags: 0

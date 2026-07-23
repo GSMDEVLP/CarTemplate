@@ -37,8 +37,6 @@ public sealed class BuffService
             return false;
 
         IBuff buff = definition.CreateBuff();
-        buff.Apply(targetId);
-        _bus.Invoke(new HealthTaken(targetId));
-        return true;
+        return buff.TryApply(targetId, _bus);
     }
 }

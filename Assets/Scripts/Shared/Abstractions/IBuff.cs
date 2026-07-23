@@ -1,6 +1,6 @@
 public interface IBuff
 {
     BuffType BuffType { get; }
-    void Apply(EntityId targetId);
+    bool TryApply(EntityId targetId, IEventBus bus);
     void Remove(EntityId targetId);
 }

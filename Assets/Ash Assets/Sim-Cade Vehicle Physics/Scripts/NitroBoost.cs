@@ -29,17 +29,11 @@ namespace AshDev.Utility
         [Tooltip("Custom boost direction if BoostDirection.Custom is selected.")]
         public Vector3 customBoostDirection = Vector3.forward;
 
-        [Tooltip("The amount of force to apply for the boost.")]
-        public float boostPower = 1000f;
 
-        [Tooltip("The duration of the boost in seconds.")]
-        public float boostDuration = 5f;
 
         [Tooltip("The cooldown time after the boost ends.")]
         public float boostCooldown = 10f;
 
-        [Tooltip("Maximum speed limit for the boost. Set to 0 to ignore.")]
-        public float maxSpeed = 100f;
 
         [Tooltip("The key used to activate the boost.")]
         public KeyCode activationKey = KeyCode.LeftShift;
@@ -67,6 +61,10 @@ namespace AshDev.Utility
         public AudioClip boostEndClip;
 
         private AudioSource audioSource;
+
+        private float _boostPower = 1000f;
+        private float _boostDuration = 5f;
+        private float _maxSpeed = 100f;
 
         [Header("Boost Events")]
         [Tooltip("All boost-related events.")]
@@ -125,7 +123,18 @@ namespace AshDev.Utility
 
         private void FixedUpdate()
         {
-            HandleBoostInput();
+            if (!isBoosting)
+                return;
+
+            HandleBoostTimers();
+        }
+
+        public void ActivateBoost(float boostPower, float maxSpeed, float duration)
+        {
+            _boostPower = boostPower;
+            _maxSpeed = maxSpeed;
+            _boostDuration = duration;
+            StartBoost();
             HandleBoostTimers();
         }
 
@@ -177,29 +186,29 @@ namespace AshDev.Utility
                     EndBoost();
                 }
             }
-            else if (cooldownTimer > 0)
-            {
-                cooldownTimer -= Time.fixedDeltaTime;
+            // else if (cooldownTimer > 0)
+            // {
+            //     cooldownTimer -= Time.fixedDeltaTime;
 
-                if (!isCooldownActive)
-                {
-                    isCooldownActive = true;
-                    OnBoostCooldownStart?.Invoke();
-                }
+            //     if (!isCooldownActive)
+            //     {
+            //         isCooldownActive = true;
+            //         OnBoostCooldownStart?.Invoke();
+            //     }
 
-                if (cooldownTimer <= 0)
-                {
-                    isCooldownActive = false;
-                    OnBoostCooldownEnd?.Invoke();
-                }
-            }
+            //     if (cooldownTimer <= 0)
+            //     {
+            //         isCooldownActive = false;
+            //         OnBoostCooldownEnd?.Invoke();
+            //     }
+            // }
         }
 
         private void StartBoost()
         {
             isBoosting = true;
-            boostTimer = boostDuration;
-            cooldownTimer = boostCooldown + boostDuration;
+            boostTimer = _boostDuration;
+            // cooldownTimer = boostCooldown + _boostDuration;
             OnBoostStart?.Invoke();
             PlayBoostStartAudio();
             PlayBoostLoopAudio();
@@ -240,17 +249,17 @@ namespace AshDev.Utility
                     break;
             }
 
-            if (vehicleRigidbody.linearVelocity.magnitude < maxSpeed || maxSpeed <= 0)
+            if (vehicleRigidbody.linearVelocity.magnitude < _maxSpeed || _maxSpeed <= 0)
             {
-                float appliedPower = boostPower;
+                float appliedPower = _boostPower;
                 if (boostType == BoostType.CustomCurve)
                 {
-                    float t = (boostDuration - boostTimer) / boostDuration;
+                    float t = (_boostDuration - boostTimer) / _boostDuration;
                     appliedPower *= boostCurve.Evaluate(t);
                 }
                 else if (boostType == BoostType.Exponential)
                 {
-                    appliedPower *= (boostDuration - boostTimer);
+                    appliedPower *= (_boostDuration - boostTimer);
                 }
 
                 vehicleRigidbody.AddForce(direction * appliedPower);
@@ -308,5 +317,6 @@ namespace AshDev.Utility
         {
             return isCooldownActive;
         }
+
     }
 }

@@ -14,7 +14,7 @@ public class HealthViewModel : ViewModelBase
         _health = health;
         _playerId = health.EntityId;
         _bus = bus;
-        _bus.Subscribe<HealthTaken>(OnHealthTaken);
+        _bus.Subscribe<HealthСhanged>(OnHealthTaken);
         _bus.Subscribe<DamageTaken>(OnDamage);
         _bus.Subscribe<VehicleDestroyed>(OnVehicleDestroyed);
         _bus.Subscribe<UpdateVehicleInfo>(OnVehicleRespawn);
@@ -22,7 +22,7 @@ public class HealthViewModel : ViewModelBase
         Refresh();
     }
 
-    private void OnHealthTaken(HealthTaken e)
+    private void OnHealthTaken(HealthСhanged e)
     {
         if (e.Target.Equals(_playerId))
             Refresh();
@@ -57,5 +57,6 @@ public class HealthViewModel : ViewModelBase
         _bus.Unsubscribe<DamageTaken>(OnDamage);
         _bus.Unsubscribe<VehicleDestroyed>(OnVehicleDestroyed);
         _bus.Unsubscribe<UpdateVehicleInfo>(OnVehicleRespawn);
+        _bus.Unsubscribe<HealthСhanged>(OnHealthTaken);
     }
 }
