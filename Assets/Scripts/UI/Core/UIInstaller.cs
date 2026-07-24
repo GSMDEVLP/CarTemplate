@@ -8,9 +8,17 @@ public sealed class UIInstaller : MonoBehaviour
         GameServices services,
         IWeaponHudSource weaponSource,
         IVehicleTelemetrySource telemetrySource,
-        IPlayerHealthSource healthSource)
+        IPlayerHealthSource healthSource,
+        IPlayerBuffSource buffSource)
     {
         if (gameUIRoot != null)
-            gameUIRoot.Init(services.EventBus, weaponSource, telemetrySource, healthSource);
+        {
+            gameUIRoot.Init(
+                services.EventBus,
+                weaponSource,
+                telemetrySource,
+                healthSource,
+                buffSource);
+        }
     }
 }

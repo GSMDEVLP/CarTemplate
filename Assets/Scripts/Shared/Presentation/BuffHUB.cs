@@ -4,10 +4,15 @@ using UnityEngine;
 public class BuffHUB : MonoBehaviour
 {
     [SerializeField] private NitroBoost _nitroBoost;
-    public NitroBoost nitroBoost => _nitroBoost;
+    [SerializeField] private VehicleShield _vehicleShield;
 
-    public void ActivateBoost(float boostPower, float maxSpeed, float duration)
+    public void ActivateNitro(float boostPower, float maxSpeed, float duration)
     {
-        _nitroBoost.ActivateBoost(boostPower, maxSpeed, duration);
+        _nitroBoost?.ActivateNitro(boostPower, maxSpeed, duration);
+    }
+
+    public void ActivateShield(float endurance, float duration)
+    {
+        _vehicleShield?.ActivateShield(endurance, duration);
     }
 }

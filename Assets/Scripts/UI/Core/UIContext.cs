@@ -14,7 +14,8 @@ public sealed class UIContext : MonoBehaviour
         while (PlayerWeaponProvider.Instance == null ||
                !PlayerWeaponProvider.Instance.IsReady ||
                PlayerVehicleTelemetryProvider.Instance == null ||
-               PlayerHealthProvider.Instance == null)
+               PlayerHealthProvider.Instance == null ||
+               PlayerBuffProvider.Instance == null)
         {
             yield return null;
         }
@@ -23,6 +24,7 @@ public sealed class UIContext : MonoBehaviour
             GameContext.Instance.Services,
             PlayerWeaponProvider.Instance.HudSource,
             PlayerVehicleTelemetryProvider.Instance,
-            PlayerHealthProvider.Instance);
+            PlayerHealthProvider.Instance,
+            PlayerBuffProvider.Instance);
     }
 }

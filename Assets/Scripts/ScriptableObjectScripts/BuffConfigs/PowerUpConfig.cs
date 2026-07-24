@@ -1,14 +1,4 @@
-using System;
 using UnityEngine;
-
-[Serializable]
-public enum BuffType
-{
-    None,
-    Health,
-    Nitro,
-    Shield
-}
 
 public abstract class PowerUpConfig : ScriptableObject
 {

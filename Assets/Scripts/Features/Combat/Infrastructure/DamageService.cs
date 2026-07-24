@@ -13,6 +13,7 @@ public class DamageService : IDamageService
 
     public void Deal(EntityId target, float amount, DamageContext ctx)
     {
+        if (amount <= 0f) return;
         if (!UnityEntityRegistry.TryGet(target, out var go)) return;
 
         var hp = go.GetComponent<ITakesDamage>();
@@ -21,7 +22,9 @@ public class DamageService : IDamageService
         float prev = hp.CurrentHP;
         hp.ApplyDamage(amount, ctx.Source);
 
-        _bus.Invoke(new DamageTaken(target, amount));
+        float appliedDamage = Mathf.Max(0f, prev - hp.CurrentHP);
+        if (appliedDamage > 0f)
+            _bus.Invoke(new DamageTaken(target, appliedDamage));
 
         bool killed = prev > 0 && hp.CurrentHP <= 0;
         if (killed) _bus.Invoke(new VehicleDestroyed(target));

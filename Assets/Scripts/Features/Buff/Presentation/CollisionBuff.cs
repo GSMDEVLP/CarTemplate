@@ -3,15 +3,11 @@ using UnityEngine;
 public class CollisionBuff : MonoBehaviour, ITriggerEnterHandler
 {
     [SerializeField] private EntityIdComponent _entityId;
-
     private BuffService _service;
-
-
     public void Init(BuffService service)
     {
         _service = service;
     }
-
 
     public void OnTriggerEntered(Collider other)
     {

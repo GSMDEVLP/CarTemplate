@@ -6,6 +6,7 @@ public sealed class GameUIRoot  : MonoBehaviour
     [SerializeField] private SpeedometerView speedometerView;
     [SerializeField] private HealthView healthView;
     [SerializeField] private WeaponSlotView[] weaponSlotViews;
+    [SerializeField] private BuffView[] buffViews;
 
     [Header("Speedometer Settings")]
     [SerializeField] private float maxSpeed = 250f;
@@ -16,6 +17,7 @@ public sealed class GameUIRoot  : MonoBehaviour
     private SpeedometerViewModel _speedVm;
     private HealthViewModel _healthVm;
     private WeaponSlotViewModel[] _weaponSlotVms;
+    private BuffViewModel[] _buffVms;
 
     private bool _initialized;
 
@@ -23,7 +25,8 @@ public sealed class GameUIRoot  : MonoBehaviour
         IEventBus bus,
         IWeaponHudSource weaponSource,
         IVehicleTelemetrySource telemetrySource,
-        IPlayerHealthSource healthSource)
+        IPlayerHealthSource healthSource,
+        IPlayerBuffSource buffSource)
     {
         if (_initialized) return;
         _initialized = true;
@@ -46,6 +49,20 @@ public sealed class GameUIRoot  : MonoBehaviour
             _weaponSlotVms[i] = new WeaponSlotViewModel(i, weaponSource);
             weaponSlotViews[i].Bind(_weaponSlotVms[i]);
         }
+
+        int buffCount = buffViews != null ? buffViews.Length : 0;
+        _buffVms = new BuffViewModel[buffCount];
+
+        for (int i = 0; i < buffCount; i++)
+        {
+            var view = buffViews[i];
+
+            if (view == null)
+                continue;
+
+            _buffVms[i] = new BuffViewModel(buffSource, view.BuffType);
+            view.Bind(_buffVms[i]);
+        }
     }
 
     private void Update()
@@ -65,6 +82,12 @@ public sealed class GameUIRoot  : MonoBehaviour
         {
             foreach (var vm in _weaponSlotVms)
                 vm.Dispose();
+        }
+
+        if (_buffVms != null)
+        {
+            foreach (var vm in _buffVms)
+                vm?.Dispose();
         }
 
         _speedVm?.Dispose();

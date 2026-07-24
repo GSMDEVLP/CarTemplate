@@ -129,7 +129,7 @@ namespace AshDev.Utility
             HandleBoostTimers();
         }
 
-        public void ActivateBoost(float boostPower, float maxSpeed, float duration)
+        public void ActivateNitro(float boostPower, float maxSpeed, float duration)
         {
             _boostPower = boostPower;
             _maxSpeed = maxSpeed;

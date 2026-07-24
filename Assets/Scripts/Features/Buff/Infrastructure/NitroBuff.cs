@@ -1,5 +1,3 @@
-using AshDev.Utility;
-
 public class NitroBuff : IBuff
 {
     private NitroBuffDefinition _nitroBuffDefinition;
@@ -18,7 +16,7 @@ public class NitroBuff : IBuff
 
         if (entity.TryGetComponent(out BuffHUB buffHub))
         {
-            buffHub.ActivateBoost(_nitroBuffDefinition.BoostPower, _nitroBuffDefinition.MaxSpeed, _nitroBuffDefinition.Duration);
+            buffHub.ActivateNitro(_nitroBuffDefinition.BoostPower, _nitroBuffDefinition.MaxSpeed, _nitroBuffDefinition.Duration);
             return true;
         }
         else
